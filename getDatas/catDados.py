@@ -5,7 +5,7 @@ fArqui = open("DadosFtps/extraidos/"+sys.argv[1], 'r')
 data = sys.argv[1]
 nome = data[6:8] + '-' + data[4:6] + '-' + data[2:4]
 #print(nome)
-fArqui2 = open(nome+".txt", 'w')
+fArqui2 = open("DadosProntos/2017/"+nome+".txt", 'w')
 
 fArqui2.write("Data;Código do Contrato;Pregão;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
 while(True):
