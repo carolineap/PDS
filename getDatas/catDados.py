@@ -25,37 +25,37 @@ while(True):
 	vencimento = fArqui.read(4)
 
 	fArqui.read(40)
-	volumeReais = fArqui.read(13)
+	volumeReais = str(float(fArqui.read(13))/100)
 
-	volumeDolar = fArqui.read(13)
+	volumeDolar = str(float(fArqui.read(13))/100)
 
-	numContAberto = fArqui.read(8)
+	numContAberto = str(float(fArqui.read(8))/100)
 
 	fArqui.read(45)
-	preco_aber = fArqui.read(8)
+	preco_aber = str(float(fArqui.read(8))/100)
 
 	fArqui.read(1)
-	precoMin = fArqui.read(8)
+	precoMin = str(float(fArqui.read(8))/100)
 
 	fArqui.read(1)
-	precoMax = fArqui.read(8)
+	precoMax = str(float(fArqui.read(8))/100)
 
 	fArqui.read(15)
-	precoUltimo = fArqui.read(8)
+	precoUltimo = str(float(fArqui.read(8))/100)
 
 	fArqui.read(33)
-	precoAjustAtual = fArqui.read(13)
+	precoAjustAtual = str(float(fArqui.read(13))/100)
 
 	fArqui.read(2)
-	precoAjustAnte = fArqui.read(13)
+	precoAjustAnte = str(float(fArqui.read(13))/100)
 
 	fArqui.read(1)
-	precoAjustContr = fArqui.read(13)
+	precoAjustContr = str(float(fArqui.read(13))/100)
 
 	fArqui.read(53)
-	variacao = fArqui.read(8)
+	variacao = str(float(fArqui.read(8))/100)
 	fArqui.read(190)
-	if pregao == '*':
+	if (pregao == '*') and (cod_contrato == "SFI" or cod_contrato == "BGI" or cod_contrato == "ICF" or cod_contrato == "CCM"):
 		fArqui2.write(data+";")
 		fArqui2.write(cod_contrato+";")
 		fArqui2.write(pregao+";")
