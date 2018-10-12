@@ -8,17 +8,15 @@ caminhos = [os.path.join(pasta, nome) for nome in os.listdir(pasta)]
 arquivos = [arq for arq in caminhos if os.path.isfile(arq)]
 arquivos_txt = [arq for arq in arquivos if arq.lower().endswith(".txt")]
 
-#i = 1
-
 fMilho = open("DadosProntos/2017/Milho.txt", 'w')
 fBoi = open("DadosProntos/2017/Boi.txt", 'w')
 fSoja = open("DadosProntos/2017/Soja.txt", 'w')
 fCafe = open("DadosProntos/2017/Cafe.txt", 'w')
 
-fMilho.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
-fBoi.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
-fSoja.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
-fCafe.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
+#fMilho.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
+#fBoi.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
+#fSoja.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
+#fCafe.write("Data;Código do Contrato;Vencimento;Volume(R$);Volume(U$);Número de contas em Aberto;Preço de Abertura;Preço Mínimo;Preço Máximo;Último Preço;Preço de Ajuste Atual; Preço de Ajuste Anterior;Valor de Ajuste por Contrato;Variação\n")
 
 #percorre os arquivos
 for arq in arquivos_txt:
@@ -38,7 +36,7 @@ for arq in arquivos_txt:
 		if not line:
 			print("fim")
 			break;
-		data = fArqui.read(8)
+		data = fArqui.read(4)+"-"+fArqui.read(2)+"-"+fArqui.read(2)
 
 		fArqui.read(2)
 		cod_contrato = fArqui.read(3)
