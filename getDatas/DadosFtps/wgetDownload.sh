@@ -1,7 +1,8 @@
 #!/bin/sh
 ano=17
 um=1
-for mes in $(seq -f "%02g" 1 12 ); do
+
+for mes in $(seq -f "%02g" 1 12); do
 	for dia in $(seq -f "%02g" 1 31 ); do
 		
 
