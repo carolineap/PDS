@@ -3,9 +3,10 @@ from bs4 import BeautifulSoup
 import datetime
 import string
 import re
+import sys
 
 class Dados():
-	def __init__(self, mercadoria, data, vencimento, ajusteAtual, ajusteAnterior, contratosAbertos, volume, abertura, fechamento, minimo, maximo):
+	def __init__(self, mercadoria, data, vencimento, ajusteAtual, ajusteAnterior, contratosAbertos, volume, abertura, minimo, maximo):
 		self.mercadoria = mercadoria
 		self.data = data
 		self.vencimento = vencimento
@@ -14,16 +15,14 @@ class Dados():
 		self.contratosAbertos = contratosAbertos
 		self.volume = volume
 		self.abertura = abertura
-		self.fechamento = fechamento
 		self.minimo = minimo
 		self.maximo = maximo
 
 class DadosFuturo():
-	def __init__(self, contratosAbertos, volume, abertura, fechamento, minimo, maximo):
+	def __init__(self, contratosAbertos, volume, abertura, minimo, maximo):
 		self.contratosAbertos = contratosAbertos
 		self.volume = volume
 		self.abertura = abertura
-		self.fechamento = fechamento
 		self.minimo = minimo
 		self.maximo = maximo
 
@@ -44,7 +43,10 @@ def requestAjuste(data):
 	return table_body
 	
 def parseAjuste(data):
-	table = requestAjuste(data)
+	try:
+		table = requestAjuste(data)
+	except:
+		return -1;
 	ajuste = []
 	tr = table.find_all('tr')
 	for rows in tr:
@@ -76,40 +78,65 @@ def parseFuturo(table, vencimento):
 		contratosAbertos = table[i + 1]
 		volume = table[i + 5]
 		abertura = table[i + 6]
-		fechamento = table[i + 10]
 		minimo = table[i + 7]
 		maximo = table[i + 8]
 	except:
 		print("vencimento nao encontrado!")
 
-	return DadosFuturo(contratosAbertos, volume, abertura, fechamento, minimo, maximo)
+	return DadosFuturo(contratosAbertos, volume, abertura, minimo, maximo)
 
 def main():	
 
-	start = datetime.datetime.strptime("2018-10-11", '%Y-%m-%d')
-	end = datetime.datetime.strptime("2018-10-11", '%Y-%m-%d')
-	step = datetime.timedelta(days=1)
+	start = datetime.datetime.strptime(sys.argv[1], '%d/%m/%Y')
+	if (len(sys.argv[2])):	
+		end = datetime.datetime.strptime(sys.argv[2], '%d/%m/%Y')
+	else:
+		end = start
 
-	dados = []
+	step = datetime.timedelta(days=1)
 
 	while start <= end:
 
+		# fBoi = open('Boi.txt', 'a')
+		# fSoja = open('Soja.txt', 'a')
+		# fMilho = open('Milho.txt', 'a')
+		# fCafe = open('Cafe.txt', 'a')
+
 		dadosAjuste = parseAjuste(str(start.day).zfill(2) + "/" + str(start.month).zfill(2) + "/" + str(start.year))
 
-		mercadoria = dadosAjuste[0].mercadoria
-		data = dadosAjuste[0].data
-		
-		table = requestFuturo(data, mercadoria)
+		if (dadosAjuste != -1):
 
-		for d in dadosAjuste:	
-			if (d.mercadoria != mercadoria):
-				mercadoria = d.mercadoria
-				table = requestFuturo(d.data, mercadoria)
+			dataFormat = str(start.year).zfill(2) + "-" + str(start.month).zfill(2) + "-" + str(start.day).zfill(2) 
 
-			f = parseFuturo(table, d.vencimento) 
+			print("Starting request day " + dataFormat) 
 
-			dados.append(Dados(d.mercadoria, d.data, d.vencimento.strip(' '), d.ajusteAtual, d.ajusteAnterior, f.contratosAbertos, f.volume, f.abertura, f.fechamento, f.minimo, f.maximo))
+			mercadoria = dadosAjuste[0].mercadoria
+			data = dadosAjuste[0].data
+			
+			table = requestFuturo(data, mercadoria)
 
+			for d in dadosAjuste:	
+				if (d.mercadoria != mercadoria):
+					mercadoria = d.mercadoria
+					table = requestFuturo(d.data, mercadoria)
+
+				f = parseFuturo(table, d.vencimento) 
+
+				# if (d.mercadoria == 'BGI'):
+				# 	fBoi.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
+				# elif (d.mercadoria == 'SFI'):
+				# 	fSoja.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
+				# elif (d.mercadoria == 'ICF'):
+				# 	fCafe.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
+				# else: 
+				# 	fMilho.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
+
+				#dados.append(Dados(d.mercadoria, d.data, d.vencimento.strip(' '), d.ajusteAtual, d.ajusteAnterior, f.contratosAbertos, f.volume, f.abertura, f.minimo, f.maximo))
 		start += step
+
+		# fBoi.close()
+		# fMilho.close()
+		# fCafe.close()
+		# fSoja.close()
 
 if __name__ == "__main__": main()
