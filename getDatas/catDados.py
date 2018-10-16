@@ -3,7 +3,7 @@ import sys
 import os
 
 #lista apenas os arquivos txt da pasta
-pasta = "DadosFtps/extraidos/"
+pasta = "DadosFtps/extraidos/2017/"
 caminhos = [os.path.join(pasta, nome) for nome in os.listdir(pasta)]
 arquivos = [arq for arq in caminhos if os.path.isfile(arq)]
 arquivos_txt = [arq for arq in arquivos if arq.lower().endswith(".txt")]
@@ -90,11 +90,11 @@ for arq in arquivos_txt:
 				fSoja.write(preco_aber+";")
 				fSoja.write(precoMin+";")
 				fSoja.write(precoMax+";")
-				fSoja.write(precoUltimo+";")
+				#fSoja.write(precoUltimo+";")
 				fSoja.write(precoAjustAtual+";")
-				fSoja.write(precoAjustAnte+";")
-				fSoja.write(precoAjustContr+";")
-				fSoja.write(variacao+"\n")
+				fSoja.write(precoAjustAnte+";\n")
+				#fSoja.write(precoAjustContr+";")
+				#fSoja.write(variacao+"\n")
 			elif (cod_contrato == "BGI"):
 				fBoi.write(data+";")
 				fBoi.write(cod_contrato+";")
@@ -106,11 +106,11 @@ for arq in arquivos_txt:
 				fBoi.write(preco_aber+";")
 				fBoi.write(precoMin+";")
 				fBoi.write(precoMax+";")
-				fBoi.write(precoUltimo+";")
+				#fBoi.write(precoUltimo+";")
 				fBoi.write(precoAjustAtual+";")
-				fBoi.write(precoAjustAnte+";")
-				fBoi.write(precoAjustContr+";")
-				fBoi.write(variacao+"\n")
+				fBoi.write(precoAjustAnte+";\n")
+				#fBoi.write(precoAjustContr+";")
+				#fBoi.write(variacao+"\n")
 			elif (cod_contrato == "ICF"):
 				fCafe.write(data+";")
 				fCafe.write(cod_contrato+";")
@@ -122,11 +122,11 @@ for arq in arquivos_txt:
 				fCafe.write(preco_aber+";")
 				fCafe.write(precoMin+";")
 				fCafe.write(precoMax+";")
-				fCafe.write(precoUltimo+";")
+				#fCafe.write(precoUltimo+";")
 				fCafe.write(precoAjustAtual+";")
-				fCafe.write(precoAjustAnte+";")
-				fCafe.write(precoAjustContr+";")
-				fCafe.write(variacao+"\n")
+				fCafe.write(precoAjustAnte+";\n")
+				#fCafe.write(precoAjustContr+";")
+				#fCafe.write(variacao+"\n")
 			elif (cod_contrato == "CCM"):
 				fMilho.write(data+";")
 				fMilho.write(cod_contrato+";")
@@ -138,11 +138,11 @@ for arq in arquivos_txt:
 				fMilho.write(preco_aber+";")
 				fMilho.write(precoMin+";")
 				fMilho.write(precoMax+";")
-				fMilho.write(precoUltimo+";")
+				#fMilho.write(precoUltimo+";")
 				fMilho.write(precoAjustAtual+";")
-				fMilho.write(precoAjustAnte+";")
-				fMilho.write(precoAjustContr+";")
-				fMilho.write(variacao+"\n")
+				fMilho.write(precoAjustAnte+";\n")
+				#fMilho.write(precoAjustContr+";")
+				#fMilho.write(variacao+"\n")
 
 	fArqui.close()
 
