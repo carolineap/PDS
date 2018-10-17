@@ -10,13 +10,13 @@ class Dados():
 		self.mercadoria = mercadoria
 		self.data = data
 		self.vencimento = vencimento
-		self.ajusteAtual = ajusteAtual
-		self.ajusteAnterior = ajusteAnterior
-		self.contratosAbertos = contratosAbertos
-		self.volume = volume
-		self.abertura = abertura
-		self.minimo = minimo
-		self.maximo = maximo
+		self.ajusteAtual = ajusteAtual.replace(',', '.')
+		self.ajusteAnterior = ajusteAnterior.replace(',', '.')
+		self.contratosAbertos = contratosAbertos.replace(',', '.')
+		self.volume = volume.replace(',', '.')
+		self.abertura = abertura.replace(',', '.')
+		self.minimo = minimo.replace(',', '.')
+		self.maximo = maximo.replace(',', '.')
 
 class DadosFuturo():
 	def __init__(self, contratosAbertos, volume, abertura, minimo, maximo):
@@ -88,19 +88,15 @@ def parseFuturo(table, vencimento):
 def main():	
 
 	start = datetime.datetime.strptime(sys.argv[1], '%d/%m/%Y')
-	if (len(sys.argv[2])):	
+	try:
 		end = datetime.datetime.strptime(sys.argv[2], '%d/%m/%Y')
-	else:
+	except:
 		end = start
 
 	step = datetime.timedelta(days=1)
+	dados = []
 
 	while start <= end:
-
-		# fBoi = open('Boi.txt', 'a')
-		# fSoja = open('Soja.txt', 'a')
-		# fMilho = open('Milho.txt', 'a')
-		# fCafe = open('Cafe.txt', 'a')
 
 		dadosAjuste = parseAjuste(str(start.day).zfill(2) + "/" + str(start.month).zfill(2) + "/" + str(start.year))
 
@@ -116,27 +112,35 @@ def main():
 			table = requestFuturo(data, mercadoria)
 
 			for d in dadosAjuste:	
+
 				if (d.mercadoria != mercadoria):
 					mercadoria = d.mercadoria
 					table = requestFuturo(d.data, mercadoria)
 
 				f = parseFuturo(table, d.vencimento) 
+				dados.append(Dados(d.mercadoria, dataFormat, d.vencimento.strip(' '), d.ajusteAtual, d.ajusteAnterior, f.contratosAbertos, f.volume, f.abertura, f.minimo, f.maximo))
 
-				# if (d.mercadoria == 'BGI'):
-				# 	fBoi.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
-				# elif (d.mercadoria == 'SFI'):
-				# 	fSoja.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
-				# elif (d.mercadoria == 'ICF'):
-				# 	fCafe.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
-				# else: 
-				# 	fMilho.write(dataFormat + ";" + d.mercadoria + ";" + d.vencimento + ";" +  f.volume + ";" + f.contratosAbertos + ";" + f.abertura + ";" + f.minimo + ";" + f.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + ";")
-
-				#dados.append(Dados(d.mercadoria, d.data, d.vencimento.strip(' '), d.ajusteAtual, d.ajusteAnterior, f.contratosAbertos, f.volume, f.abertura, f.minimo, f.maximo))
 		start += step
 
-		# fBoi.close()
-		# fMilho.close()
-		# fCafe.close()
-		# fSoja.close()
+
+	fBoi = open('Boi.txt', 'a')
+	fSoja = open('Soja.txt', 'a')
+	fMilho = open('Milho.txt', 'a')
+	fCafe = open('Cafe.txt', 'a')
+
+	for d in dados:
+		if (d.mercadoria == 'BGI'):
+			fBoi.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+		elif (d.mercadoria == 'SFI'):
+			fSoja.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+		elif (d.mercadoria == 'ICF'):
+			fCafe.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+		else: 
+			fMilho.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+
+	fBoi.close()
+	fMilho.close()
+	fCafe.close()
+	fSoja.close()
 
 if __name__ == "__main__": main()
