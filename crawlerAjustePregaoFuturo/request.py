@@ -10,13 +10,13 @@ class Dados():
 		self.mercadoria = mercadoria
 		self.data = data
 		self.vencimento = vencimento
-		self.ajusteAtual = ajusteAtual.replace(',', '.')
-		self.ajusteAnterior = ajusteAnterior.replace(',', '.')
-		self.contratosAbertos = contratosAbertos.replace(',', '.')
-		self.volume = volume.replace(',', '.')
-		self.abertura = abertura.replace(',', '.')
-		self.minimo = minimo.replace(',', '.')
-		self.maximo = maximo.replace(',', '.')
+		self.ajusteAtual = ajusteAtual.replace('.', '').replace(',', '.')
+		self.ajusteAnterior = ajusteAnterior.replace('.', '').replace(',', '.')
+		self.contratosAbertos = contratosAbertos.replace('.', '').replace(',', '.')
+		self.volume = volume.replace('.', '').replace(',', '.')
+		self.abertura = abertura.replace('.', '').replace(',', '.')
+		self.minimo = minimo.replace('.', '').replace(',', '.')
+		self.maximo = maximo.replace('.', '').replace(',', '.')
 
 class DadosFuturo():
 	def __init__(self, contratosAbertos, volume, abertura, minimo, maximo):
