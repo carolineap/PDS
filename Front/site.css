@@ -1,0 +1,50 @@
+#container-navbar {
+    background: #283593;
+    padding-left: 4%;
+    padding-right: 2%;
+    font-family: "Georgia", serif;
+}
+.navbar-brand > h3{
+    color: white;
+    font-size: 1.4em;
+    text-align: center;
+    padding-top: 0%;
+    margin-top: 0%;
+}
+.navbar-left{
+    font-size: 1.3em;
+}
+#nb #container-navbar .collapse .nav {
+    text-align: center;
+    font-family: "Georgia", serif;
+}
+#nb #container-navbar .collapse .nav > li.active > a{
+    background-color:#1A237E;
+}
+.navbar .container-fluid .nav > li > a {
+    color: white;
+    text-align: center;
+}
+#nb a:hover, a.active a:hover{
+    color: white;
+    background-color: #3F51B5;
+}
+.menu-login{
+    font-size: 1em;
+    width: auto;
+}
+.icon{
+    margin-right: 5pt;
+}
+.dropdown-menu {
+    display: none;
+    background-color: #303F9F;
+    color: white; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdown:hover .dropdown-menu  {
+    display: block;   
+}
+.dropdown-menu li a{
+    color: white;
+}
