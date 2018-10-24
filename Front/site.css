@@ -1,3 +1,7 @@
+.corpo{
+     font-family: "Georgia", serif;
+}
+/* ------------------Menu---------------- */
 #container-navbar {
     background: #283593;
     padding-left: 4%;
@@ -14,6 +18,9 @@
 .navbar-left{
     font-size: 1.3em;
 }
+.navbar{
+    margin: 0;
+}
 #nb #container-navbar .collapse .nav {
     text-align: center;
     font-family: "Georgia", serif;
@@ -21,7 +28,7 @@
 #nb #container-navbar .collapse .nav > li.active > a{
     background-color:#1A237E;
 }
-.navbar .container-fluid .nav > li > a {
+.navbar-default .container-fluid .nav > li > a {
     color: white;
     text-align: center;
 }
@@ -47,4 +54,36 @@
 }
 .dropdown-menu li a{
     color: white;
+}
+/* ------------------Commodities---------------- */
+.container-commo, .container-graphi{
+    font-family: "Georgia", serif;
+    margin-left: 2%;
+}
+.square{
+    padding: 0 4% 0 4%;
+    text-decoration: none;
+}
+.barraAzul{
+    background-color: #3949ab;
+    color: #fdd835;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.barraAzul:hover {
+    opacity: 0.7;
+}
+.intro{
+    background-color: #263238;
+    color: white;
+    padding: 0 4% 0 4%;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.container-page-commodities{
+    margin-left: 4%;
+}
+.container-page-commodities h1{
+    margin-bottom: 20px;
 }
