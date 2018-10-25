@@ -1,0 +1,85 @@
+ <div class="container-page-commodities" >
+        <h1>Ajuste do Pregão Diário</h1>
+        <div class="row">
+            <div class="col-sm-6 box">
+                <a href="boi.html">
+                    <div class="row grey">
+                        <div class="col-sm-5" style="padding: 0;">
+                            <h4>Boi Gordo</h4>
+                            <img src="Imagens/Boi.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-7 commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-sm-6 box">
+                <a href="cafe.html">
+                    <div class="row grey">
+                        <div class="col-sm-5" style="padding: 0;">
+                            <h4>Café Arábica 4/5</h4>
+                            <img src="Imagens/Cafe.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-7 commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>    
+        <div class="row">
+             <div class="col-sm-6 box">
+                <a href="milho.html">
+                    <div class="row grey">
+                        <div class="col-sm-5" style="padding: 0;">
+                            <h4>Milho</h4>
+                            <img src="Imagens/Milho.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-7 commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-sm-6 box">
+                <a href="soja.html">
+                    <div class="row grey">
+                        <div class="col-sm-5" style="padding: 0;">
+                            <h4>Soja</h4>
+                            <img src="Imagens/Soja.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-7 commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>    
+        </div>
+    </div>
