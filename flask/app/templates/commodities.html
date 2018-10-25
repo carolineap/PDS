@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>CPA-Home</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+<body class="corpo">
+    <!-- ----------------------Menu ------------------------- -->
+<nav id = "nb" class="navbar navbar-default" >
+  <div id = "container-navbar" class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <div class = "navbar-brand">
+            <h3>CPA <img src="" class="logo" width="60">
+            </h3>
+        </div>
+    </div>
+   <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="home.html">Home</a></li>
+       <li class="dropdown active"><a href="commodities.html">Commodities<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+           <li><a href="boi.html">Boi Gordo</a></li>
+          <li><a href="cafe.html">Café Arabica 4/5</a></li>
+          <li><a href="milho.html">Milho</a></li>
+            <li><a href="soja.html">Soja</a></li>
+        </ul>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="graphic.html">Graphics</a></li>
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+            <li class="menu-login"><a href="#"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+            <li class="menu-login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+  </div>
+</nav>
+     <!-- --------------------------Intro -------------------------- -->
+    <div class="intro">
+        <div class="row">
+            <div class="col-sm-3">
+                <h1>Commodities</h1>
+                <p> Commodities são todas as matérias-primas essenciais que possuem baixo nível de industrialização. Elas são produzidas em grande quantidade sem diferenças entre marcas e podem ser estocadas sem perda de qualidade como o petróleo, o trigo, o milho, buebfwehfhoene ESCREVER UM TEXTO DE INTRODUÇÃO SOBRE COMMODITIESAAAAAAAAAAAAAAAAAAAAAAAAA </p>
+            </div>
+            <div class="col-sm-9 " style="padding: 15px 0 0 60px; ">
+                <h3>Ajuste do Pregão</h3>
+                <p> Nos mercados futuros, os ajustes são feitos diariamente, ou seja, se você compra e a cotação sobe no dia, no dia seguinte terá um crédito na conta e se o preço cair terá um débito e assim sendo diariamente ajustado. Caso opere na venda o processo é o mesmo, se cair no dia seguinte recebe crédito e se subir débito. Por ser um mercado alavancado o risco de um investidor ter grandes prejuízos é eminente, por isso a bolsa realiza os ajustes diários, pois caso o participante não tenha condições de honrar algum eventual débito será compulsoriamente zerado por sua corretora, garantindo assim que todas as operações em bolsa sejam devidamente liquidadas. No final do dia a bolsa divulga o preço de ajuste de cada contrato, esse preço geralmente é a média dos preços negociados no fechamento do pregão. COLOCAR UM TEXTO SOBRE O AJUSTE DO PREGÃO MELHOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA </p>
+            </div>
+        
+        </div>
+    </div>
+    <!-- --------------------------Commodities -------------------------- -->
+    <div class="container-page-commodities" >
+        <h1>Ajuste do Pregão Diário</h1>
+        
+                <div class="box">
+                    <h4>Boi Gordo</h4>
+                    <div class="row grey">
+                        <div class="col-sm-3" style="padding: 0;">
+                            <img src="../static/imagens//Boi.png" style="width:90%;">
+                            <a>Saiba Mais</a>
+                        </div>
+                       
+                        <div class="col-sm-9 commo-tex" >
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="box">
+                    <div class="row grey">
+                        <div class="col-sm-3" style="padding: 0;">
+                            <h4>Café Arábica 4/5</h4>
+                            <img src="../static/imagens//Cafe.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-9s commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </div>    
+                <div class="box">
+                    <div class="row grey">
+                        <div class="col-sm-5" style="padding: 0;">
+                            <h4>Milho</h4>
+                            <img src="../static/imagens//Milho.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-7 commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </div>    
+                <div class="box">
+                    <div class="row grey">
+                        <div class="col-sm-5" style="padding: 0;">
+                            <h4>Soja</h4>
+                            <img src="../static/imagens//Soja.png" style="width:90%;">
+                            <h4>Saiba Mais</h4>
+                        </div>
+                       
+                        <div class="col-sm-7 commo-tex" style="padding: 25px 0;">
+                            <p><b>Objeto de negociação:</b> Bovinos machos, com 16 arrobas líquidas ou mais de carcaça e idade máxima de 42 meses.</p>
+                            <p><b>Código de negociação:</b> BGI.</p>
+                            <p><b>Tamanho do contrato:</b> 30 arrobas líquidas.</p>
+                            <p><b>Cotação:</b> Reais por arroba líquida, com duas casas decimais.</p>
+                            <p><b>Meses de vencimento:</b> Todos os meses.</p>
+                        </div>
+                    </div>
+                </div>   
+    </div>
+</body>
+</html>

@@ -130,13 +130,13 @@ def main():
 
 	for d in dados:
 		if (d.mercadoria == 'BGI'):
-			fBoi.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+			fBoi.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior + "\n")
 		elif (d.mercadoria == 'SFI'):
-			fSoja.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+			fSoja.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior  + "\n")
 		elif (d.mercadoria == 'ICF'):
-			fCafe.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+			fCafe.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior  + "\n")
 		else: 
-			fMilho.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAtual + "\n")
+			fMilho.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior  + "\n")
 
 	fBoi.close()
 	fMilho.close()

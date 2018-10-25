@@ -1,0 +1,199 @@
+.corpo{
+    font-family: "Georgia", serif; !important
+    text-decoration: none;
+}
+/* ------------------Menu---------------- */
+#container-navbar {
+    background: #283593;
+    padding-left: 4%;
+    padding-right: 2%;
+    font-family: "Georgia", serif;
+}
+.navbar-brand > h3{
+    color: white;
+    font-size: 1.4em;
+    text-align: center;
+    padding-top: 0%;
+    margin-top: 0%;
+}
+.navbar-left{
+    font-size: 1.3em;
+}
+.navbar{
+    margin: 0;
+    border-color: #151C67;
+    border-radius: 0;
+}
+#nb #container-navbar .collapse .nav {
+    text-align: center;
+    font-family: "Georgia", serif;
+}
+#nb #container-navbar .collapse .nav > li.active > a{
+    background-color:#1A237E;
+}
+.navbar-default .container-fluid .nav > li > a {
+    color: white;
+    text-align: center;
+}
+#nb a:hover, a.active a:hover{
+    color: white;
+    background-color: #3F51B5;
+    text-decoration: none;
+}
+.menu-login{
+    font-size: 1em;
+    width: auto;
+}
+.icon{
+    margin-right: 5pt;
+}
+.dropdown-menu {
+    display: none;
+    background-color: #283593;
+    color: white; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdown:hover .dropdown-menu  {
+    display: block;   
+}
+.dropdown-menu li a{
+    color: white;
+}
+.dropdown-menu a.active{
+    background-color: #1A237E;
+}
+/* ------------------Commodities---------------- */
+.container-commo, .container-graphi{
+    font-family: "Georgia", serif;
+    margin-left: 2%;
+}
+.square{
+    padding: 0 4% 0 4%;
+    text-decoration: none;
+}
+.barraAzul{
+    background-color: #3949ab;
+    color: white;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.barraAzul:hover {
+    opacity: 0.7;
+}
+.intro{
+    background-color: #0E1344;
+    color: white;
+    padding: 0 4% 0 4%;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.container-page-commodities{
+    padding: 0 0;
+    text-decoration: none;
+}
+.container-page-commodities h1{
+    margin-bottom: 20px;
+}
+.grey{
+    background-color: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    text-decoration: none;
+}
+.box{
+    margin-bottom: 20px;
+    text-decoration: none;
+    padding: 0 20px;
+}
+.box a{
+    text-decoration: none;
+}
+.box h4{
+    font-size: 1.5em;
+}
+.commo-tex{
+    font-size: 1.3em;
+}
+.bluerow{
+    background-color: #0E1344;
+    color: white;
+}
+/* ----------------Páginas individuais Informações -------- */
+.commo-name{
+    font-size: 3.6em;
+    margin-left: 40px;
+}
+.panel-heading .accordion-toggle {
+    text-decoration: none !important;
+}
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: white;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+.panel-title{
+    font-size: 1.5em;   
+}
+.panel-heading{
+    background-color: #3F51B5 !important;
+    color: white !important;
+}
+.panel-body{
+    font-size: 1.2em;   
+}
+.container-prod{
+    padding: 0 45px;   
+}
+#infoTable{
+    border-collapse: collapse;
+    width: 100%;
+    border: none;
+}
+
+#infoTable td, #infoTable th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    border-left: none;
+    border-right: none;
+}
+/* ----------------Tabela do Ajuste Diário-------- */
+.formAjuste input[type=date] {
+    border-radius: 3px;
+    box-shadow: inset 0;
+    border: 1px solid #ccc;
+    width: 20%;
+    margin: 0 5px 20px 5px;
+    padding: 8px;
+}
+.btnBusca{
+    color: white;
+    background-color: dodgerblue;
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
+}
+#ajusteTable{
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 3px;
+}
+#ajusteTable th{
+    border: 1px solid #dddddd;
+    background-color: #3F51B5;
+    text-align: left;
+    padding: 8px;
+    color: white;
+}
+#ajusteTable td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}

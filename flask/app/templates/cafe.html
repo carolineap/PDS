@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>CPA-Cafe</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+<body class="corpo">
+    <!-- ----------------------Menu ------------------------- -->
+<nav id = "nb" class="navbar navbar-default" >
+  <div id = "container-navbar" class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <div class = "navbar-brand">
+            <h3>CPA <img src="" class="logo" width="60">
+            </h3>
+        </div>
+    </div>
+   <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="home.html">Home</a></li>
+       <li class="dropdown active"><a href="commodities.html">Commodities<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="boi.html">Boi Gordo</a></li>
+          <li><a href="cafe.html">Café Arabica 4/5</a></li>
+          <li><a class="active" href="milho.html">Milho</a></li>
+            <li><a href="soja.html">Soja</a></li>
+        </ul>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="graphic.html">Graphics</a></li>
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+            <li class="menu-login"><a href="#"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+            <li class="menu-login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+  </div>
+</nav>
+     <!-- --------------------------Header -------------------------- -->
+    <div class="header-Img">
+        <img src="../static/imagens/milhoBanner.jpeg" style="opacity: 0.5; width: 100%">
+            <h1 class="commo-name">Café</h1>
+    </div>
+    <!-- --------------------------Milho -------------------------- -->
+    <div class="container-prod" >
+         <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                Produto
+            </a>
+          </h2>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+          <div class="panel-body">
+            O café é uma commodity mundialmente consumida e a produção brasileira, já que o país é um dos maiores produtores e exportadores e tem grande relevância no mercado nacional e internacional, em especial do grão arábica.
+              <br>
+           O contrato foi desenvolvido com o objetivo de ser uma ferramenta para a gestão do risco de oscilação de preço, sendo utilizado pelos participantes do mercado, como o produtor, a indústria, tradings, dentre outros.
+              <br>
+            Além disso, esse contrato pode ser liquidado financeiramente antes do vencimento ou no vencimento, por meio da entrega física da mercadoria nos armazéns cadastrados junto a B3. No caso de entrega em localidade diferente do Município de São Paulo, haverá dedução do custo de frete para apuração do valor de liquidação.
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+              Características Técnicas
+            </a>
+          </h2>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table id="infoTable">
+                <tr>
+                    <td><b>Objeto de negociação</b> </td>
+                    <td>Café cru, em grão, de produção brasileira, coffea arabica, tipo 4-25 (4/5) ou melhor, bebida dura ou melhor, para entrega no Município de São Paulo, SP, Brasil.</td>
+                </tr>
+                <tr>
+                    <td><b>Código de negociação</b> </td>
+                    <td>ICF</td>
+                </tr>
+                <tr>
+                    <td><b>Tamanho do contrato</b> </td>
+                    <td>100 sacas de 60kg líquidos (equivalentes a 6 toneladas métricas).</td>
+                </tr>
+                <tr>
+                    <td><b>Cotação</b> </td>
+                    <td>Dólares dos Estados Unidos por saca, com duas casas decimais.</td>
+                </tr>
+                <tr>
+                    <td><b>Variação mínima de apregoação</b> </td>
+                    <td>US$0,05.</td>
+                </tr>
+                <tr>
+                    <td><b>Lote padrão</b> </td>
+                    <td>1 contrato.</td>
+                </tr>
+                <tr>
+                    <td><b>Último dia de negociação</b> </td>
+                    <td>6º dia útil anterior ao último dia útil do mês do vencimento.</td>
+                </tr>
+                <tr>
+                    <td><b>Data de vencimento</b> </td>
+                    <td>6º dia útil anterior ao último dia útil do mês do vencimento. Caso não haja sessão de negociação, a data de vencimento será a próxima sessão de negociação.</td>
+                </tr>
+                <tr>
+                    <td><b>Meses de vencimento</b> </td>
+                    <td>Março, maio, julho, setembro e dezembro.</td>
+                </tr>
+                <tr>
+                    <td><b>Liquidação no vencimento</b> </td>
+                    <td>Física.</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ajusteDiario">
+        <h2 style="margin: 30px 0;">Ajuste do Pregão Diário</h2>
+        <form class="formAjuste">
+            <label class="titleForm"> De:</label>
+            <input type="date" placeholder="dd/mm/aaaa">
+            <label class="titleForm"> Até:</label>
+            <input type="date" placeholder="dd/mm/aaaa">
+            <button type="submit" class="btnBusca">Buscar</button>   
+        </form>
+        <table id="ajusteTable">
+            <tr>
+                <th>Código</th>
+                <th>Data</th>
+                <th>Vencimento</th>
+                <th>Preço do Ajuste Anterior</th>
+                <th>Preço do Ajuste Atual</th>
+                <th>Variação</th>
+                <th>Valor do Ajuste por Contrato</th>
+                <th>Número por Contrato</th>
+                <th>Volume</th>
+            </tr>
+             <tr>
+                <td>CCM</td>
+                <td>15/10/2018</td>
+                <td>Nov/18</td>
+                <td>2.620,1140</td>
+                <td>2.620,1140</td>
+                <td>20,00</td>
+                <td>721,32</td>
+                <td>300</td>
+                <td>800</td>
+            </tr>
+             <tr>
+                <td>CCM</td>
+                <td>15/10/2018</td>
+                <td>Nov/18</td>
+                <td>2.620,1140</td>
+                <td>2.620,1140</td>
+                <td>20,00</td>
+                <td>721,32</td>
+                <td>300</td>
+                <td>800</td>
+            </tr>
+             <tr>
+                <td>CCM</td>
+                <td>15/10/2018</td>
+                <td>Nov/18</td>
+                <td>2.620,1140</td>
+                <td>2.620,1140</td>
+                <td>20,00</td>
+                <td>721,32</td>
+                <td>300</td>
+                <td>800</td>
+            </tr>
+             <tr>
+                <td>CCM</td>
+                <td>15/10/2018</td>
+                <td>Nov/18</td>
+                <td>2.620,1140</td>
+                <td>2.620,1140</td>
+                <td>20,00</td>
+                <td>721,32</td>
+                <td>300</td>
+                <td>800</td>
+            </tr>
+        </table>
+    </div>    
+</div>
+
+</body>
+</html>
