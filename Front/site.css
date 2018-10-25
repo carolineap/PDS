@@ -21,7 +21,7 @@
 }
 .navbar{
     margin: 0;
-    border-color: #1A237E;
+    border-color: #151C67;
     border-radius: 0;
 }
 #nb #container-navbar .collapse .nav {
@@ -49,7 +49,7 @@
 }
 .dropdown-menu {
     display: none;
-    background-color: #303F9F;
+    background-color: #283593;
     color: white; 
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -82,14 +82,14 @@
     opacity: 0.7;
 }
 .intro{
-    background-color: #334191;
+    background-color: #0E1344;
     color: white;
     padding: 0 4% 0 4%;
     text-align: justify;
     text-justify: inter-word;
 }
 .container-page-commodities{
-    padding: 0 2%;
+    padding: 0 0;
     text-decoration: none;
 }
 .container-page-commodities h1{
@@ -98,7 +98,6 @@
 .grey{
     background-color: none;
     border-radius: 5px;
-    color: black;
     padding: 5px 15px;
     text-decoration: none;
 }
@@ -110,8 +109,15 @@
 .box a{
     text-decoration: none;
 }
+.box h4{
+    font-size: 1.5em;
+}
 .commo-tex{
-    font-size: 1.1em;
+    font-size: 1.3em;
+}
+.bluerow{
+    background-color: #0E1344;
+    color: white;
 }
 /* ----------------Páginas individuais Informações -------- */
 .commo-name{
