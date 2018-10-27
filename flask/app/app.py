@@ -25,6 +25,7 @@ class Commodity:
 		self.contratos = str(contratos)
 		self.volume = str(volume)
 
+@app.route('/')
 @app.route('/home.html')
 def home():
   return render_template('home.html')
@@ -58,7 +59,7 @@ def boi():
 			response = ''
 			boi = []
 			for row in rows:
-				boi.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
+				boi.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 330))
 			return render_template('boi.html', data=boi)
 		except:
 			pass
@@ -92,7 +93,7 @@ def cafe():
 			response = ''
 			cafe = []
 			for row in rows:
-				cafe.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
+				cafe.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 100))
 			return render_template('cafe.html', data=cafe)
 		except:
 			pass
