@@ -29,9 +29,9 @@
         <li><a href="home.html">Home</a></li>
        <li class="dropdown active"><a href="commodities.html">Commodities<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="boi.html">Boi Gordo</a></li>
+          <li><a class="active" href="boi.html">Boi Gordo</a></li>
           <li><a href="cafe.html">Café Arabica 4/5</a></li>
-          <li><a class="active" href="milho.html">Milho</a></li>
+          <li><a href="milho.html">Milho</a></li>
             <li><a href="soja.html">Soja</a></li>
         </ul>
         <li><a href="analytics.html">Analytics</a></li>
@@ -49,7 +49,7 @@
         <img src="../static/imagens/milhoBanner.jpeg" style="opacity: 0.5; width: 100%">
             <h1 class="commo-name">Boi Gordo</h1>
     </div>
-    <!-- --------------------------Milho -------------------------- -->
+    <!-- --------------------------Boi -------------------------- -->
     <div class="container-prod" >
          <div class="panel-group" id="accordion">
       <div class="panel panel-default">
@@ -128,11 +128,11 @@
     </div>
     <div class="ajusteDiario">
         <h2 style="margin: 30px 0;">Ajuste do Pregão Diário</h2>
-        <form class="formAjuste">
+        <form class="formAjuste" method="POST">
             <label class="titleForm"> De:</label>
-            <input type="date" placeholder="dd/mm/aaaa">
+            <input name='data1' type="date" placeholder="dd/mm/aaaa">
             <label class="titleForm"> Até:</label>
-            <input type="date" placeholder="dd/mm/aaaa">
+            <input name='data2' type="date" placeholder="dd/mm/aaaa">
             <button type="submit" class="btnBusca">Buscar</button>   
         </form>
         <table id="ajusteTable">
@@ -147,50 +147,19 @@
                 <th>Número por Contrato</th>
                 <th>Volume</th>
             </tr>
-             <tr>
-                <td>CCM</td>
-                <td>15/10/2018</td>
-                <td>Nov/18</td>
-                <td>2.620,1140</td>
-                <td>2.620,1140</td>
-                <td>20,00</td>
-                <td>721,32</td>
-                <td>300</td>
-                <td>800</td>
-            </tr>
-             <tr>
-                <td>CCM</td>
-                <td>15/10/2018</td>
-                <td>Nov/18</td>
-                <td>2.620,1140</td>
-                <td>2.620,1140</td>
-                <td>20,00</td>
-                <td>721,32</td>
-                <td>300</td>
-                <td>800</td>
-            </tr>
-             <tr>
-                <td>CCM</td>
-                <td>15/10/2018</td>
-                <td>Nov/18</td>
-                <td>2.620,1140</td>
-                <td>2.620,1140</td>
-                <td>20,00</td>
-                <td>721,32</td>
-                <td>300</td>
-                <td>800</td>
-            </tr>
-             <tr>
-                <td>CCM</td>
-                <td>15/10/2018</td>
-                <td>Nov/18</td>
-                <td>2.620,1140</td>
-                <td>2.620,1140</td>
-                <td>20,00</td>
-                <td>721,32</td>
-                <td>300</td>
-                <td>800</td>
-            </tr>
+            {%for m in data%}
+                <tr>
+                    <td>{{m.codigo}}</td>
+                    <td>{{m.data}}</td>
+                    <td>{{m.vencimento}}</td>
+                    <td>{{m.ajuste_anterior}}</td>
+                    <td>{{m.ajuste_atual}}</td>
+                    <td>{{m.variacao}}</td>
+                    <td>{{m.valor_contrato}}</td>
+                    <td>{{m.contratos}}</td>
+                    <td>{{m.volume}}</td>
+                </tr>
+            {% endfor %}
         </table>
     </div>    
 </div>

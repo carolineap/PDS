@@ -47,17 +47,56 @@ def milho():
 		
 	return render_template('milho.html')
 
-@app.route('/boi.html')
+@app.route('/boi.html', methods=['GET', 'POST'])
 def boi():
-  return render_template('boi.html')
+    if (request.method == 'POST'):
+		try:
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+			cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+			rows = cur.fetchall()
+			response = ''
+			boi = []
+			for row in rows:
+				boi.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
+			return render_template('boi.html', data=boi)
+		except:
+			pass
+    return render_template('boi.html')
 
-@app.route('/soja.html')
+@app.route('/soja.html', methods=['GET', 'POST'])
 def soja():
-  return render_template('soja.html')
+    if (request.method == 'POST'):
+		try:
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+			cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+			rows = cur.fetchall()
+			response = ''
+			soja = []
+			for row in rows:
+				soja.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
+			return render_template('soja.html', data=soja)
+		except:
+			pass
+    return render_template('soja.html')
 
-@app.route('/cafe.html')
+@app.route('/cafe.html', methods=['GET', 'POST'])
 def cafe():
-  return render_template('cafe.html')
+    if (request.method == 'POST'):
+		try:
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+			cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+			rows = cur.fetchall()
+			response = ''
+			cafe = []
+			for row in rows:
+				cafe.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
+			return render_template('cafe.html', data=cafe)
+		except:
+			pass
+    return render_template('cafe.html')
 
 
 @app.route('/commodities.html')
