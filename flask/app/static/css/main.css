@@ -89,37 +89,44 @@
     text-justify: inter-word;
 }
 .container-page-commodities{
-    padding: 0 0;
+    padding: 0 30px;
     text-decoration: none;
 }
 .container-page-commodities h1{
     margin-bottom: 20px;
 }
 .grey{
-    background-color: none;
+    background-color: #E0E0E0;
     border-radius: 5px;
-    padding: 5px 15px;
+    padding: 5px 30px;
     text-decoration: none;
 }
 .box{
     margin-bottom: 20px;
     text-decoration: none;
-    padding: 0 20px;
+    padding: 0 25px;
 }
 .box a{
     text-decoration: none;
 }
+.grey a:hover{
+    opacity: 0.7;
+}
 .box h4{
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 .commo-tex{
-    font-size: 1.3em;
+    font-size: 1em;
+    padding: 10px 0;
 }
 .bluerow{
     background-color: #0E1344;
     color: white;
 }
 /* ----------------Páginas individuais Informações -------- */
+.container-prod{
+  margin-bottom:100px;  
+}
 .commo-name{
     font-size: 3.6em;
     margin-left: 40px;
