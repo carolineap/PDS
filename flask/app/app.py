@@ -36,6 +36,9 @@ def milho():
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+
+			if (len(data2) == 0): data2 = data1
+
 			cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
 			rows = cur.fetchall()
 			response = ''
@@ -54,6 +57,9 @@ def boi():
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+
+			if (len(data2) == 0): data2 = data1
+
 			cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
 			rows = cur.fetchall()
 			response = ''
@@ -71,6 +77,9 @@ def soja():
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+
+			if (len(data2) == 0): data2 = data1
+
 			cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
 			rows = cur.fetchall()
 			response = ''
@@ -88,6 +97,9 @@ def cafe():
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+
+			if (len(data2) == 0): data2 = data1
+
 			cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
 			rows = cur.fetchall()
 			response = ''
