@@ -116,6 +116,9 @@ def cafe():
 def commodities():
   return render_template('commodities.html')
 
+@app.route('/analytics.html')  
+def analytics():
+  return render_template('analytics.html')
 
 
 if __name__ == '__main__':
