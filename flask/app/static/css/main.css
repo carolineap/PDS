@@ -195,12 +195,15 @@
 #ajusteTable th{
     border: 1px solid #dddddd;
     background-color: #3F51B5;
-    text-align: left;
+    text-align: center;
     padding: 8px;
     color: white;
 }
+.ajusteDiario #ajusteTable{
+    text-align: center;
+}
 #ajusteTable td {
     border: 1px solid #dddddd;
-    text-align: left;
     padding: 8px;
+    text-align: right;
 }

@@ -135,11 +135,11 @@
             <input name='data2' type="date" placeholder="dd/mm/aaaa">
             <button type="submit" class="btnBusca">Buscar</button>   
         </form>
-        <table id="ajusteTable">
+        <table id="ajusteTable" >
             <tr>
-                <th>Código</th>
-                <th>Data</th>
-                <th>Vencimento</th>
+                <th style="text-align: center">Código</th>
+                <th style="text-align: center">Data</th>
+                <th style="text-align: center">Vencimento</th>
                 <th>Preço do Ajuste Anterior</th>
                 <th>Preço do Ajuste Atual</th>
                 <th>Variação</th>
@@ -148,11 +148,11 @@
                 <th>Volume</th>
             </tr>
             {%for m in data%}
-                <tr>
-                    <td>{{m.codigo}}</td>
-                    <td>{{m.data}}</td>
-                    <td>{{m.vencimento}}</td>
-                    <td>{{m.ajuste_anterior}}</td>
+                <tr >
+                    <td style="text-align: center">{{m.codigo}}</td>
+                    <td style="text-align: center">{{m.data}}</td>
+                    <td style="text-align: center">{{m.vencimento}}</td>
+                    <td >{{m.ajuste_anterior}}</td>
                     <td>{{m.ajuste_atual}}</td>
                     <td>{{m.variacao}}</td>
                     <td>{{m.valor_contrato}}</td>

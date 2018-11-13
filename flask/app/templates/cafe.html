@@ -137,9 +137,9 @@
         </form>
         <table id="ajusteTable">
             <tr>
-                <th>Código</th>
-                <th>Data</th>
-                <th>Vencimento</th>
+                <th style="text-align: center">Código</th>
+                <th style="text-align: center">Data</th>
+                <th style="text-align: center">Vencimento</th>
                 <th>Preço do Ajuste Anterior</th>
                 <th>Preço do Ajuste Atual</th>
                 <th>Variação</th>
@@ -149,9 +149,9 @@
             </tr>
             {%for m in data%}
                 <tr>
-                    <td>{{m.codigo}}</td>
-                    <td>{{m.data}}</td>
-                    <td>{{m.vencimento}}</td>
+                    <td style="text-align: center">{{m.codigo}}</td>
+                    <td style="text-align: center">{{m.data}}</td>
+                    <td style="text-align: center">{{m.vencimento}}</td>
                     <td>{{m.ajuste_anterior}}</td>
                     <td>{{m.ajuste_atual}}</td>
                     <td>{{m.variacao}}</td>
