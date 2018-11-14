@@ -23,7 +23,7 @@ class Commodity:
 		self.variacao = self.ajuste_atual - self.ajuste_anterior
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
 		self.contratos = str(contratos)
-		self.volume = str(volume)
+		self.volume = float(volume)
 
 @app.route('/')
 @app.route('/home.html')
