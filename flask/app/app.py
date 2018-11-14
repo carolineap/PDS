@@ -18,9 +18,9 @@ class Commodity:
 		data = str(data).replace('-', '/')
 		data = datetime.strptime(data, '%Y/%m/%d')
 		self.data = str(data.day).zfill(2) + "/" + str(data.month).zfill(2) + "/" + str(data.year)
-		self.ajuste_anterior = str(ajuste_anterior)
-		self.ajuste_atual = str(ajuste_atual)
-		self.variacao = ajuste_atual - ajuste_anterior
+		self.ajuste_anterior = float(ajuste_anterior)
+		self.ajuste_atual = float(ajuste_atual)
+		self.variacao = self.ajuste_atual - self.ajuste_anterior
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
 		self.contratos = str(contratos)
 		self.volume = str(volume)

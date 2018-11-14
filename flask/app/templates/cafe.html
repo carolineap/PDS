@@ -151,10 +151,10 @@
                     <td style="text-align: center">{{m.codigo}}</td>
                     <td style="text-align: center">{{m.data}}</td>
                     <td style="text-align: center">{{m.vencimento}}</td>
-                    <td>{{m.ajuste_anterior}}</td>
-                    <td>{{m.ajuste_atual}}</td>
-                    <td>{{m.variacao}}</td>
-                    <td>{{m.valor_contrato}}</td>
+                    <td>{{'{:.2f}'.format(m.ajuste_anterior)}}</td>
+                    <td>{{'{:.2f}'.format(m.ajuste_atual)}}</td>
+                    <td>{{'{:.2f}'.format(m.variacao)}}</td>
+                    <td>{{'{:.2f}'.format(m.valor_contrato)}}</td>
                     <td>{{m.contratos}}</td>
                     <td>{{m.volume}}</td>
                 </tr>
