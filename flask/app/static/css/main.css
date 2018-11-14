@@ -1,6 +1,7 @@
 .corpo{
     font-family: "Georgia", serif; !important
     text-decoration: none;
+    text-align: justify;
 }
 /* ------------------Menu---------------- */
 #container-navbar {
