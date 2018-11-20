@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>CPA Login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      <!--  <script type="text/javascript" src="login.js"></script>-->
+    </head>
+    <body class="loginBody">
+        <div class="row logoLogin" style="max-width: 100%;">
+                <h1> CPA </h1>
+            <div class="imgcontainer">
+                <img src="../static/imagens/logo.png" alt="Avatar" class="avatar">
+            </div>
+        </div>
+        <form onsubmit="check(this)" method="POST">
+          <div class="containerBox">
+            <label for="cpf"><b>CPF</b></label>
+            <input type="text" oninput="cpf_replace(this.form.cpf.value)" placeholder="xxx.xxx.xxx-xx" name="cpf" id="cpf" pattern="\d{3}.\d{3}.\d{3}-\d{2}" title="CPF possui 11 números (Digite apenas os números)" maxlength="15" required autofocus >
+
+            <label for="senha"><b>Senha</b></label>
+            <input type="password" placeholder="Senha" name="senha" required>
+
+           <button type="submit">Login</button>
+              <!--<input type="button" onclick="check(this.form)" value="Login">-->
+              <div class="row">
+                <div class="col-md-6">
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
+                <div class="col-md-6">
+                  <span class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+              </div>
+            
+          </div>
+          <div class="containerBox row" style="pading: 0;">
+              <div class="col-md-6">
+                <button type="reset" class="cancelbtn">Limpar</button>  
+              </div>
+              <div class="col-md-6">
+                  <button type="button" class="cancel"><a href="home.html">Cancelar</a> </button>
+              </div>
+            
+          </div>
+        </form>
+        <script language="javascript" type="text/javascript">
+            function check(form){
+                //Adaptado
+                if(form.cpf.value == "000.000.000-00" && form.senha.value == "1234"){
+                   window.open('home.html') //abre a home se os campos coincidirem 
+                  } else {
+                   alert("Erro! Verifique se o CPF e a senha foram digitadas corretamente") //Erro se login inválido
+                  }
+                }
+            
+             function cpf_replace(pCpf){
+                var cpf = pCpf.toString()
+
+                cpf = cpf.replace(/[\W\s\._\-]+/g, ''); //para retirar caracteres especiais
+                cpf = cpf.replace(/[A-z.]+/, ''); //para retirar letras
+
+                //vetor que recebera cada parte do cpf
+                var tokens = [];
+
+                //tamanho atual do input
+                var tamanho = cpf.length;
+
+                //retirar cada parte do cpf
+                for(var i = 0; (i < tamanho) && (i < 9); i+= 3){
+                    tokens.push(cpf.substr(i, 3));
+                }
+
+                //processo de inserção e pontos e traços
+                if(tamanho > 9){
+                    var que = cpf.substr(i, 2);
+                    cpf = tokens.join(".");
+                    cpf = cpf + "-" + que;
+                }else{
+                    var cpf = tokens.join(".");
+                }
+
+                //substitui no input
+                document.getElementById("cpf").value = cpf
+            }
+        </script>
+    </body>
+</html>
