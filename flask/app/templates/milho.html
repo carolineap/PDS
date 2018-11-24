@@ -127,11 +127,37 @@
     </div>
     <div class="ajusteDiario">
         <h2 style="margin: 30px 0;">Ajuste do Pregão Diário</h2>
-        <form class="formAjuste" method="POST">
+        <form class="formAjuste" method="POST" id="formAjuste">
             <label class="titleForm"> De:</label>
             <input name='data1' type="date" placeholder="dd/mm/aaaa">
             <label class="titleForm"> Até:</label>
             <input name='data2' type="date" placeholder="dd/mm/aaaa">
+            <label class="titleForm"> Mês de Vencimento: </label>
+            <select class="formSelec">
+                <option>Todos</option>
+                <option>Janeiro</option>
+                <option>Março</option>
+                <option>Maio</option>
+                <option>Julho</option>
+                <option>Agosto</option>
+                <option>Setembro</option>
+                <option>Novembro</option>
+            </select>
+            <label class="titleForm"> Frequência: </label>
+            <select class="formSelec" id="freq" onchange="addInput()">
+                <option>Diário</option>
+                <option >Semanal</option>
+                <option >Mensal</option>
+            </select>
+             <select class="formSelec" id="semanal" style="display: none">
+                <option>Domingo</option>
+                <option>Quarta</option>
+                <option>Sábado</option>
+            </select>
+            <select class="formSelec" id="mensal" style="display: none">
+                <option>Primeiro Dia</option>
+                <option>Último Dia</option>
+            </select>
             <button type="submit" class="btnBusca">Buscar</button>   
         </form>
         <table id="ajusteTable">
@@ -162,6 +188,22 @@
         </table>
     </div>    
 </div>
-
 </body>
 </html>
+<script>
+    function addInput(){
+        var selec = document.getElementById("freq");
+        var freq = selec.options[ selec.selectedIndex ].value; 
+        if (freq == "Semanal"){
+            document.getElementById("semanal").style.display = 'inline';
+            document.getElementById("mensal").style.display = 'none';
+        }else if (freq == "Mensal"){
+            document.getElementById("mensal").style.display = 'inline';
+            document.getElementById("semanal").style.display = 'none';
+        }else{
+            document.getElementById("mensal").style.display = 'none';
+            document.getElementById("semanal").style.display = 'none';
+        }
+    }
+
+</script>
