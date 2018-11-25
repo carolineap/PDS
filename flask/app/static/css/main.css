@@ -179,12 +179,13 @@
     border-left: none;
     border-right: none;
 }
+
 /* ----------------Tabela do Ajuste Diário----------------------------------------------- */
 .formAjuste input[type=date] {
     border-radius: 3px;
     box-shadow: inset 0;
     border: 1px solid #ccc;
-    width: 10%;
+    width: 12%;
     margin: 0 5px 20px 5px;
     padding: 8px;
 }
@@ -227,12 +228,18 @@
 }
 
 .myBtn{
-    
     color: white;
     background-color: #4CAF50;
     border: none;
     padding: 8px;
     border-radius: 3px;
+}
+.fechar{
+    background-color: #f44336;
+}
+.modBtn{
+    background-color: #dddddd;
+    font-size: 1.2em;
 }
 /* ----------------Login----------------------------------------------------------- */
 .loginBody{
