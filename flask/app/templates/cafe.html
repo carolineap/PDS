@@ -7,6 +7,7 @@
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
 {% extends 'navbar.html' %}
@@ -153,6 +154,29 @@
                 </tr>
             {% endfor %}
         </table>
+        <div id="graphDown" style="float: right">
+            <button type="button" class="myBtn" data-toggle="modal" data-target="#opGrafico" style="background-color: dodgerblue"> <i class='fas fa-chart-line'></i> Gráficos</button>
+            <button type="button" class="myBtn"><i class="fas fa-download       "> </i> Download</button>
+        </div>
+        
+        <div class="modal fade" id="opGrafico" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Opções de Gráficos</h4>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-default modBtn"> <img src="../static/imagens/line" width="35"> Gráfico de Linhas</button>
+                    <button class="btn btn-default modBtn"> <img src="../static/imagens/candlestick.png" width="35">  Gráfico de Velas</button>    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="fechar myBtn" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>    
 </div>
 </body>
