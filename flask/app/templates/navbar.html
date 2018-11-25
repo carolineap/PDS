@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<head>
+    {% block head %}
+        <title>{% block title %}{% endblock %} </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      <!--  <script type="text/javascript" src="login.js"></script>-->
+    {% endblock %}
+</head>
 <!-- ----------------------Menu ------------------------- -->
 <nav id = "nb" class="navbar navbar-default" >
   <div id = "container-navbar" class="container-fluid">

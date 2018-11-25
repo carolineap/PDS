@@ -1,15 +1,10 @@
 <!DOCTYPE html>
+{% extends 'navbar.html' %}
+    
+    {% block title %}CPA-Login{% endblock %}
+
+{% block content %}
 <html lang="pt-BR">
-    <head>
-        <title>CPA Login</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-      <!--  <script type="text/javascript" src="login.js"></script>-->
-    </head>
     <body class="loginBody">
         <div class="row logoLogin" style="max-width: 100%;">
                 <a href="home.html"><h1>CPA</h1></a>
@@ -93,4 +88,5 @@
             }
         </script>
     </body>
+{% endblock %}
 </html>
