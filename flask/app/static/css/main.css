@@ -218,11 +218,21 @@
 }
 .ajusteDiario #ajusteTable{
     text-align: center;
+    margin-bottom: 10px;
 }
 #ajusteTable td {
     border: 1px solid #dddddd;
     padding: 8px;
     text-align: right;
+}
+
+.myBtn{
+    
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
 }
 /* ----------------Login----------------------------------------------------------- */
 .loginBody{
@@ -314,3 +324,4 @@
     margin-bottom: 0;
     margin-top: 0px;
 }
+
