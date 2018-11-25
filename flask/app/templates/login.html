@@ -12,12 +12,15 @@
     </head>
     <body class="loginBody">
         <div class="row logoLogin" style="max-width: 100%;">
-                <h1> CPA </h1>
+                <a href="home.html"><h1>CPA</h1></a>
             <div class="imgcontainer">
-                <img src="../static/imagens/logo.png" alt="Avatar" class="avatar">
+                <a href="home.html"><img src="../static/imagens/logo.png" alt="Avatar" class="avatar"></a>
             </div>
         </div>
-        <form onsubmit="check(this)" method="POST">
+          {% if error %}
+            <script>alert("Erro! Verifique se o CPF e a senha foram digitadas corretamente")</script>
+          {% endif %}
+        <form method="POST">
           <div class="containerBox">
             <label for="cpf"><b>CPF</b></label>
             <input type="text" oninput="cpf_replace(this.form.cpf.value)" placeholder="xxx.xxx.xxx-xx" name="cpf" id="cpf" pattern="\d{3}.\d{3}.\d{3}-\d{2}" title="CPF possui 11 números (Digite apenas os números)" maxlength="15" required autofocus >
@@ -50,14 +53,14 @@
           </div>
         </form>
         <script language="javascript" type="text/javascript">
-            function check(form){
+            /*function check(form){
                 //Adaptado
                 if(form.cpf.value == "000.000.000-00" && form.senha.value == "1234"){
                    window.open('home.html') //abre a home se os campos coincidirem 
                   } else {
                    alert("Erro! Verifique se o CPF e a senha foram digitadas corretamente") //Erro se login inválido
                   }
-                }
+                }*/
             
              function cpf_replace(pCpf){
                 var cpf = pCpf.toString()

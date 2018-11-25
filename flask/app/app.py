@@ -1,11 +1,13 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, session
 from flask import Response
 import psycopg2
 from flask import request
 from datetime import datetime
 import string
 
+
 app = Flask(__name__)
+app.secret_key = 'some_secret'
 
 conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password='1234'")
 cur = conn.cursor()
@@ -28,7 +30,7 @@ class Commodity:
 @app.route('/')
 @app.route('/home.html')
 def home():
-  return render_template('home.html')
+	return render_template('home.html')
 
 @app.route('/milho.html', methods=['GET', 'POST'])
 def milho():
@@ -53,7 +55,7 @@ def milho():
 
 @app.route('/boi.html', methods=['GET', 'POST'])
 def boi():
-    if (request.method == 'POST'):
+	if (request.method == 'POST'):
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
@@ -69,11 +71,11 @@ def boi():
 			return render_template('boi.html', data=boi)
 		except:
 			pass
-    return render_template('boi.html')
+	return render_template('boi.html')
 
 @app.route('/soja.html', methods=['GET', 'POST'])
 def soja():
-    if (request.method == 'POST'):
+	if (request.method == 'POST'):
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
@@ -86,14 +88,17 @@ def soja():
 			soja = []
 			for row in rows:
 				soja.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
+
+			return redirect(url_for('teste'))
+
 			return render_template('soja.html', data=soja)
 		except:
 			pass
-    return render_template('soja.html')
+	return render_template('soja.html')
 
 @app.route('/cafe.html', methods=['GET', 'POST'])
 def cafe():
-    if (request.method == 'POST'):
+	if (request.method == 'POST'):
 		try:
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
@@ -109,8 +114,7 @@ def cafe():
 			return render_template('cafe.html', data=cafe)
 		except:
 			pass
-    return render_template('cafe.html')
-
+	return render_template('cafe.html')
 
 @app.route('/commodities.html')
 def commodities():
@@ -120,10 +124,20 @@ def commodities():
 def analytics():
   return render_template('analytics.html')
 
-@app.route('/login.html')
+
+@app.route('/login.html', methods=['GET', 'POST'])
 def login():
-	return render_template('login.html')
-	
+	session['logged_in'] = False
+	error = None
+	if request.method == 'POST':
+		if request.form['cpf'] != '000.000.000-00' or request.form['senha'] != '1234':
+			error = True
+		else:
+			session['logged_in'] = True
+			return redirect(url_for('home'))
+	return render_template('login.html', error=error)
+
+
 if __name__ == '__main__':
   app.run(debug=True)
 
