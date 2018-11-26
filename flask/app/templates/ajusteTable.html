@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+        <title>{% block title %}{% endblock %} </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+          <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      <!--  <script type="text/javascript" src="login.js"></script>-->
+</head>
+<!-- ----------------------Menu ------------------------- -->
+
+<nav id = "nb" class="navbar navbar-default" >
+  <div id = "container-navbar" class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+          <div class = "navbar-brand">
+            <h3><img src="../static/imagens/logo.png" class="logo" width="40"> CPA
+            </h3>
+        </div>
+    </div>
+   <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="home.html">Home</a></li>
+       <li class="dropdown active"><a href="commodities.html">Commodities<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="active" href="boi.html">Boi Gordo</a></li>
+          <li><a href="cafe.html">Café Arabica 4/5</a></li>
+          <li><a href="milho.html">Milho</a></li>
+            <li><a href="soja.html">Soja</a></li>
+        </ul>
+        <li><a href="analytics.html">Analytics</a></li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if session.logged_in %}
+            <li class="menu-login"><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+            {% endif %}
+            <li class="menu-login"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        
+    </div>
+  </div>
+</nav>
+
+    {% block header %}
+
+	{% endblock %}
+
+<body class="corpo"> 
+	<div class="container-prod" >
+    
+    {% block content %}
+
+	{% endblock %}
+
+    <div class="ajusteDiario">
+        <h2 style="margin: 30px 0;">Ajuste do Pregão Diário</h2>        
+        <form class="formAjuste" method="POST">
+            <label class="titleForm"> De:</label>
+            <input name='data1' type="date" placeholder="dd/mm/aaaa">
+            <label class="titleForm"> Até:</label>
+            <input name='data2' type="date" placeholder="dd/mm/aaaa">
+             <label class="titleForm"> Mês de Vencimento: </label>
+            <select class="formSelec">
+                <option>Todos</option>
+                <option>Março</option>
+                <option>Abril</option>
+                <option>Maio</option>
+                <option>Junho</option>
+                <option>Julho</option>
+                <option>Agosto</option>
+                <option>Setembro</option>
+                <option>Novembro</option>
+            </select>
+            <label class="titleForm"> Frequência: </label>
+            <select class="formSelec" id="freq" onchange="addInput()">
+                <option>Diário</option>
+                <option >Semanal</option>
+                <option >Mensal</option>
+            </select>
+             <select class="formSelec" id="semanal" style="display: none">
+                <option>Domingo</option>
+                <option>Quarta</option>
+                <option>Sábado</option>
+            </select>
+            <select class="formSelec" id="mensal" style="display: none">
+                <option>Primeiro Dia</option>
+                <option>Último Dia</option>
+            </select>
+            <button type="submit" class="btnBusca">Buscar</button>   
+        </form>
+        <table id="ajusteTable" >
+            <tr>
+                <th style="text-align: center">Código</th>
+                <th style="text-align: center">Data</th>
+                <th style="text-align: center">Vencimento</th>
+                <th>Preço do Ajuste Anterior (U$)</th>
+                <th>Preço do Ajuste Atual (U$)</th>
+                <th>Variação (U$)</th>
+                <th>Valor do Ajuste por Contrato</th>
+                <th>Número por Contrato</th>
+                <th>Volume</th>
+            </tr>
+            {%for m in data%}
+                <tr >
+                    <td style="text-align: center">{{m.codigo}}</td>
+                    <td style="text-align: center">{{m.data}}</td>
+                    <td style="text-align: center">{{m.vencimento}}</td>
+                    <td>{{'{:.2f}'.format(m.ajuste_anterior)}}</td>
+                    <td>{{'{:.2f}'.format(m.ajuste_atual)}}</td>
+                    <td>{{'{:.2f}'.format(m.variacao)}}</td>
+                    <td>{{'{:.2f}'.format(m.valor_contrato)}}</td>
+                    <td>{{m.contratos}}</td>
+                    <td>{{'{:.2f}'.format(m.volume)}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div id="graphDown" style="float: right">
+            <button type="button" class="myBtn" data-toggle="modal" data-target="#opGrafico" style="background-color: dodgerblue"> <i class='fas fa-chart-line'></i> Gráficos</button>
+            <button type="button" class="myBtn"><i class="fas fa-download       "> </i> Download</button>
+        </div>
+        
+        <div class="modal fade" id="opGrafico" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Opções de Gráficos</h4>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-default modBtn"> <img src="../static/imagens/line" width="35"> Gráfico de Linhas</button>
+                    <button class="btn btn-default modBtn"> <img src="../static/imagens/candlestick.png" width="35">  Gráfico de Velas</button>    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="fechar myBtn" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>    
+</div>
+</body>
+</html>
+<script>
+    function addInput(){
+        var selec = document.getElementById("freq");
+        var freq = selec.options[ selec.selectedIndex ].value; 
+        if (freq == "Semanal"){
+            document.getElementById("semanal").style.display = 'inline';
+            document.getElementById("mensal").style.display = 'none';
+        }else if (freq == "Mensal"){
+            document.getElementById("mensal").style.display = 'inline';
+            document.getElementById("semanal").style.display = 'none';
+        }else{
+            document.getElementById("mensal").style.display = 'none';
+            document.getElementById("semanal").style.display = 'none';
+        }
+    }
+
+</script>
