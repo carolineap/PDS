@@ -89,8 +89,6 @@ def soja():
 			for row in rows:
 				soja.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
 
-			return redirect(url_for('teste'))
-
 			return render_template('soja.html', data=soja)
 		except:
 			pass
