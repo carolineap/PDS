@@ -4,14 +4,14 @@ import psycopg2
 from flask import request
 from datetime import datetime
 import string
-
+import graficos
+import json
 
 app = Flask(__name__)
 app.secret_key = 'some_secret'
 
 conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password='1234'")
 cur = conn.cursor()
-
 
 class Commodity:
 	def __init__(self, vencimento, codigo, data, ajuste_anterior, ajuste_atual, contratos, volume, tamanhoContrato):
@@ -25,93 +25,128 @@ class Commodity:
 		self.variacao = self.ajuste_atual - self.ajuste_anterior
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
 		self.contratos = str(contratos)
-		self.volume = float(volume)
+		self.volume = volume
+
+def filtro(rows, vencimento, frequencia, dia):
+
+	r = []
+	if vencimento != 'all':
+		for row in rows:
+			if row[2][0] == vencimento:
+				r.append(row)
+	else:
+		r = rows
+
+	# result = []
+	# if frequencia != 'D':
+	# 	if (frequencia == 'S'):
+	# 		for row in r:
+	# 			# data = row[0]
+	# 			print(data)
+	# 		# 	data = str(data).replace('-', '/')
+	# 			# data = datetime.strptime(data, '%Y/%m/%d')
+	# 		# 	diaSemana = data.datetime.weekday()
+	# 		# 	if dia == diaSemana:
+	# 		# 		result.append(row)
+			
+	# 	elif (frequencia == 'M'):
+	# 		if (dia == 'P'):
+	# 			primeiro = None
+	# 			for row in r:
+	# 				data = row[0]
+	# 				data = str(data).replace('-', '/')
+	# 				data = datetime.strptime(data, '%Y/%m/%d')
+	# 				if (data.day == 1):
+	# 					primeiro = data.month
+	# 					result.append(row)
+	# 		elif (dia == 'U'):
+	# 			ultimo = None
+	# 			for row in r:
+	# 				data = row[0]
+	# 				data = str(data).replace('-', '/')
+	# 				data = datetime.strptime(data, '%Y/%m/%d')
+	# 				if (data.day == 30 or 31):
+	# 					ultimo = data.month
+	# 					result.append(row)
+	# else:
+	# 	result = r
+
+	return r
 
 @app.route('/')
 @app.route('/home.html')
 def home():
 	return render_template('home.html')
 
-@app.route('/milho.html', methods=['GET', 'POST'])
-def milho():
-	if (request.method == 'POST'):
+@app.route('/requestTable', methods=['GET', 'POST'])
+def requestTable():
+  	
+  	if (request.method == 'POST'):
 		try:
+			table = request.form.get('commoditie')
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+			vencimento = request.form.get('vencimento')
+
+			frequencia = request.form.get('frequencia')
+			if (frequencia == 'S'):
+				dia = request.form.get('diaSemana')
+			elif (frequencia == 'M'):
+				dia = request.form.get('diaMes')
+			else:
+				dia = None
 
 			if (len(data2) == 0): data2 = data1
 
-			cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+			if (table == 'milho'):
+				cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				tamanhoContrato = 450
+			elif (table == 'boi'):
+				cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))	
+				tamanhoContrato = 330		
+			elif (table == 'cafe'):
+				cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))	
+				tamanhoContrato = 450		
+			elif (table == 'soja'):
+				cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				tamanhoContrato = 100			
+			else:
+				pass
+
+			
 			rows = cur.fetchall()
+			rows = filtro(rows, vencimento, frequencia, dia)
 			response = ''
-			milho = []
+			data = []
 			for row in rows:
-				milho.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
-			return render_template('milho.html', data=milho)
+				data.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], tamanhoContrato))	
+
+			return json.dumps(data, default=lambda o: o.__dict__, indent=4, separators=(',',':'))
+
 		except:
 			pass
-		
+
+	return render_template('/home.html')
+
+@app.route('/milho.html')
+def milho():
 	return render_template('milho.html')
 
 @app.route('/boi.html', methods=['GET', 'POST'])
 def boi():
-	if (request.method == 'POST'):
-		try:
-			data1 = request.form.get('data1')
-			data2 = request.form.get('data2')
-
-			if (len(data2) == 0): data2 = data1
-
-			cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
-			rows = cur.fetchall()
-			response = ''
-			boi = []
-			for row in rows:
-				boi.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 330))
-			return render_template('boi.html', data=boi)
-		except:
-			pass
 	return render_template('boi.html')
+
+@app.route('/ajusteTable.html', methods = ['POST'])
+def ajusteTable():
+	return render_template('ajusteTable.html')
+
 
 @app.route('/soja.html', methods=['GET', 'POST'])
 def soja():
-	if (request.method == 'POST'):
-		try:
-			data1 = request.form.get('data1')
-			data2 = request.form.get('data2')
-
-			if (len(data2) == 0): data2 = data1
-
-			cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
-			rows = cur.fetchall()
-			response = ''
-			soja = []
-			for row in rows:
-				soja.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 450))
-
-			return render_template('soja.html', data=soja)
-		except:
-			pass
 	return render_template('soja.html')
 
 @app.route('/cafe.html', methods=['GET', 'POST'])
 def cafe():
-	if (request.method == 'POST'):
-		try:
-			data1 = request.form.get('data1')
-			data2 = request.form.get('data2')
-
-			if (len(data2) == 0): data2 = data1
-
-			cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
-			rows = cur.fetchall()
-			response = ''
-			cafe = []
-			for row in rows:
-				cafe.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], 100))
-			return render_template('cafe.html', data=cafe)
-		except:
-			pass
 	return render_template('cafe.html')
 
 @app.route('/commodities.html')
@@ -134,6 +169,15 @@ def login():
 			session['logged_in'] = True
 			return redirect(url_for('home'))
 	return render_template('login.html', error=error)
+
+@app.route('/graph.html')
+def graph():
+
+	graphJSON = None
+	#graphJSON = graficos.lines()
+
+	return render_template('graph.html', graphJSON=graphJSON)
+
 
 
 if __name__ == '__main__':
