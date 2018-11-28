@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-        <title>SOCORRO</title>
+        <title>CPA - Gráficos </title>
           <meta charset="utf-8">
     </head>
 
@@ -9,12 +9,11 @@
  
     <div class="header">
         <h2>
-            Plotly Chart Demo
+            Candle Stick
         </h2>
     </div>
  
-    <div id="chart" class="chart">
-    </div>
+    <div id="chart" class="chart"></div>
  
 	</body>
  
@@ -24,13 +23,32 @@
     <!-- Plotly.js -->
     <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
- 
-    <script type="text/javascript">
-         
-        var graph = {{graphJSON | safe}};
 
-        Plotly.plot('chart',graph, {});        
- 
+    <script type="text/javascript">
+          
+        function candle(graph) {
+
+
+        }
+
     </script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        d = localStorage.getItem('tabela');
+        data = JSON.parse(d);
+        
+    
+            
+        } else {
+            alert("Ocorreu um erro com a geração do gráfico! Tente novamente");
+        }
+    });
+
+    </script>
+
+
+    <div id="chart" style="width:600px;height:250px;"></div>
 
 </html>

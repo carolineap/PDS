@@ -332,6 +332,9 @@
     margin-top: 0px;
 }
 
+#graphDown {
+    display: none;  
+}
 
 /* Loader */
 .loader {

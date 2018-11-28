@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>CPA - Gráficos </title>
+          <meta charset="utf-8">
+    </head>
+
+    <body>
+ 
+    <div class="header">
+        <h2>
+            Gráfico de Linhas
+        </h2>
+    </div>
+ 
+    <div id="chart" class="chart"></div>
+ 
+	</body>
+ 
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script type="text/javascript">
+          
+        function line(graph) {
+
+            var layout = {};
+
+            Plotly.newPlot('chart', graph, layout);
+
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        d = localStorage.getItem('tabela');
+        data = JSON.parse(d);
+        if (data) {
+            var x = [];
+            var y = [];
+            var graph = [];
+            var v = [];
+
+            for (var i = 0; i < data.length; i++) {
+                
+                vencimento = data[i].vencimento;
+
+                if (v.includes(vencimento) == false) {
+                    
+                    v.push(vencimento);
+                
+                    for (var j = 0; j < data.length; j++) {
+
+                        if (data[j].vencimento == vencimento) {
+
+                            x.push(data[j].data);
+                            y.push(data[j].ajuste_atual);
+
+                        }                   
+                    }
+
+                    var trace = {
+                        x: x,
+                        y: y,
+                        mode: 'lines+markers',
+                        type: 'scatter',
+                        name: vencimento
+                    };
+                    graph.push(trace);
+                    x = [];
+                    y = [];
+
+                }
+            }
+
+
+            line(graph);
+
+            
+        } else {
+            alert("Ocorreu um erro com a geração do gráfico! Tente novamente");
+        }
+    });
+
+    </script>
+
+
+    <div id="chart" style="width:600px;height:250px;"></div>
+
+</html>

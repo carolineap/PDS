@@ -4,7 +4,6 @@ import psycopg2
 from flask import request
 from datetime import datetime
 import string
-import graficos
 import json
 
 app = Flask(__name__)
@@ -37,17 +36,21 @@ def filtro(rows, vencimento, frequencia, dia):
 	else:
 		r = rows
 
-	# result = []
-	# if frequencia != 'D':
-	# 	if (frequencia == 'S'):
-	# 		for row in r:
-	# 			# data = row[0]
-	# 			print(data)
-	# 		# 	data = str(data).replace('-', '/')
-	# 			# data = datetime.strptime(data, '%Y/%m/%d')
-	# 		# 	diaSemana = data.datetime.weekday()
-	# 		# 	if dia == diaSemana:
-	# 		# 		result.append(row)
+	result = []
+	if frequencia != 'D':
+		if (frequencia == 'S'):
+			for row in r:
+				data = row[0]
+				print(data)
+				data = str(data).replace('-', '/')
+				data = datetime.strptime(data, '%Y/%m/%d')
+				diaSemana = data.datetime.weekday()
+			
+				print(str(diaSemana))
+				if int(dia) == diaSemana:
+					result.append(row)
+	else:
+		result = r
 			
 	# 	elif (frequencia == 'M'):
 	# 		if (dia == 'P'):
@@ -68,10 +71,8 @@ def filtro(rows, vencimento, frequencia, dia):
 	# 				if (data.day == 30 or 31):
 	# 					ultimo = data.month
 	# 					result.append(row)
-	# else:
-	# 	result = r
-
-	return r
+	
+	return result
 
 @app.route('/')
 @app.route('/home.html')
@@ -80,8 +81,8 @@ def home():
 
 @app.route('/requestTable', methods=['GET', 'POST'])
 def requestTable():
-  	
-  	if (request.method == 'POST'):
+	
+	if (request.method == 'POST'):
 		try:
 			table = request.form.get('commoditie')
 			data1 = request.form.get('data1')
@@ -155,7 +156,7 @@ def commodities():
 
 @app.route('/analytics.html')  
 def analytics():
-  return render_template('analytics.html')
+	return render_template('analytics.html')
 
 
 @app.route('/login.html', methods=['GET', 'POST'])
@@ -170,16 +171,26 @@ def login():
 			return redirect(url_for('home'))
 	return render_template('login.html', error=error)
 
-@app.route('/graph.html')
-def graph():
+@app.route('/lines.html', methods=['GET', 'POST'])
+def lines():
 
-	graphJSON = None
-	#graphJSON = graficos.lines()
-
-	return render_template('graph.html', graphJSON=graphJSON)
-
-
+	if (request.method == 'POST'):
+		try:
+			linhas = request.form.get('linhas')
+			if linhas == 'True':
+				return render_template('lines.html')
+			else:
+				velas = request.form.get('velas')
+				if velas == 'True':
+					return render_template('candle.html')
+		except:
+			pass
+		
+	return render_template('home.html')		
+	
+@app.route('/painel.html', methods=['GET', 'POST'])
+def painel():
+	return render_template('painel.html')
 
 if __name__ == '__main__':
   app.run(debug=True)
-

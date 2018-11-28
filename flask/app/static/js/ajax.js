@@ -3,6 +3,7 @@ $(document).ready(function() {
     var form = $('#fAjuste');
 
 	form.on('submit', function(event) {
+
 		var form = $(this);
 		$.ajax({
 			data : form.serialize(),
@@ -14,8 +15,9 @@ $(document).ready(function() {
 		.done(function(data) {
 
 			$("#ajusteTableB").empty()
-			drawTable(data);	
-			
+            drawTable(data);
+            localStorage.setItem("tabela", JSON.stringify(data));
+
 		});
 
 		event.preventDefault();
@@ -27,12 +29,14 @@ $(document).ready(function() {
 function drawTable(data) {
 
     if (data.length == 0) {
-         $("#ajusteTableB").append($("<p style='text-align: center'>Não há resultados.</p>")); 
+         $("#ajusteTableB").append($("<p style='text-align: center;'>Não há resultados.</p>")); 
     } else {
 
         for (var i = 0; i < data.length; i++) {
             drawRow(data[i]);
         }
+
+        $("#graphDown").show()
 
     }
 }

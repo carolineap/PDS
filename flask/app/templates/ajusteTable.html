@@ -121,7 +121,7 @@
                   <h4 class="modal-title">Opções de Gráficos</h4>
                 </div>
                 <div class="modal-body">
-                	<form method="post">
+                	<form method="post" action="{{ url_for('lines') }}" target="_blank">
                     	<button name = "linhas" value="True" class="btn btn-default modBtn"> <img src="../static/imagens/line" width="35"> Gráfico de Linhas</button>
                     	<button name = "velas" value="True" class="btn btn-default modBtn"> <img src="../static/imagens/candlestick.png" width="35">  Gráfico de Velas</button>
                     </form>    
