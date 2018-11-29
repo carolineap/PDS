@@ -36,8 +36,10 @@
         <ul class="nav navbar-nav navbar-right">
             {% if session.logged_in %}
             <li class="menu-login"><a href="painel.html"><span class="glyphicon glyphicon-cog"></span></a></li>
-            {% endif %}
+            <li class="menu-login"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            {% else %}
             <li class="menu-login"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            {% endif %}
         </ul>
         
     </div>
