@@ -13,7 +13,7 @@ conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password=
 cur = conn.cursor()
 
 class Commodity:
-	def __init__(self, vencimento, codigo, data, ajuste_anterior, ajuste_atual, contratos, volume, tamanhoContrato):
+	def __init__(self, vencimento, codigo, data, ajuste_anterior, ajuste_atual, preco_abertura, preco_min, preco_max, contratos, volume, tamanhoContrato):
 		self.codigo = str(codigo)
 		self.vencimento = str(vencimento)
 		data = str(data).replace('-', '/')
@@ -21,17 +21,28 @@ class Commodity:
 		self.data = str(data.day).zfill(2) + "/" + str(data.month).zfill(2) + "/" + str(data.year)
 		self.ajuste_anterior = float(ajuste_anterior)
 		self.ajuste_atual = float(ajuste_atual)
+		self.preco_abertura = float(preco_abertura)
+		self.preco_min = float(preco_min)
+		self.preco_max = float(preco_max)
 		self.variacao = self.ajuste_atual - self.ajuste_anterior
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
 		self.contratos = str(contratos)
 		self.volume = volume
 
-def filtro(rows, vencimento, frequencia, dia):
+def filtro(rows, vencimento, frequencia, dia, ano):
 
 	r = []
 	if vencimento != 'all':
 		for row in rows:
-			if row[2][0] == vencimento:
+			if ano != 'all':
+				if row[2][0] == vencimento and row[2][1:] == ano:
+					r.append(row)
+			else:
+				if row[2][0] == vencimento:
+					r.append(row)
+	elif ano != 'all':
+		for row in rows:
+			if row[2][1:] == ano:
 				r.append(row)
 	else:
 		r = rows
@@ -85,6 +96,7 @@ def requestTable():
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
 			vencimento = request.form.get('vencimento')
+			ano = request.form.get('ano')
 
 			frequencia = request.form.get('frequencia')
 			if (frequencia == 'S'):
@@ -113,11 +125,11 @@ def requestTable():
 
 			
 			rows = cur.fetchall()
-			rows = filtro(rows, vencimento, frequencia, dia)
+			rows = filtro(rows, vencimento, frequencia, dia, ano)
 			response = ''
 			data = []
 			for row in rows:
-				data.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[4], row[3], tamanhoContrato))	
+				data.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
 
 			return json.dumps(data, default=lambda o: o.__dict__, indent=4, separators=(',',':'))
 
@@ -125,6 +137,40 @@ def requestTable():
 			pass
 
 	return render_template('/home.html')
+
+@app.route('/requestSelect', methods=['GET', 'POST'])
+def requestSelect():
+
+	if (request.method == 'POST'):
+		try:
+
+			anos = []
+			
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+
+			if (len(data2) == 0): data2 = data1
+
+			ano1 = data1[2:4]
+			ano2 = data2[2:4]			
+
+			ano1 = int(ano1)
+			ano2 = int(ano2)
+
+			if ano1 == ano2:
+				anos.append(ano1)
+				anos.append(ano1 + 1)
+			else:
+				while ano1 <= ano2 + 1:
+					anos.append(ano1)
+					ano1 = ano1 + 1
+
+				
+			return json.dumps(anos)
+		except:
+			pass
+
+	return render_template('/home.html')	
 
 @app.route('/milho.html')
 def milho():
@@ -167,8 +213,9 @@ def login():
 			return redirect(url_for('home'))
 	return render_template('login.html', error=error)
 
-@app.route('/lines.html', methods=['GET', 'POST'])
-def lines():
+
+@app.route('/graph.html', methods=['GET', 'POST'])
+def graph():
 
 	if (request.method == 'POST'):
 		try:
@@ -183,6 +230,7 @@ def lines():
 			pass
 		
 	return render_template('home.html')		
+
 	
 @app.route('/painel.html', methods=['GET', 'POST'])
 def painel():

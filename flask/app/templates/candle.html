@@ -28,6 +28,16 @@
           
         function candle(graph) {
 
+            var layout = {
+                'yaxis' : {
+                    tickformat :".2f"
+                },
+                'xaxis' : {
+                    tickformat :".2f"
+                }
+            };
+
+            Plotly.plot('chart', graph, layout);
 
         }
 
@@ -39,7 +49,43 @@
         d = localStorage.getItem('tabela');
         data = JSON.parse(d);
         
-    
+        if (data) {
+
+            var x = [];
+            var max = [];
+            var min = [];
+            var open = [];
+            var close = [];
+            var graph = [];
+            var vencimento;
+
+            vencimento = data[0].vencimento;
+
+            for (var i = 0; i < data.length; i++) {
+                if (vencimento != data[i].vencimento) {
+                    alert("Não foi possível gerar o Candlestick! Os dados devem conter apenas um tipo de vencimento");
+                    window.close();
+                    return;
+                }
+                x.push(data[i].data);
+                max.push(data[i].preco_max);
+                min.push(data[i].preco_min);
+                open.push(data[i].preco_abertura);
+                close.push(data[i].ajuste_atual);
+            }
+
+            var trace = {
+                x: x,
+                close: close,
+                high: max,
+                low: min,
+                open: open,
+                type: 'candlestick'
+            }
+
+            graph.push(trace);
+
+            candle(graph);
             
         } else {
             alert("Ocorreu um erro com a geração do gráfico! Tente novamente");

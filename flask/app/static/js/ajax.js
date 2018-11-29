@@ -26,6 +26,41 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function() {
+
+    $('#ano').on('mouseenter', function(event) {
+
+    var data1 = $('#data1').val();
+    var data2 = $('#data2').val();
+
+        $.ajax({
+            data : {'data1': data1, 'data2': data2},
+            type : 'POST',
+            dataType: "json",
+            cache: false,
+            url : '/requestSelect'
+        })
+        .done(function(data) {
+            $("#ano").empty()
+            addSelect(data);
+
+        });
+    });
+
+});
+
+function addSelect(data) {
+
+    $('#ano').append($("<option value = 'all' id = 'op'>Todos</option>"));
+
+    for (var i = 0; i < data.length; i++) {
+
+        $('#ano').append($("<option value = " + data[i] + ">" + data[i] + "</option>"));
+    }
+
+}
+
+
 function drawTable(data) {
 
     if (data.length == 0) {
