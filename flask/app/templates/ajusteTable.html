@@ -32,12 +32,7 @@
     <ul class="nav navbar-nav navbar-left">
         <li><a href="home.html">Home</a></li>
        <li class="dropdown active"><a href="commodities.html">Commodities<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a class="active" href="boi.html">Boi Gordo</a></li>
-          <li><a href="cafe.html">Café Arabica 4/5</a></li>
-          <li><a href="milho.html">Milho</a></li>
-            <li><a href="soja.html">Soja</a></li>
-        </ul>
+          {% block menu %}{% endblock %}
         <li><a href="analytics.html">Analytics</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -96,9 +91,9 @@
                 <th style="text-align: center">Código</th>
                 <th style="text-align: center">Data</th>
                 <th style="text-align: center">Vencimento</th>
-                <th>Preço do Ajuste Anterior (U$)</th>
-                <th>Preço do Ajuste Atual (U$)</th>
-                <th>Variação (U$)</th>
+                <th>Preço do Ajuste Anterior {%block unidade1%} {% endblock %}</th>
+                <th>Preço do Ajuste Atual {%block unidade2%} {% endblock %}</th>
+                <th>Variação {%block unidade3%} {% endblock %}</th>
                 <th>Valor do Ajuste por Contrato</th>
                 <th>Número por Contrato</th>
                 <th>Volume</th>

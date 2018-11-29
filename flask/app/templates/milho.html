@@ -4,6 +4,15 @@
     
     {% block title %}CPA-Milho{% endblock %}
 
+{% block menu %}
+<ul class="dropdown-menu">
+    <li><a href="boi.html">Boi Gordo</a></li>
+    <li><a href="cafe.html">Café Arabica 4/5</a></li>
+    <li><a class = "active" href="milho.html">Milho</a></li>
+    <li><a href="soja.html">Soja</a></li>
+</ul>
+{% endblock %}
+
     {% block header %}
     <!-- --------------------------Header -------------------------- -->
     <div class="header-Img">
@@ -107,5 +116,10 @@
 </select>
 
 {% endblock %}
+
+{%block unidade1 %}R${% endblock %}
+{%block unidade2 %}R${% endblock %}
+{%block unidade3 %}R${% endblock %}
+
 
 </html>

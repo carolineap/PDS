@@ -28,16 +28,8 @@
         </div>
     </div>
    <div class="collapse navbar-collapse" id="myNavbar">
-    <ul class="nav navbar-nav navbar-left">
-        <li><a href="home.html">Home</a></li>
-       <li class="dropdown active"><a href="commodities.html">Commodities<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a class="active" href="boi.html">Boi Gordo</a></li>
-          <li><a href="cafe.html">Café Arabica 4/5</a></li>
-          <li><a href="milho.html">Milho</a></li>
-            <li><a href="soja.html">Soja</a></li>
-        </ul>
-        <li><a href="analytics.html">Analytics</a></li>
+        {% block bar %}
+        {% endblock %}
       </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if session.logged_in %}

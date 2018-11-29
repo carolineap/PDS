@@ -137,11 +137,6 @@ def milho():
 def boi():
 	return render_template('boi.html')
 
-@app.route('/ajusteTable.html', methods = ['POST'])
-def ajusteTable():
-	return render_template('ajusteTable.html')
-
-
 @app.route('/soja.html', methods=['GET', 'POST'])
 def soja():
 	return render_template('soja.html')
@@ -149,6 +144,10 @@ def soja():
 @app.route('/cafe.html', methods=['GET', 'POST'])
 def cafe():
 	return render_template('cafe.html')
+
+@app.route('/ajusteTable.html', methods = ['POST'])
+def ajusteTable():
+	return render_template('ajusteTable.html')
 
 @app.route('/commodities.html')
 def commodities():
