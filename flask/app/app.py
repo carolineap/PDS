@@ -41,12 +41,9 @@ def filtro(rows, vencimento, frequencia, dia):
 		if (frequencia == 'S'):
 			for row in r:
 				data = row[0]
-				print(data)
 				data = str(data).replace('-', '/')
 				data = datetime.strptime(data, '%Y/%m/%d')
-				diaSemana = data.datetime.weekday()
-			
-				print(str(diaSemana))
+				diaSemana = data.weekday()
 				if int(dia) == diaSemana:
 					result.append(row)
 	else:
