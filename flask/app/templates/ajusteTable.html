@@ -68,9 +68,13 @@
             <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
             <label class="titleForm"> Até:</label>
             <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa">
-            <label class="titleForm"> Mês de Vencimento: </label>
+            <label class="titleForm"> Mês: </label>
             {% block select %}
             {% endblock %}
+            <label class="titleForm"> Ano: </label>
+            <select name = "frequencia" class="formSelec">
+                <option value = "D">Todos</option>
+            </select> 
             <label class="titleForm"> Frequência: </label>
             <select name = "frequencia" class="formSelec" id="freq" onchange="addInput()">
                 <option value = "D">Diário</option>
