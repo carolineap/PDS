@@ -154,7 +154,7 @@ def requestSelect():
 			ano1 = data1[2:4]
 			ano2 = data2[2:4]			
 
-			ano1 = int(ano1)
+			ano1 = int(ano1) 
 			ano2 = int(ano2)
 
 			if ano1 == ano2:
