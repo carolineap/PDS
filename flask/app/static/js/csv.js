@@ -8,7 +8,6 @@ function makeCSV() {
 
 		for (var i = 0; i < data.length; i++) {
 			csv += data[i].data + "," + data[i].codigo + "," + data[i].vencimento + "," + data[i].ajuste_anterior + "," + data[i].ajuste_atual + "," + data[i].variacao + "," + data[i].valor_contrato + "," + data[i].preco_abertura + "," + data[i].preco_min + "," + data[i].preco_max + "," + data[i].contratos + "," + data[i].volume + "\n";
-			alert(csv);
 		}
 
 	   	var hiddenElement = document.createElement('a');
