@@ -13,7 +13,7 @@ conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password=
 cur = conn.cursor()
 
 class Commodity:
-	def __init__(self, vencimento, codigo, data, ajuste_anterior, ajuste_atual, preco_abertura, preco_min, preco_max, contratos, volume, tamanhoContrato):
+	def __init__(self, data, codigo, vencimento, ajuste_anterior, ajuste_atual, preco_abertura, preco_min, preco_max, contratos, volume, tamanhoContrato):
 		self.codigo = str(codigo)
 		self.vencimento = str(vencimento)
 		data = str(data).replace('-', '/')
@@ -129,7 +129,7 @@ def requestTable():
 			response = ''
 			data = []
 			for row in rows:
-				data.append(Commodity(row[2], row[1], row[0], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
+				data.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
 
 			return json.dumps(data, default=lambda o: o.__dict__, indent=4, separators=(',',':'))
 

@@ -71,7 +71,7 @@ function drawTable(data) {
             drawRow(data[i]);
         }
 
-        $("#graphDown").show()
+        $("#graphDown").show();
 
     }
 }
