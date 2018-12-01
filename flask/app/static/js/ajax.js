@@ -29,13 +29,15 @@ $(document).ready(function() {
 
 });
 
+
 $(document).ready(function() {
 
     $('#ano').on('mouseenter', function(event) {
 
-    if ($('#ano').val() == 'all') {     
-        var data1 = $('#data1').val();
-        var data2 = $('#data2').val();
+    if ($('#ano').val() == 'all' || $('#data1').val() != data1 || $('#data2').val() != data2) {     
+            
+            data1 = $('#data1').val();
+            data2 = $('#data2').val();
 
             $.ajax({
                 data : {'data1': data1, 'data2': data2},
