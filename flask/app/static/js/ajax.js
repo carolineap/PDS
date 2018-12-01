@@ -19,7 +19,7 @@ $(document).ready(function() {
             localStorage.setItem("tabela", JSON.stringify(data));
             localStorage.setItem("data1", $("#data1").val());
             localStorage.setItem("data2", $("#data2").val());
-            localStorage.setItem("vencimento", String(data[0].vencimento));
+            localStorage.setItem("vencimento", String(data[0].vencimento)); 
 
 		});
 
