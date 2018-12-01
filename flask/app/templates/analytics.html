@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 {% extends 'navbar.html' %}
-    
+   
 {% block title %}CPA-Analytics{% endblock %}
 
 {% block bar %}
@@ -16,12 +16,72 @@
 </ul>
 <li class = "active"><a href="analytics.html">Analytics</a></li>
 {% endblock %}
-
+<script>
+function mudar() {
+    var icon =  document.getElementById("minusPlus");
+    icon.className = "more-less glyphicon glyphicon-minus";
+}
+</script>
 
 {% block content %}
 <body>
-   
+    {% block header %}
+    <!-- --------------------------Header -------------------------- -->
+    <div class="header-Img">
+        <img src="../static/imagens/banner3.png" style="width: 100%">
+    </div>
+    {% endblock %}
+    <div class="analiseBody">
+        <form class="formAjuste">
+            <label class="titleForm calc">Commoditie:</label>
+            <select class="formSelec">
+                <option>Boi Gordo</option>
+                <option>Café Arábica 4/5</option>
+                <option>Milho</option>
+                <option>Soja</option>
+            </select>
+            <label class="titleForm calc"> De:</label>
+            <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
+            <label class="titleForm calc"> Até:</label>
+            <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa">
+            <br>
+            <div class="panel-group panel-group2">
+                <div class="panel panel-default">
+                  <div class="panel-heading heading2">
+                    <h6 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapseOne" onclick="mudar()" >Cálculos e Operações  <i id="minusPlus" class="more-less glyphicon glyphicon-plus" style="font-size: 15px; float: right;"></i></a>
+                    </h6>
+                  </div>
+                  <div id="collapse1" class="panel-collapse collapse">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                         <label class="titleForm calculos">Média
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                           <label class="titleForm calculos">Desvio Padrão
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="titleForm calculos">Média Móvel
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="titleForm calculos">Ln
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                      </li>
+
+                    </ul>
+                    <div class="panel-footer">Footer</div>
+                  </div>
+                </div>
+              </div>
+        </form>
+    </div>
 
 </body>
 {% endblock %}
-</html
+
+</html>
