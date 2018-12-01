@@ -27,7 +27,7 @@ class Commodity:
 		self.variacao = self.ajuste_atual - self.ajuste_anterior
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
 		self.contratos = str(contratos)
-		self.volume = volume
+		self.volume = str("{:,}".format(int(volume))).replace(',', '.')
 
 def filtro(rows, vencimento, frequencia, dia, ano):
 
