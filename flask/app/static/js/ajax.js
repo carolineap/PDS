@@ -17,6 +17,9 @@ $(document).ready(function() {
 			$("#ajusteTableB").empty()
             drawTable(data);
             localStorage.setItem("tabela", JSON.stringify(data));
+            localStorage.setItem("data1", $("#data1").val());
+            localStorage.setItem("data2", $("#data2").val());
+            localStorage.setItem("vencimento", String(data[0].vencimento));
 
 		});
 
