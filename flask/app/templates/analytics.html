@@ -31,7 +31,9 @@ function mudar() {
         <img src="../static/imagens/banner3.png" style="width: 100%">
     </div>
     {% endblock %}
+      <!-- --------------------------Body -------------------------- -->
     <div class="analiseBody">
+          <!-- --------------------------Form -------------------------- -->
         <form class="formAjuste">
             <label class="titleForm calc">Commoditie:</label>
             <select class="formSelec">
@@ -79,9 +81,13 @@ function mudar() {
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Móvel
-                                    <input type="checkbox" id="movel">
+                                    <input type="checkbox" id="movel" onclick="janela()">
                                     <span class="checkmark"></span>
                                   </label>
+                                  <label class="titleForm" id="tamJanela" style="display: none"> Tamanho Da Janela:
+                                    <input type="number" min="1" max="30" style="width: 50%;">
+                                  </label>
+                                  
                                   <label class="titleForm calculos">Ln
                                     <input type="checkbox" id="ln">
                                     <span class="checkmark"></span>
@@ -145,6 +151,7 @@ function mudar() {
                 </div>
             </div>
         </form>
+          <!-- --------------------------Tabelas de Resultados -------------------------- -->
         <div class="resultado" id="tableMedDia" style="display: none">
             <hr>
             <h3>Média Diária</h3>
@@ -363,6 +370,16 @@ function mudar() {
         }else{
             document.getElementById("tableln").style.display ='none';
         }
+    }
+    function janela(){
+        var checkBox = document.getElementById("movel");
+        if (checkBox.checked == true){
+            var tam = document.getElementById("tamJanela").style.display = "block";    
+        }else{
+            var tam = document.getElementById("tamJanela").style.display = "none";
+        }
+        
+        
     }
 </script>
 {% endblock %}
