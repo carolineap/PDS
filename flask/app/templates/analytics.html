@@ -44,44 +44,158 @@ function mudar() {
             <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
             <label class="titleForm calc"> Até:</label>
             <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa">
+            <button type="submit" class="btnBusca" style="width: 10%">Calcular</button>  
             <br>
-            <div class="panel-group panel-group2">
-                <div class="panel panel-default">
-                  <div class="panel-heading heading2">
-                    <h6 class="panel-title">
-                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapseOne" onclick="mudar()" >Cálculos e Operações  <i id="minusPlus" class="more-less glyphicon glyphicon-plus" style="font-size: 15px; float: right;"></i></a>
-                    </h6>
-                  </div>
-                  <div id="collapse1" class="panel-collapse collapse">
-                    <ul class="list-group">
-                      <li class="list-group-item">
-                         <label class="titleForm calculos">Média
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                           <label class="titleForm calculos">Desvio Padrão
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                          <label class="titleForm calculos">Média Móvel
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                          <label class="titleForm calculos">Ln
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                      </li>
-
-                    </ul>
-                    <div class="panel-footer">Footer</div>
-                  </div>
+            <div class="row">
+                <div class="col-md-4">
+                     <div class="panel-group" id="panel-group2">
+                        <div class="panel panel-default" id="panel-default2">
+                          <div class="panel-heading" id="heading2">
+                            <h6 class="panel-title" id="panel-title2">
+                              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapseOne" onclick="mudar(1)" >Cálculos e Operações  <i id="minusPlus" class="more-less glyphicon glyphicon-plus" style="font-size: 15px; float: right;"></i></a>
+                            </h6>
+                          </div>
+                          <div id="collapse1" class="panel-collapse collapse">
+                            <ul class="list-group">
+                              <li class="list-group-item">
+                                 <label class="titleForm calculos">Média Diária
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos">Média Semanal
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos">Média Quinzenal
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos">Média Mensal
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                   <label class="titleForm calculos">Desvio Padrão
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos">Média Móvel
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos">Ln
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
+                              </li>
+                            </ul>
+                            <div class="panel-footer"></div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
-              </div>
+                <div class="col-md-4">
+                     <div class="panel-group" id="panel-group3">
+                        <div class="panel panel-default" id="panel-default3">
+                          <div class="panel-heading" id="heading3">
+                            <h6 class="panel-title" id="panel-title3">
+                              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapseOne" onclick="mudar(2)" >Atributos de Operação  <i id="minusPlus2" class="more-less glyphicon glyphicon-plus" style="font-size: 15px; float: right;"></i></a>
+                            </h6>
+                          </div>
+                          <div id="collapse3" class="panel-collapse collapse">
+                            <ul class="list-group">
+                              <li class="list-group-item">
+                                 <label class="titleForm calculos"> Todos
+                                    <input type="checkbox" id="todos" onclick="selctAll()">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos"> Preço do Ajusto Atual
+                                    <input type="checkbox" id="check1">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos"> Variação
+                                    <input type="checkbox" id="check2">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos"> Número de Contratos em Aberto
+                                    <input type="checkbox" id="check3">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                   <label class="titleForm calculos"> Volume
+                                    <input type="checkbox" id="check4">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos"> Preço de Abertura
+                                    <input type="checkbox" id="check5">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos"> Preço Mínimo
+                                    <input type="checkbox" id="check6">
+                                    <span class="checkmark"></span>
+                                  </label>
+                                  <label class="titleForm calculos"> Preço Máximo
+                                    <input type="checkbox" id="check7">
+                                    <span class="checkmark"></span>
+                                  </label>
+                              </li>
+                            </ul>
+                            <div class="panel-footer"></div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
         </form>
+        <div>
+        
+        </div>
     </div>
 
 </body>
+<script>
+    var flag = 1;
+    var flag2 = 1;
+    function mudar(op){
+        if(op == 1){
+            var icon = document.getElementById("minusPlus");
+            if(flag == 1){
+                icon.className = 'more-less glyphicon glyphicon-minus';
+                flag = 2;
+            }else{
+                 icon.className = 'more-less glyphicon glyphicon-plus';
+                flag = 1;
+            }
+        }else{
+            var icon = document.getElementById("minusPlus2");
+            if(flag == 1){
+                icon.className = 'more-less glyphicon glyphicon-minus';
+                flag = 2;
+            }else{
+                 icon.className = 'more-less glyphicon glyphicon-plus';
+                flag = 1;
+            }
+        }
+        
+        
+    }
+    function selctAll(){
+        var checkBox = document.getElementById("todos");
+        if (checkBox.checked == true){
+            for(var i = 1; i <= 7; i++){
+                var check = document.getElementById("check"+i);
+                if(check.checked == false){
+                    check.checked = true;
+                }
+            }
+        }else{
+            for(var i = 1; i <= 7; i++){
+                var check = document.getElementById("check"+i);
+                if(check.checked == true){
+                    check.checked = false;
+                }
+            }
+        }
+    }
+</script>
 {% endblock %}
 
 </html>

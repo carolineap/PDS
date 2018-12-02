@@ -363,17 +363,20 @@
 .calc{
     font-size: 1.2em;
 }
-.panel-group{
-    width: 30%;
+#panel-group2, #panel-group3{
+    width: 100%;
 }
 
-.heading2{
+#heading2, #heading3{
     background-color: #eee !important;
     font-size: 0.9em;
 }
-.panel-group2 a{
+#panel-group2 a, #panel-group3 a{
     color: black;
     text-decoration: none;
+}
+#panel-group3{
+    display: inline-block;
 }
 /* ----------------Redefinição do checkbox----------------------------------------------------------- */
 .calculos {
@@ -387,6 +390,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-weight: normal;
 }
 
 /* Hide the browser's default checkbox */
@@ -405,7 +409,7 @@
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: #eee;
+    background-color: #BDBDBD;
 }
 
 /* On mouse-over, add a grey background color */
