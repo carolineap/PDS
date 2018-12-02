@@ -41,12 +41,12 @@ function mudar() {
                 <option>Soja</option>
             </select>
             <label class="titleForm calc"> De:</label>
-            <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
+            <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa" required>
             <label class="titleForm calc"> Até:</label>
-            <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa">
-            <button type="submit" class="btnBusca" style="width: 10%">Calcular</button>  
+            <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa" required>
+            <button type="button" class="btnBusca" style="width: 10%" onclick="show()">Calcular</button>  
             <br>
-            <div class="row">
+            <div class="row" style="width: 100%">
                 <div class="col-md-4">
                      <div class="panel-group" id="panel-group2">
                         <div class="panel panel-default" id="panel-default2">
@@ -59,31 +59,31 @@ function mudar() {
                             <ul class="list-group">
                               <li class="list-group-item">
                                  <label class="titleForm calculos">Média Diária
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="medDia">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Semanal
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="medSema">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Quinzenal
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="medQuinze">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Mensal
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="medMes">
                                     <span class="checkmark"></span>
                                   </label>
                                    <label class="titleForm calculos">Desvio Padrão
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="desvio">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Móvel
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="movel">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Ln
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="ln">
                                     <span class="checkmark"></span>
                                   </label>
                               </li>
@@ -145,8 +145,132 @@ function mudar() {
                 </div>
             </div>
         </form>
-        <div>
-        
+        <div class="resultado" id="tableMedDia" style="display: none">
+            <hr>
+            <h3>Média Diária</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Preço do Ajusto Atual </th>
+                    <th>Variação</th>
+                    <th>Número de Contratos em Aberto</th>
+                    <th>Volume</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço Mínimo</th>
+                    <th>Preço Máximo</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+         <div class="resultado" id="tableMedSema" style="display: none">
+             <hr>
+            <h3>Média Semanal</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Data</th>
+                    <th>Preço do Ajusto Atual </th>
+                    <th>Variação</th>
+                    <th>Número de Contratos em Aberto</th>
+                    <th>Volume</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço Mínimo</th>
+                    <th>Preço Máximo</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+        <div class="resultado" id="tableMedQuize" style="display: none">
+             <hr>
+            <h3>Média Quinzenal</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Data</th>
+                    <th>Preço do Ajusto Atual </th>
+                    <th>Variação</th>
+                    <th>Número de Contratos em Aberto</th>
+                    <th>Volume</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço Mínimo</th>
+                    <th>Preço Máximo</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+        <div class="resultado" id="tableMedMes" style="display: none">
+             <hr>
+            <h3>Média Mensal</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Data</th>
+                    <th>Preço do Ajusto Atual </th>
+                    <th>Variação</th>
+                    <th>Número de Contratos em Aberto</th>
+                    <th>Volume</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço Mínimo</th>
+                    <th>Preço Máximo</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+         <div class="resultado" id="tabledesvio" style="display: none">
+             <hr>
+            <h3>Desvio Padrão</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Data</th>
+                    <th>Preço do Ajusto Atual </th>
+                    <th>Variação</th>
+                    <th>Número de Contratos em Aberto</th>
+                    <th>Volume</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço de Abertura</th>
+                    <th>Preço Mínimo</th>
+                    <th>Preço Máximo</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+         <div class="resultado" id="tablemovel" style="display: none">
+             <hr>
+            <h3>Média Móvel</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Intervalo</th>
+                    <th>Média Móvel</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+         <div class="resultado" id="tableln" style="display: none">
+             <hr>
+            <h3>Ln</h3>
+            <table class="retorno">
+                <tr>
+                    <th>Ln</th>
+                    <th>Retorno Simples</th>
+                    <th>Retorno Composto</th>
+                    <th>Volatilidade</th>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -193,6 +317,51 @@ function mudar() {
                     check.checked = false;
                 }
             }
+        }
+    }
+    function show(){
+        
+        var med = document.getElementById("medDia");
+        if(med.checked == true){
+            document.getElementById("tableMedDia").style.display ='block';
+        }else{
+            document.getElementById("tableMedDia").style.display ='none';
+        }
+        var med = document.getElementById("medMes");
+        if(med.checked == true){
+            document.getElementById("tableMedMes").style.display ='block';
+        }else{
+            document.getElementById("tableMedMes").style.display ='none';
+        }
+        var med1 = document.getElementById("medQuinze");
+        if(med1.checked == true){
+            document.getElementById("tableMedQuize").style.display ='block';
+        }else{
+            document.getElementById("tableMedQuize").style.display ='none';
+        }
+        var med = document.getElementById("medSema");
+        if(med.checked == true){
+            document.getElementById("tableMedSema").style.display ='block';
+        }else{
+            document.getElementById("tableMedSema").style.display ='none';
+        }
+         var med = document.getElementById("desvio");
+        if(med.checked == true){
+            document.getElementById("tabledesvio").style.display ='block';
+        }else{
+            document.getElementById("tabledesvio").style.display ='none';
+        }
+         var med = document.getElementById("movel");
+        if(med.checked == true){
+            document.getElementById("tablemovel").style.display ='block';
+        }else{
+            document.getElementById("tablemovel").style.display ='none';
+        }
+        var med = document.getElementById("ln");
+        if(med.checked == true){
+            document.getElementById("tableln").style.display ='block';
+        }else{
+            document.getElementById("tableln").style.display ='none';
         }
     }
 </script>
