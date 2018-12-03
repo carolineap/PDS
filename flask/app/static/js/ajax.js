@@ -4,6 +4,8 @@ $(document).ready(function() {
 
 	form.on('submit', function(event) {
 
+      
+
 		var form = $(this);
 		$.ajax({
 			data : form.serialize(),
@@ -26,6 +28,42 @@ $(document).ready(function() {
 		event.preventDefault();
 
 	});
+
+});
+
+$(document).ready(function() {
+    
+    var form = $('#fAnalytics');
+
+    form.on('submit', function(event) {
+
+          show();
+        var form = $(this);
+        $.ajax({
+            data : form.serialize(),
+            type : 'POST',
+            dataType: "json",
+            cache: false,
+            url : '/requestAnalytics'
+        })
+
+        .done(function(data) {
+
+
+          
+                drawMediaDiaria(data);
+                drawMediaMensal(data);
+                drawDesvio(data);
+                 
+
+
+          
+
+        });
+
+        event.preventDefault();
+
+    });
 
 });
 
@@ -65,6 +103,121 @@ function addSelect(data) {
         $('#ano').append($("<option value = " + data[i] + ">" + data[i] + "</option>"));
     }
 
+}
+
+function drawMediaMensal(data) {
+
+      $("#bodyMensal").empty();
+
+            for (var i = 0; i < data.media_mensal.ajuste_atual.medias.length; i++) {
+                var row = $("<tr />");
+                $("#bodyMensal").append(row); 
+
+                if (data.media_mensal.ajuste_atual.meses[i]) {           
+                    row.append($("<td>" + data.media_mensal.ajuste_atual.meses[i] + "</td>"));
+                }
+
+
+                if (data.media_mensal.ajuste_atual) {           
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.ajuste_atual.medias[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_mensal.variacao) {
+                   row.append($("<td>" + parseFloat(Math.round(data.media_mensal.variacao.medias[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_mensal.contratos) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.contratos.medias[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_mensal.volume) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.volume.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_mensal.preco_abertura) {
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_abertura.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_mensal.preco_min) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_min.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_mensal.preco_max) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_max.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                }
+            }
+}
+
+function drawMediaDiaria(data) {
+
+      $("#bodyDiaria").empty()
+
+            var row = $("<tr />")
+            $("#bodyDiaria").append(row); 
+
+            if (data.media_diaria.ajuste_atual) {           
+                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.ajuste_atual * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.media_diaria.variacao) {
+               row.append($("<td>" + parseFloat(Math.round(data.media_diaria.variacao * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.media_diaria.contratos) { 
+                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.contratos * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.media_diaria.volume) { 
+                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.volume * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.media_diaria.preco_abertura) {
+                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_abertura * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.media_diaria.preco_min) { 
+                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_min * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.media_diaria.preco_max) { 
+                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_max * 100) / 100).toFixed(2) + "</td>"));
+            }
+}
+
+function drawDesvio(data) {
+
+     $("#bodyDesvio").empty()
+
+            var row = $("<tr />")
+            $("#bodyDesvio").append(row); 
+
+            if (data.desvio_padrao.ajuste_atual) {           
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.ajuste_atual * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.desvio_padrao.variacao) {
+               row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.variacao * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.desvio_padrao.contratos) { 
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.contratos * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.desvio_padrao.volume) { 
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.volume * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.desvio_padrao.preco_abertura) {
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_abertura * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.desvio_padrao.preco_min) { 
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_min * 100) / 100).toFixed(2) + "</td>"));
+            }
+
+            if (data.desvio_padrao.preco_max) { 
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_max * 100) / 100).toFixed(2) + "</td>"));
+            }
 }
 
 
@@ -107,3 +260,28 @@ $(document).ajaxComplete(function(){
  // Hide image container
  $("#loading").hide();
 });
+
+function show(){
+        
+        var med = $("#medDia");
+        if(med){
+            $("#tableMedDia").show();
+        }else{
+            $("#tableMedDia").hide();
+        }
+
+        var med = $("#medMes");
+        if(med){
+            $("#tableMedMes").show();
+        }else{
+            $("#tableMedMes").hide();
+        }
+
+        var med = $("#desvio");
+        if(med){
+            $("#tabledesvio").show();
+        }else{
+            $("#tabledesvio").hide();
+        }
+      
+}

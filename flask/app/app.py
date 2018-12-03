@@ -5,12 +5,25 @@ from flask import request
 from datetime import datetime
 import string
 import json
+import calculos as calc
 
 app = Flask(__name__)
 app.secret_key = 'some_secret'
 
 conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password='1234'")
 cur = conn.cursor()
+
+
+class Calculo:			
+	def __init__(self, ajuste_atual, variacao, contratos, volume, preco_abertura, preco_min, preco_max):
+		self.ajuste_atual = ajuste_atual
+		self.variacao = variacao
+		self.contratos = contratos
+		self.volume = volume
+		self.preco_abertura = preco_abertura
+		self.preco_min = preco_min
+		self.preco_max = preco_max
+		
 
 class Commodity:
 	def __init__(self, data, codigo, vencimento, ajuste_anterior, ajuste_atual, preco_abertura, preco_min, preco_max, contratos, volume, tamanhoContrato):
@@ -26,7 +39,7 @@ class Commodity:
 		self.preco_max = float(preco_max)
 		self.variacao = self.ajuste_atual - self.ajuste_anterior
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
-		self.contratos = str(contratos)
+		self.contratos = contratos
 		self.volume = str("{:,}".format(int(volume))).replace(',', '.')
 
 def filtro(rows, vencimento, frequencia, dia, ano):
@@ -81,6 +94,152 @@ def filtro(rows, vencimento, frequencia, dia, ano):
 	# 					result.append(row)
 	
 	return result
+
+def mediaDiaria(commodities):
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_max = None
+	dataList = []	
+	
+	if request.form.get('medDia'):
+		if request.form.get('check1'):
+			for d in commodities:
+				dataList.append(d.ajuste_atual)
+			media_aa = calc.media_diaria(dataList)
+			dataList = []	
+		if request.form.get('check2'):
+			for d in commodities:
+				dataList.append(d.variacao)
+			media_var = calc.media_diaria(dataList)
+			dataList = []	
+		if request.form.get('check3'):
+			for d in commodities:
+				dataList.append(int(d.contratos))
+			media_cont = calc.media_diaria(dataList)
+			dataList = []	
+		if request.form.get('check4'):
+			for d in commodities:
+				dataList.append(int(d.volume.replace('.', '')))
+			media_vol = calc.media_diaria(dataList)
+			dataList = []	
+		if request.form.get('check5'):
+			for d in commodities:
+				dataList.append(d.preco_abertura)
+			media_abert = calc.media_diaria(dataList)
+			dataList = []	
+		if request.form.get('check6'):
+			for d in commodities:
+				dataList.append(d.preco_min)
+			media_min = calc.media_diaria(dataList)
+			dataList = []	
+		if request.form.get('check7'):
+			for d in commodities:
+				dataList.append(d.preco_max)			
+			media_max = calc.media_diaria(dataList)
+			dataList = []	
+	else:
+		return None
+			
+	return Calculo(media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def mediaMensal(commodities):
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_max = None
+	dataList = []	
+	dates = []
+	for d in commodities:
+		dates.append(d.data)	
+	if request.form.get('medMes'):
+		if request.form.get('check1'):
+			for d in commodities:
+				dataList.append(d.ajuste_atual)	
+			media_aa = calc.media_mensal(dataList, dates)
+			
+			dataList = []
+		if request.form.get('check2'):
+
+			for d in commodities:
+				dataList.append(d.variacao)
+		
+			media_var = calc.media_mensal(dataList, dates)
+			dataList = []	
+		
+		if request.form.get('check3'):
+			for d in commodities:
+				dataList.append(int(d.contratos))
+			media_cont = calc.media_mensal(dataList, dates)
+			dataList = []	
+		if request.form.get('check4'):
+			for d in commodities:
+				dataList.append(int(d.volume.replace('.', '')))
+			media_vol = calc.media_mensal(dataList, dates)
+			dataList = []	
+		if request.form.get('check5'):
+			for d in commodities:
+				dataList.append(d.preco_abertura)
+			media_abert = calc.media_mensal(dataList, dates)
+			dataList = []	
+		if request.form.get('check6'):
+			for d in commodities:
+				dataList.append(d.preco_min)
+			media_min = calc.media_mensal(dataList, dates)
+			dataList = []	
+		if request.form.get('check7'):
+			for d in commodities:
+				dataList.append(d.preco_max)		
+			media_max = calc.media_mensal(dataList, dates)
+			dataList = []	
+	else:
+		return None
+	
+	print(media_aa)	
+
+	return Calculo(media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def desvioPadrao(commodities):
+
+	desvio_aa = desvio_var = desvio_cont = desvio_vol = desvio_abert = desvio_max = None
+	dataList = []	
+	
+	if request.form.get('desvio'):
+		if request.form.get('check1'):
+			for d in commodities:
+				dataList.append(d.ajuste_atual)
+			desvio_aa = calc.desvio_padrao(dataList)
+			dataList = []	
+		if request.form.get('check2'):
+			for d in commodities:
+				dataList.append(d.variacao)
+			desvio_var = calc.desvio_padrao(dataList)
+			dataList = []	
+		if request.form.get('check3'):
+			for d in commodities:
+				dataList.append(int(d.contratos))
+			desvio_cont = calc.desvio_padrao(dataList)
+			dataList = []	
+		if request.form.get('check4'):
+			for d in commodities:
+				dataList.append(int(d.volume.replace('.', '')))
+			desvio_vol = calc.desvio_padrao(dataList)
+			dataList = []	
+		if request.form.get('check5'):
+			for d in commodities:
+				dataList.append(d.preco_abertura)
+			desvio_abert = calc.desvio_padrao(dataList)
+			dataList = []	
+		if request.form.get('check6'):
+			for d in commodities:
+				dataList.append(d.preco_min)
+			desvio_min = calc.desvio_padrao(dataList)
+			dataList = []	
+		if request.form.get('check7'):
+			for d in commodities:
+				dataList.append(d.preco_max)			
+			desvio_max = calc.desvio_padrao(dataList)
+			dataList = []	
+	else:
+		return None
+			
+	return Calculo(desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
 
 @app.route('/')
 @app.route('/home.html')
@@ -165,12 +324,63 @@ def requestSelect():
 					anos.append(ano1)
 					ano1 = ano1 + 1
 
+
 				
 			return json.dumps(anos)
 		except:
 			pass
 
 	return render_template('/home.html')	
+
+
+@app.route('/requestAnalytics', methods=['GET', 'POST'])
+def requestAnalytics():
+	
+	if (request.method == 'POST'):
+		try:
+			
+			table = request.form.get('commoditie')
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+			if (len(data2) == 0): data2 = data1
+
+			if (table == 'M'):
+				cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				tamanhoContrato = 450
+			elif (table == 'B'):
+				cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				tamanhoContrato = 330		
+			elif (table == 'C'):
+				cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))	
+				tamanhoContrato = 450		
+			elif (table == 'S'):
+				cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				tamanhoContrato = 100			
+			else:
+				pass
+
+			rows = cur.fetchall()
+			commodities = []
+
+			for row in rows:
+				commodities.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
+
+			data = {
+				'media_diaria': mediaDiaria(commodities),
+				'desvio_padrao': desvioPadrao(commodities),
+				'media_mensal': mediaMensal(commodities)
+			}
+
+
+			return(json.dumps(data, default=lambda o: o.__dict__, indent=4, separators=(',',':')))
+
+			#return render_template('/analytics.html')
+
+		except:
+			pass
+
+
+	return render_template('/home.html')		
 
 @app.route('/milho.html')
 def milho():

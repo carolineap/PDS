@@ -34,19 +34,19 @@ function mudar() {
       <!-- --------------------------Body -------------------------- -->
     <div class="analiseBody">
           <!-- --------------------------Form -------------------------- -->
-        <form class="formAjuste">
+        <form id ="fAnalytics" class="formAjuste" method="POST">
             <label class="titleForm calc">Commoditie:</label>
-            <select class="formSelec">
-                <option>Boi Gordo</option>
-                <option>Café Arábica 4/5</option>
-                <option>Milho</option>
-                <option>Soja</option>
+            <select name = "commoditie" class="formSelec">
+                <option value="B">Boi Gordo</option>
+                <option value="C">Café Arábica 4/5</option>
+                <option value="M">Milho</option>
+                <option value="S">Soja</option>
             </select>
             <label class="titleForm calc"> De:</label>
             <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa" required>
             <label class="titleForm calc"> Até:</label>
             <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa" required>
-            <button type="button" class="btnBusca" style="width: 10%" onclick="show()">Calcular</button>  
+            <button type="submit" class="btnBusca" style="width: 10%">Calcular</button>  
             <br>
             <div class="row" style="width: 100%">
                 <div class="col-md-4">
@@ -61,11 +61,11 @@ function mudar() {
                             <ul class="list-group">
                               <li class="list-group-item">
                                  <label class="titleForm calculos">Média Diária
-                                    <input type="checkbox" id="medDia">
+                                    <input type="checkbox" name="medDia" id="medDia">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Semanal
-                                    <input type="checkbox" id="medSema">
+                                    <input type="checkbox" name="medSema" id="medSema">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Quinzenal
@@ -73,11 +73,11 @@ function mudar() {
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Mensal
-                                    <input type="checkbox" id="medMes">
+                                    <input type="checkbox" name="medMes" id="medMes">
                                     <span class="checkmark"></span>
                                   </label>
                                    <label class="titleForm calculos">Desvio Padrão
-                                    <input type="checkbox" id="desvio">
+                                    <input type="checkbox" name="desvio" id="desvio">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Móvel
@@ -114,32 +114,32 @@ function mudar() {
                                     <input type="checkbox" id="todos" onclick="selctAll()">
                                     <span class="checkmark"></span>
                                   </label>
-                                  <label class="titleForm calculos"> Preço do Ajusto Atual
-                                    <input type="checkbox" id="check1">
+                                  <label class="titleForm calculos"> Preço do Ajuste Atual
+                                    <input type="checkbox" name="check1" id="check1">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos"> Variação
-                                    <input type="checkbox" id="check2">
+                                    <input type="checkbox" name="check2" id="check2">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos"> Número de Contratos em Aberto
-                                    <input type="checkbox" id="check3">
+                                    <input type="checkbox" name="check3" id="check3">
                                     <span class="checkmark"></span>
                                   </label>
                                    <label class="titleForm calculos"> Volume
-                                    <input type="checkbox" id="check4">
+                                    <input type="checkbox" name="check4" id="check4">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos"> Preço de Abertura
-                                    <input type="checkbox" id="check5">
+                                    <input type="checkbox" name="check5" id="check5">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos"> Preço Mínimo
-                                    <input type="checkbox" id="check6">
+                                    <input type="checkbox" name="check6" id = "check6">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos"> Preço Máximo
-                                    <input type="checkbox" id="check7">
+                                    <input type="checkbox" name="check7" id="check7">
                                     <span class="checkmark"></span>
                                   </label>
                               </li>
@@ -152,21 +152,20 @@ function mudar() {
             </div>
         </form>
           <!-- --------------------------Tabelas de Resultados -------------------------- -->
-        <div class="resultado" id="tableMedDia" style="display: none">
+        <div class="resultado" id="tableMedDia"  style="display: none">
             <hr>
             <h3>Média Diária</h3>
             <table class="retorno">
                 <tr>
-                    <th>Preço do Ajusto Atual </th>
+                    <th>Preço do Ajuste Atual </th>
                     <th>Variação</th>
                     <th>Número de Contratos em Aberto</th>
                     <th>Volume</th>
                     <th>Preço de Abertura</th>
-                    <th>Preço de Abertura</th>
                     <th>Preço Mínimo</th>
                     <th>Preço Máximo</th>
                 </tr>
-                <tbody>
+                <tbody id = "bodyDiaria">
                   
                 </tbody>
             </table>
@@ -176,8 +175,8 @@ function mudar() {
             <h3>Média Semanal</h3>
             <table class="retorno">
                 <tr>
-                    <th>Data</th>
-                    <th>Preço do Ajusto Atual </th>
+                  <!--   <th>Data</th> -->
+                    <th>Preço de Ajuste Atual </th>
                     <th>Variação</th>
                     <th>Número de Contratos em Aberto</th>
                     <th>Volume</th>
@@ -186,7 +185,7 @@ function mudar() {
                     <th>Preço Mínimo</th>
                     <th>Preço Máximo</th>
                 </tr>
-                <tbody>
+                <tbody id = "bodySemanal">
                   
                 </tbody>
             </table>
@@ -216,17 +215,16 @@ function mudar() {
             <h3>Média Mensal</h3>
             <table class="retorno">
                 <tr>
-                    <th>Data</th>
+                    <th>Mes</th>
                     <th>Preço do Ajusto Atual </th>
                     <th>Variação</th>
                     <th>Número de Contratos em Aberto</th>
                     <th>Volume</th>
                     <th>Preço de Abertura</th>
-                    <th>Preço de Abertura</th>
                     <th>Preço Mínimo</th>
                     <th>Preço Máximo</th>
                 </tr>
-                <tbody>
+                <tbody id="bodyMensal">
                   
                 </tbody>
             </table>
@@ -236,17 +234,15 @@ function mudar() {
             <h3>Desvio Padrão</h3>
             <table class="retorno">
                 <tr>
-                    <th>Data</th>
-                    <th>Preço do Ajusto Atual </th>
-                    <th>Variação</th>
-                    <th>Número de Contratos em Aberto</th>
-                    <th>Volume</th>
-                    <th>Preço de Abertura</th>
-                    <th>Preço de Abertura</th>
-                    <th>Preço Mínimo</th>
-                    <th>Preço Máximo</th>
+                  <th>Preço do Ajuste Atual </th>
+                  <th>Variação</th>
+                  <th>Número de Contratos em Aberto</th>
+                  <th>Volume</th>
+                  <th>Preço de Abertura</th>
+                  <th>Preço Mínimo</th>
+                  <th>Preço Máximo</th>
                 </tr>
-                <tbody>
+                <tbody id="bodyDesvio">
                   
                 </tbody>
             </table>
@@ -324,51 +320,6 @@ function mudar() {
                     check.checked = false;
                 }
             }
-        }
-    }
-    function show(){
-        
-        var med = document.getElementById("medDia");
-        if(med.checked == true){
-            document.getElementById("tableMedDia").style.display ='block';
-        }else{
-            document.getElementById("tableMedDia").style.display ='none';
-        }
-        var med = document.getElementById("medMes");
-        if(med.checked == true){
-            document.getElementById("tableMedMes").style.display ='block';
-        }else{
-            document.getElementById("tableMedMes").style.display ='none';
-        }
-        var med1 = document.getElementById("medQuinze");
-        if(med1.checked == true){
-            document.getElementById("tableMedQuize").style.display ='block';
-        }else{
-            document.getElementById("tableMedQuize").style.display ='none';
-        }
-        var med = document.getElementById("medSema");
-        if(med.checked == true){
-            document.getElementById("tableMedSema").style.display ='block';
-        }else{
-            document.getElementById("tableMedSema").style.display ='none';
-        }
-         var med = document.getElementById("desvio");
-        if(med.checked == true){
-            document.getElementById("tabledesvio").style.display ='block';
-        }else{
-            document.getElementById("tabledesvio").style.display ='none';
-        }
-         var med = document.getElementById("movel");
-        if(med.checked == true){
-            document.getElementById("tablemovel").style.display ='block';
-        }else{
-            document.getElementById("tablemovel").style.display ='none';
-        }
-        var med = document.getElementById("ln");
-        if(med.checked == true){
-            document.getElementById("tableln").style.display ='block';
-        }else{
-            document.getElementById("tableln").style.display ='none';
         }
     }
     function janela(){
