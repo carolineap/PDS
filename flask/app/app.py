@@ -15,7 +15,8 @@ cur = conn.cursor()
 
 
 class Calculo:			
-	def __init__(self, ajuste_atual, variacao, contratos, volume, preco_abertura, preco_min, preco_max):
+	def __init__(self, data, ajuste_atual, variacao, contratos, volume, preco_abertura, preco_min, preco_max):
+		self.data = data
 		self.ajuste_atual = ajuste_atual
 		self.variacao = variacao
 		self.contratos = contratos
@@ -139,7 +140,7 @@ def mediaDiaria(commodities):
 	else:
 		return None
 			
-	return Calculo(media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo(d.data, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def mediaMensal(commodities):
 
@@ -149,6 +150,9 @@ def mediaMensal(commodities):
 	for d in commodities:
 		dates.append(d.data)	
 	if request.form.get('medMes'):
+
+		datas = calc.meses(dates);
+
 		if request.form.get('check1'):
 			for d in commodities:
 				dataList.append(d.ajuste_atual)	
@@ -191,9 +195,66 @@ def mediaMensal(commodities):
 	else:
 		return None
 	
-	print(media_aa)	
 
-	return Calculo(media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def mediaSemanal(commodities):
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_max = None
+	dataList = []	
+	dates = []
+	
+
+	for d in commodities:
+		dates.append(d.data)	
+
+	if request.form.get('medSema'):
+
+		semanas = calc.semanas(dates)
+
+		if request.form.get('check1'):
+			for d in commodities:
+				dataList.append(d.ajuste_atual)	
+			media_aa = calc.media_semanal(dataList, dates)
+			
+			dataList = []
+		if request.form.get('check2'):
+
+			for d in commodities:
+				dataList.append(d.variacao)
+		
+			media_var = calc.media_semanal(dataList, dates)
+			dataList = []	
+		
+		if request.form.get('check3'):
+			for d in commodities:
+				dataList.append(int(d.contratos))
+			media_cont = calc.media_semanal(dataList, dates)
+			dataList = []	
+		if request.form.get('check4'):
+			for d in commodities:
+				dataList.append(int(d.volume.replace('.', '')))
+			media_vol = calc.media_semanal(dataList, dates)
+			dataList = []	
+		if request.form.get('check5'):
+			for d in commodities:
+				dataList.append(d.preco_abertura)
+			media_abert = calc.media_semanal(dataList, dates)
+			dataList = []	
+		if request.form.get('check6'):
+			for d in commodities:
+				dataList.append(d.preco_min)
+			media_min = calc.media_semanal(dataList, dates)
+			dataList = []	
+		if request.form.get('check7'):
+			for d in commodities:
+				dataList.append(d.preco_max)		
+			media_max = calc.media_semanal(dataList, dates)
+			dataList = []	
+	else:
+		return None
+	
+	return Calculo(semanas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def desvioPadrao(commodities):
 
@@ -239,7 +300,7 @@ def desvioPadrao(commodities):
 	else:
 		return None
 			
-	return Calculo(desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
+	return Calculo(None, desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
 
 @app.route('/')
 @app.route('/home.html')
@@ -368,7 +429,8 @@ def requestAnalytics():
 			data = {
 				'media_diaria': mediaDiaria(commodities),
 				'desvio_padrao': desvioPadrao(commodities),
-				'media_mensal': mediaMensal(commodities)
+				'media_mensal': mediaMensal(commodities),
+				'media_semanal': mediaSemanal(commodities)
 			}
 
 

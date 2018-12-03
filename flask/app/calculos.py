@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import string
 
 def media_movel(data, w):
 
@@ -22,18 +23,18 @@ def media_diaria(data):
 	return df
 
 
-def media_semanal(data, dates):
+def media_semanal(data, datesM):
 
+	dates = []
 	i = 0
-	while (i < len(dates)): 
-		dates[i] = datetime.strptime(dates[i], '%d/%m/%Y')
+	while (i < len(datesM)): 
+		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
 		i += 1
 
-	dates = pd.DataFrame(dates)
+
+	#dates = pd.DataFrame(dates)
 
 	week = dates[0].isocalendar()[1]
-
-	print(week)
 
 	values = []
 	means = []
@@ -52,14 +53,16 @@ def media_semanal(data, dates):
 		
 
 		i += 1
-	print(means)
+
+
+	
 	return means
 
-def media_quinzenal(data, dates):
+def media_quinzenal(data, datesM):
 
 	i = 0
-	while (i < len(dates)): 
-		dates[i] = datetime.strptime(dates[i], '%d/%m/%Y')
+	while (i < len(datesM)): 
+		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
 		i += 1
 
 	week = dates[0].isocalendar()[1]
@@ -92,11 +95,50 @@ def media_quinzenal(data, dates):
 
 	return means
 
-def meses():
-	pass
+def meses(dates):
+	
+	meses = []
+	mes = dates[0][3:5]
+	
+	i = 0
+	while (i < len(dates)): 
+		
+		m = dates[i][3:5]
 
-def semanas():
-	pass
+		if m != mes or (i == (len(dates) - 1)):
+			meses.append(mes)
+			mes = m
+
+		i += 1
+
+	return meses
+
+
+def semanas(datesM):
+
+	dates = []
+	i = 0
+	while (i < len(datesM)): 
+		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
+		i += 1
+
+	semanas = []
+	week = dates[0].isocalendar()[1]
+	
+	i = 0
+	while (i < len(dates)): 
+		
+		if (dates[i].isocalendar()[1] != week) or (i == (len(dates) - 1)):
+			data = str(dates[i].day).zfill(2) + "/" + str(dates[i].month).zfill(2) + "/" + str(dates[i].year)
+			semanas.append(data)
+			week = dates[i].isocalendar()[1]
+
+
+		i += 1
+
+	print(semanas)
+
+	return semanas
 
 def quinzenas():
 	pass
@@ -130,7 +172,7 @@ def media_mensal(data, datesM):
 
 	#print(means)
 
-	return {'meses': meses, 'medias': means}
+	return means
 
 def desvio_padrao(data):
 

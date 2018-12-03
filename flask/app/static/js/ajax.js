@@ -4,8 +4,6 @@ $(document).ready(function() {
 
 	form.on('submit', function(event) {
 
-      
-
 		var form = $(this);
 		$.ajax({
 			data : form.serialize(),
@@ -36,8 +34,7 @@ $(document).ready(function() {
     var form = $('#fAnalytics');
 
     form.on('submit', function(event) {
-
-          show();
+        show();
         var form = $(this);
         $.ajax({
             data : form.serialize(),
@@ -49,15 +46,10 @@ $(document).ready(function() {
 
         .done(function(data) {
 
-
-          
                 drawMediaDiaria(data);
                 drawMediaMensal(data);
-                drawDesvio(data);
-                 
-
-
-          
+                drawMediaSemanal(data);
+                drawDesvio(data);          
 
         });
 
@@ -105,52 +97,93 @@ function addSelect(data) {
 
 }
 
+function drawMediaSemanal(data) {
+
+        $("#bodySemanal").empty();
+
+            for (var i = 0; i < data.media_semanal.ajuste_atual.length; i++) {
+                var row = $("<tr />");
+                $("#bodySemanal").append(row); 
+
+                if (data.media_semanal.ajuste_atual) {           
+                    row.append($("<td>" + data.media_semanal.data[i] + "</td>"));
+                }
+
+                if (data.media_semanal.ajuste_atual) {           
+                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.variacao) {
+                   row.append($("<td>" + parseFloat(Math.round(data.media_semanal.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.contratos) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.volume) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.volume[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.preco_abertura) {
+                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.preco_min) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.preco_max) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+            }
+}
+
 function drawMediaMensal(data) {
 
-      $("#bodyMensal").empty();
+        $("#bodyMensal").empty();
 
-            for (var i = 0; i < data.media_mensal.ajuste_atual.medias.length; i++) {
+            for (var i = 0; i < data.media_mensal.ajuste_atual.length; i++) {
                 var row = $("<tr />");
                 $("#bodyMensal").append(row); 
 
-                if (data.media_mensal.ajuste_atual.meses[i]) {           
-                    row.append($("<td>" + data.media_mensal.ajuste_atual.meses[i] + "</td>"));
+                if (data.media_mensal.ajuste_atual) {           
+                    row.append($("<td>" + data.media_mensal.data[i] + "</td>"));
                 }
 
-
                 if (data.media_mensal.ajuste_atual) {           
-                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.ajuste_atual.medias[i] * 100) / 100).toFixed(2) + "</td>"));
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
                 if (data.media_mensal.variacao) {
-                   row.append($("<td>" + parseFloat(Math.round(data.media_mensal.variacao.medias[i] * 100) / 100).toFixed(2) + "</td>"));
+                   row.append($("<td>" + parseFloat(Math.round(data.media_mensal.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
                 if (data.media_mensal.contratos) { 
-                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.contratos.medias[i] * 100) / 100).toFixed(2) + "</td>"));
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
                 if (data.media_mensal.volume) { 
-                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.volume.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.volume[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
                 if (data.media_mensal.preco_abertura) {
-                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_abertura.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
                 if (data.media_mensal.preco_min) { 
-                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_min.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
                 if (data.media_mensal.preco_max) { 
-                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_max.medias[i]  * 100) / 100).toFixed(2) + "</td>"));
+                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
             }
 }
 
 function drawMediaDiaria(data) {
 
-      $("#bodyDiaria").empty()
+      $("#bodyDiaria").empty();
 
             var row = $("<tr />")
             $("#bodyDiaria").append(row); 
@@ -186,7 +219,7 @@ function drawMediaDiaria(data) {
 
 function drawDesvio(data) {
 
-     $("#bodyDesvio").empty()
+     $("#bodyDesvio").empty();
 
             var row = $("<tr />")
             $("#bodyDesvio").append(row); 
@@ -268,6 +301,13 @@ function show(){
             $("#tableMedDia").show();
         }else{
             $("#tableMedDia").hide();
+        }
+
+        var med = $("#medSema");
+        if(med){
+            $("#tableMedSema").show();
+        }else{
+            $("#tableMedSema").hide();
         }
 
         var med = $("#medMes");
