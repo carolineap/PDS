@@ -3,9 +3,11 @@ from flask import Response
 import psycopg2
 from flask import request
 from datetime import datetime
+from datetime import timedelta
 import string
 import json
 import calculos as calc
+import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = 'some_secret'
@@ -42,6 +44,19 @@ class Commodity:
 		self.valor_contrato = abs(self.variacao) * tamanhoContrato
 		self.contratos = contratos
 		self.volume = str("{:,}".format(int(volume))).replace(',', '.')
+
+	def to_dict(self):
+		return {
+			'data': datetime.strptime(self.data, '%d/%m/%Y'),
+            'ajuste_atual': self.ajuste_atual,
+            'ajuste_anterior': self.ajuste_anterior,
+            'variacao': self.variacao,
+            'contratos': self.contratos,
+            'volume': int(self.volume.replace('.', '')),
+            'preco_abertura': self.preco_abertura,
+            'preco_min': self.preco_min,
+            'preco_max': self.preco_max
+        }
 
 def filtro(rows, vencimento, frequencia, dia, ano):
 
@@ -96,211 +111,182 @@ def filtro(rows, vencimento, frequencia, dia, ano):
 	
 	return result
 
-def mediaDiaria(commodities):
+def mediaDiaria(df):
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_max = None
-	dataList = []	
+	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
 	
 	if request.form.get('medDia'):
-		if request.form.get('check1'):
-			for d in commodities:
-				dataList.append(d.ajuste_atual)
-			media_aa = calc.media_diaria(dataList)
-			dataList = []	
-		if request.form.get('check2'):
-			for d in commodities:
-				dataList.append(d.variacao)
-			media_var = calc.media_diaria(dataList)
-			dataList = []	
-		if request.form.get('check3'):
-			for d in commodities:
-				dataList.append(int(d.contratos))
-			media_cont = calc.media_diaria(dataList)
-			dataList = []	
-		if request.form.get('check4'):
-			for d in commodities:
-				dataList.append(int(d.volume.replace('.', '')))
-			media_vol = calc.media_diaria(dataList)
-			dataList = []	
-		if request.form.get('check5'):
-			for d in commodities:
-				dataList.append(d.preco_abertura)
-			media_abert = calc.media_diaria(dataList)
-			dataList = []	
-		if request.form.get('check6'):
-			for d in commodities:
-				dataList.append(d.preco_min)
-			media_min = calc.media_diaria(dataList)
-			dataList = []	
-		if request.form.get('check7'):
-			for d in commodities:
-				dataList.append(d.preco_max)			
-			media_max = calc.media_diaria(dataList)
-			dataList = []	
-	else:
-		return None
-			
-	return Calculo(d.data, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
-
-def mediaMensal(commodities):
-
-	media_aa = media_var = media_cont = media_vol = media_abert = media_max = None
-	dataList = []	
-	dates = []
-	for d in commodities:
-		dates.append(d.data)	
-	if request.form.get('medMes'):
-
-		datas = calc.meses(dates);
-
-		if request.form.get('check1'):
-			for d in commodities:
-				dataList.append(d.ajuste_atual)	
-			media_aa = calc.media_mensal(dataList, dates)
-			
-			dataList = []
-		if request.form.get('check2'):
-
-			for d in commodities:
-				dataList.append(d.variacao)
-		
-			media_var = calc.media_mensal(dataList, dates)
-			dataList = []	
-		
-		if request.form.get('check3'):
-			for d in commodities:
-				dataList.append(int(d.contratos))
-			media_cont = calc.media_mensal(dataList, dates)
-			dataList = []	
-		if request.form.get('check4'):
-			for d in commodities:
-				dataList.append(int(d.volume.replace('.', '')))
-			media_vol = calc.media_mensal(dataList, dates)
-			dataList = []	
-		if request.form.get('check5'):
-			for d in commodities:
-				dataList.append(d.preco_abertura)
-			media_abert = calc.media_mensal(dataList, dates)
-			dataList = []	
-		if request.form.get('check6'):
-			for d in commodities:
-				dataList.append(d.preco_min)
-			media_min = calc.media_mensal(dataList, dates)
-			dataList = []	
-		if request.form.get('check7'):
-			for d in commodities:
-				dataList.append(d.preco_max)		
-			media_max = calc.media_mensal(dataList, dates)
-			dataList = []	
-	else:
-		return None
 	
+	 	df_mediaDiaria = calc.media_diaria(df)
 
+	 	if request.form.get('check1'):
+			media_aa = df_mediaDiaria['ajuste_atual'].values.tolist()
+		if request.form.get('check2'):
+			media_var = df_mediaDiaria['variacao'].values.tolist()
+		if request.form.get('check3'):
+			media_cont = df_mediaDiaria['contratos'].values.tolist()
+		if request.form.get('check4'):
+			media_vol = df_mediaDiaria['volume'].values.tolist()
+		if request.form.get('check5'):
+			media_abert = df_mediaDiaria['preco_abertura'].values.tolist()
+		if request.form.get('check6'):
+			media_min = df_mediaDiaria['preco_min'].values.tolist()
+		if request.form.get('check7'):
+			media_max = df_mediaDiaria['preco_max'].values.tolist()
+			
+	else:
+	 	return None
+			
+	return Calculo(df_mediaDiaria['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def mediaMensal(df):
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
+	
+	if request.form.get('medMes'):
+	
+	 	df_mediaMensal = calc.media_mensal(df)
+
+	 	if request.form.get('check1'):
+			media_aa = df_mediaMensal['ajuste_atual'].values.tolist()
+		if request.form.get('check2'):
+			media_var = df_mediaMensal['variacao'].values.tolist()
+		if request.form.get('check3'):
+			media_cont = df_mediaMensal['contratos'].values.tolist()
+		if request.form.get('check4'):
+			media_vol = df_mediaMensal['volume'].values.tolist()
+		if request.form.get('check5'):
+			media_abert = df_mediaMensal['preco_abertura'].values.tolist()
+		if request.form.get('check6'):
+			media_min = df_mediaMensal['preco_min'].values.tolist()
+		if request.form.get('check7'):
+			media_max = df_mediaMensal['preco_max'].values.tolist()
+			
+	else:
+	 	return None
+			
+	return Calculo(df_mediaMensal['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def mediaSemanal(df):
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
+	
+	if request.form.get('medSema'):
+	
+	 	df_mediaSemanal = calc.media_semanal(df)
+
+	 	if request.form.get('check1'):
+			media_aa = df_mediaSemanal['ajuste_atual'].values.tolist()
+		if request.form.get('check2'):
+			media_var = df_mediaSemanal['variacao'].values.tolist()
+		if request.form.get('check3'):
+			media_cont = df_mediaSemanal['contratos'].values.tolist()
+		if request.form.get('check4'):
+			media_vol = df_mediaSemanal['volume'].values.tolist()
+		if request.form.get('check5'):
+			media_abert = df_mediaSemanal['preco_abertura'].values.tolist()
+		if request.form.get('check6'):
+			media_min = df_mediaSemanal['preco_min'].values.tolist()
+		if request.form.get('check7'):
+			media_max = df_mediaSemanal['preco_max'].values.tolist()
+
+		datas_iniciais = []
+		datas_finais = df_mediaSemanal['data'].values.tolist()
+
+
+		for d in datas_finais:
+			data = datetime.strptime(d, '%d/%m/%Y')
+			data = data - timedelta(days=6)		
+			data = str(data.day).zfill(2) + "/" + str(data.month).zfill(2) + "/" + str(data.year)
+			datas_iniciais.append(data)
+
+		i = 0
+		while i < len(datas_iniciais):
+			d = str(datas_iniciais[i]) + " - " + str(datas_finais[i])
+			datas.append(d)
+			i += 1
+
+	else:
+	 	return None
+			
 	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
-def mediaSemanal(commodities):
+def mediaQuinzenal(df):
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_max = None
-	dataList = []	
-	dates = []
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
+
+	if request.form.get('medQuinze'):
 	
 
-	for d in commodities:
-		dates.append(d.data)	
+	 	df_mediaQuinzenal= calc.media_quinzenal(df)
 
-	if request.form.get('medSema'):
-
-		semanas = calc.semanas(dates)
-
-		if request.form.get('check1'):
-			for d in commodities:
-				dataList.append(d.ajuste_atual)	
-			media_aa = calc.media_semanal(dataList, dates)
-			
-			dataList = []
+	 	if request.form.get('check1'):
+			media_aa = df_mediaQuinzenal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
-
-			for d in commodities:
-				dataList.append(d.variacao)
-		
-			media_var = calc.media_semanal(dataList, dates)
-			dataList = []	
-		
+			media_var = df_mediaQuinzenal['variacao'].values.tolist()
 		if request.form.get('check3'):
-			for d in commodities:
-				dataList.append(int(d.contratos))
-			media_cont = calc.media_semanal(dataList, dates)
-			dataList = []	
+			media_cont = df_mediaQuinzenal['contratos'].values.tolist()
 		if request.form.get('check4'):
-			for d in commodities:
-				dataList.append(int(d.volume.replace('.', '')))
-			media_vol = calc.media_semanal(dataList, dates)
-			dataList = []	
+			media_vol = df_mediaQuinzenal['volume'].values.tolist()
 		if request.form.get('check5'):
-			for d in commodities:
-				dataList.append(d.preco_abertura)
-			media_abert = calc.media_semanal(dataList, dates)
-			dataList = []	
+			media_abert = df_mediaQuinzenal['preco_abertura'].values.tolist()
 		if request.form.get('check6'):
-			for d in commodities:
-				dataList.append(d.preco_min)
-			media_min = calc.media_semanal(dataList, dates)
-			dataList = []	
+			media_min = df_mediaQuinzenal['preco_min'].values.tolist()
 		if request.form.get('check7'):
-			for d in commodities:
-				dataList.append(d.preco_max)		
-			media_max = calc.media_semanal(dataList, dates)
-			dataList = []	
+			media_max = df_mediaQuinzenal['preco_max'].values.tolist()
+
+		datas_iniciais = []
+		datas_finais = df_mediaQuinzenal['data'].values.tolist()
+
+
+		for d in datas_finais:
+			data = datetime.strptime(d, '%d/%m/%Y')
+			data = data - timedelta(days=13)		
+			data = str(data.day).zfill(2) + "/" + str(data.month).zfill(2) + "/" + str(data.year)
+			datas_iniciais.append(data)
+
+		i = 0
+		while i < len(datas_iniciais):
+			d = str(datas_iniciais[i]) + " - " + str(datas_finais[i])
+			datas.append(d)
+			i += 1
+
 	else:
-		return None
+	 	return None
+			
+	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def desvioPadrao(df):
+
+	desvio_aa = desvio_var = desvio_cont = desvio_vol = desvio_abert = desvio_min = desvio_max = []
 	
-	return Calculo(semanas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
-
-def desvioPadrao(commodities):
-
-	desvio_aa = desvio_var = desvio_cont = desvio_vol = desvio_abert = desvio_max = None
-	dataList = []	
 	
 	if request.form.get('desvio'):
-		if request.form.get('check1'):
-			for d in commodities:
-				dataList.append(d.ajuste_atual)
-			desvio_aa = calc.desvio_padrao(dataList)
-			dataList = []	
+
+		df_desvioPadrao = calc.desvio_padrao(df)
+
+	 	if request.form.get('check1'):
+			desvio_aa = df_desvioPadrao['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
-			for d in commodities:
-				dataList.append(d.variacao)
-			desvio_var = calc.desvio_padrao(dataList)
-			dataList = []	
+			desvio_var = df_desvioPadrao['variacao'].values.tolist()
 		if request.form.get('check3'):
-			for d in commodities:
-				dataList.append(int(d.contratos))
-			desvio_cont = calc.desvio_padrao(dataList)
-			dataList = []	
+			desvio_cont = df_desvioPadrao['contratos'].values.tolist()
 		if request.form.get('check4'):
-			for d in commodities:
-				dataList.append(int(d.volume.replace('.', '')))
-			desvio_vol = calc.desvio_padrao(dataList)
-			dataList = []	
+			desvio_vol = df_desvioPadrao['volume'].values.tolist()
 		if request.form.get('check5'):
-			for d in commodities:
-				dataList.append(d.preco_abertura)
-			desvio_abert = calc.desvio_padrao(dataList)
-			dataList = []	
+			desvio_abert = df_desvioPadrao['preco_abertura'].values.tolist()
 		if request.form.get('check6'):
-			for d in commodities:
-				dataList.append(d.preco_min)
-			desvio_min = calc.desvio_padrao(dataList)
-			dataList = []	
+			desvio_min = df_desvioPadrao['preco_min'].values.tolist()
 		if request.form.get('check7'):
-			for d in commodities:
-				dataList.append(d.preco_max)			
-			desvio_max = calc.desvio_padrao(dataList)
-			dataList = []	
+			desvio_max = df_desvioPadrao['preco_max'].values.tolist()
+			
 	else:
 		return None
 			
-	return Calculo(None, desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
+
+
+	return Calculo(df_desvioPadrao['data'].values.tolist(), desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
 
 @app.route('/')
 @app.route('/home.html')
@@ -425,12 +411,16 @@ def requestAnalytics():
 
 			for row in rows:
 				commodities.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
+			
+			df = calc.makeDF(commodities)	
 
 			data = {
-				'media_diaria': mediaDiaria(commodities),
-				'desvio_padrao': desvioPadrao(commodities),
-				'media_mensal': mediaMensal(commodities),
-				'media_semanal': mediaSemanal(commodities)
+				'media_diaria': mediaDiaria(df),
+				'media_mensal': mediaMensal(df),
+				'media_semanal': mediaSemanal(df),
+				'media_quinzenal': mediaQuinzenal(df),
+				'desvio_padrao': desvioPadrao(df)
+				# ''
 			}
 
 

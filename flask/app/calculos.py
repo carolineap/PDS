@@ -3,6 +3,13 @@ import numpy as np
 from datetime import datetime
 import string
 
+
+def makeDF(objList):
+
+	df = pd.DataFrame.from_records([s.to_dict() for s in objList])
+
+	return df
+
 def media_movel(data, w):
 
 	
@@ -16,170 +23,59 @@ def media_movel(data, w):
 	return df
 
 
-def media_diaria(data):
+def media_diaria(df):
 
-	df = np.mean(data)
+	df = df.set_index('data').resample('D').mean().round(2)
+	df = df.reset_index()
+	df['data'] = df['data'].dt.strftime('%d/%m/%Y')
 
-	return df
-
-
-def media_semanal(data, datesM):
-
-	dates = []
-	i = 0
-	while (i < len(datesM)): 
-		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
-		i += 1
-
-
-	#dates = pd.DataFrame(dates)
-
-	week = dates[0].isocalendar()[1]
-
-	values = []
-	means = []
-
-	i = 0
-	while(i < len(dates)):
-		if dates[i].isocalendar()[1] == week:
-			values.append(data[i])
-		
-		if (dates[i].isocalendar()[1] != week) or (i == (len(dates) - 1)):
-			means.append(np.mean(values))
-			values = []
-			week = dates[i].isocalendar()[1]
-			values.append(data[i])
-
-		
-
-		i += 1
-
-
-	
-	return means
-
-def media_quinzenal(data, datesM):
-
-	i = 0
-	while (i < len(datesM)): 
-		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
-		i += 1
-
-	week = dates[0].isocalendar()[1]
-	values = []
-	means = []
-
-	cont = 0
-	i = 0
-	while(i < len(dates)):
-
-		if dates[i].isocalendar()[1] != week:
-			cont += 1
-			week = dates[i].isocalendar()[1]
-
-		if cont < 2:
-			values.append(data[i])
-		
-			
-		if i == (len(dates) - 1) or cont == 2:
-			means.append(np.mean(values))
-			values = []
-			values.append(data[i])
-			cont = 0
-
-		# print(dates[i])
-		# print(week)
-		# print("--------------------")
-		
-		i += 1
-
-	return means
-
-def meses(dates):
-	
-	meses = []
-	mes = dates[0][3:5]
-	
-	i = 0
-	while (i < len(dates)): 
-		
-		m = dates[i][3:5]
-
-		if m != mes or (i == (len(dates) - 1)):
-			meses.append(mes)
-			mes = m
-
-		i += 1
-
-	return meses
-
-
-def semanas(datesM):
-
-	dates = []
-	i = 0
-	while (i < len(datesM)): 
-		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
-		i += 1
-
-	semanas = []
-	week = dates[0].isocalendar()[1]
-	
-	i = 0
-	while (i < len(dates)): 
-		
-		if (dates[i].isocalendar()[1] != week) or (i == (len(dates) - 1)):
-			data = str(dates[i].day).zfill(2) + "/" + str(dates[i].month).zfill(2) + "/" + str(dates[i].year)
-			semanas.append(data)
-			week = dates[i].isocalendar()[1]
-
-
-		i += 1
-
-	print(semanas)
-
-	return semanas
-
-def quinzenas():
-	pass
-
-def media_mensal(data, datesM):
-	
-	meses =[]
-	dates = []
-	i = 0
-	while (i < len(datesM)): 
-		dates.append(datetime.strptime(datesM[i], '%d/%m/%Y'))
-		i += 1
-
-	month = dates[0].month
-	values = []
-	means = []
-	i = 0
-	while(i < len(dates)):
-
-		if dates[i].month == month:
-			values.append(data[i])
-		
-		if (dates[i].month != month) or (i == (len(dates) - 1)):
-			means.append(np.mean(values))
-			meses.append(month)
-			values = []
-			month = dates[i].month
-			values.append(data[i])
-
-		i += 1
-
-	#print(means)
-
-	return means
-
-def desvio_padrao(data):
-
-	df = np.std(data)
+	df = df.dropna()
 
 	return df
 
+
+def media_semanal(df):
+
+	df = df.set_index('data').resample('W-SAT').mean().round(2)
+	df = df.reset_index()
+	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
+
+	df = df.dropna()
+
+	return df
+
+def media_quinzenal(df):
+
+	df = df.set_index('data').resample('2W-SAT').mean().round(2)
+	df = df.reset_index()
+	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
+
+	df = df.dropna()
+
+	return df
+
+def media_mensal(df):
+	
+	df = df.set_index('data').resample('M').mean().round(2)
+	df = df.reset_index()
+	df['data'] = df['data'].dt.strftime('%b')
+	df = df.dropna()
+
+	return df
+
+def desvio_padrao(df):
+
+	df['ajuste_atual'] = df['ajuste_atual'].std()
+	df['ajuste_anterior'] = df['ajuste_anterior'].std() 
+	df['variacao'] =  df['variacao'].std() 
+	df['contratos'] =  df['contratos'].std()
+	df['volume'] =  df['volume'].std()
+	df['preco_abertura'] = df['preco_abertura'].std()
+	df['preco_min'] = df['preco_min'].std()
+	df['preco_max'] =  df['preco_max'].std()
+	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
+
+	return df
 
 def ln(data):
 

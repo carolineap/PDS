@@ -49,7 +49,8 @@ $(document).ready(function() {
                 drawMediaDiaria(data);
                 drawMediaMensal(data);
                 drawMediaSemanal(data);
-                drawDesvio(data);          
+                drawMediaQuinzenal(data);
+                drawDesvio(data);         
 
         });
 
@@ -139,6 +140,48 @@ function drawMediaSemanal(data) {
             }
 }
 
+function drawMediaQuinzenal(data) {
+
+        $("#bodyQuinzenal").empty();
+
+            for (var i = 0; i < data.media_quinzenal.ajuste_atual.length; i++) {
+                var row = $("<tr />");
+                $("#bodyQuinzenal").append(row); 
+
+                if (data.media_quinzenal.ajuste_atual) {           
+                    row.append($("<td>" + data.media_quinzenal.data[i] + "</td>"));
+                }
+
+                if (data.media_semanal.ajuste_atual) {           
+                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.variacao) {
+                   row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.contratos) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.volume) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.volume[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.preco_abertura) {
+                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.preco_min) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_semanal.preco_max) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+            }
+}
+
 function drawMediaMensal(data) {
 
         $("#bodyMensal").empty();
@@ -183,37 +226,43 @@ function drawMediaMensal(data) {
 
 function drawMediaDiaria(data) {
 
-      $("#bodyDiaria").empty();
+       $("#bodyDiaria").empty();
 
-            var row = $("<tr />")
-            $("#bodyDiaria").append(row); 
+            for (var i = 0; i < data.media_diaria.ajuste_atual.length; i++) {
+                var row = $("<tr />");
+                $("#bodyDiaria").append(row); 
 
-            if (data.media_diaria.ajuste_atual) {           
-                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.ajuste_atual * 100) / 100).toFixed(2) + "</td>"));
-            }
+                if (data.media_diaria.ajuste_atual) {           
+                    row.append($("<td>" + data.media_diaria.data[i] + "</td>"));
+                }
 
-            if (data.media_diaria.variacao) {
-               row.append($("<td>" + parseFloat(Math.round(data.media_diaria.variacao * 100) / 100).toFixed(2) + "</td>"));
-            }
+                if (data.media_diaria.ajuste_atual) {           
+                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
 
-            if (data.media_diaria.contratos) { 
-                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.contratos * 100) / 100).toFixed(2) + "</td>"));
-            }
+                if (data.media_diaria.variacao) {
+                   row.append($("<td>" + parseFloat(Math.round(data.media_diaria.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
 
-            if (data.media_diaria.volume) { 
-                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.volume * 100) / 100).toFixed(2) + "</td>"));
-            }
+                if (data.media_diaria.contratos) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
 
-            if (data.media_diaria.preco_abertura) {
-                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_abertura * 100) / 100).toFixed(2) + "</td>"));
-            }
+                if (data.media_diaria.volume) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.volume[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
 
-            if (data.media_diaria.preco_min) { 
-                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_min * 100) / 100).toFixed(2) + "</td>"));
-            }
+                if (data.media_diaria.preco_abertura) {
+                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
 
-            if (data.media_diaria.preco_max) { 
-                row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_max * 100) / 100).toFixed(2) + "</td>"));
+                if (data.media_diaria.preco_min) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.media_diaria.preco_max) { 
+                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
             }
 }
 
@@ -221,36 +270,45 @@ function drawDesvio(data) {
 
      $("#bodyDesvio").empty();
 
+          for (var i = 0; i < data.desvio_padrao.ajuste_atual.length; i++) {
+            
             var row = $("<tr />")
             $("#bodyDesvio").append(row); 
 
+
             if (data.desvio_padrao.ajuste_atual) {           
-                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.ajuste_atual * 100) / 100).toFixed(2) + "</td>"));
+                row.append($("<td>" + data.desvio_padrao.data[i] + "</td>"));
+            }
+
+
+            if (data.desvio_padrao.ajuste_atual) {           
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
             }
 
             if (data.desvio_padrao.variacao) {
-               row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.variacao * 100) / 100).toFixed(2) + "</td>"));
+               row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
             }
 
             if (data.desvio_padrao.contratos) { 
-                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.contratos * 100) / 100).toFixed(2) + "</td>"));
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
             }
 
             if (data.desvio_padrao.volume) { 
-                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.volume * 100) / 100).toFixed(2) + "</td>"));
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.volume[i] * 100) / 100).toFixed(2) + "</td>"));
             }
 
             if (data.desvio_padrao.preco_abertura) {
-                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_abertura * 100) / 100).toFixed(2) + "</td>"));
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
             }
 
             if (data.desvio_padrao.preco_min) { 
-                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_min * 100) / 100).toFixed(2) + "</td>"));
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
             }
 
             if (data.desvio_padrao.preco_max) { 
-                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_max * 100) / 100).toFixed(2) + "</td>"));
+                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
             }
+        }
 }
 
 
@@ -317,7 +375,21 @@ function show(){
             $("#tableMedMes").hide();
         }
 
-        var med = $("#desvio");
+        var med = $("#medMes");
+        if(med){
+            $("#tableMedMes").show();
+        }else{
+            $("#tableMedMes").hide();
+        }
+
+        var med = $("#medQuinze");
+        if(med){
+            $("#tableMedQuinze").show();
+        }else{
+            $("#tableMedQuinze").hide();
+        }
+
+        var med = $("#medDesvio");
         if(med){
             $("#tabledesvio").show();
         }else{
