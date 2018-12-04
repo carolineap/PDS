@@ -389,7 +389,7 @@
 .retorno td {
     border: 1px solid #dddddd;
     padding: 8px;
-    text-align: left;
+    text-align: right;
 }
 
 /* ----------------Redefinição do checkbox----------------------------------------------------------- */
