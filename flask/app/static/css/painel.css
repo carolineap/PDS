@@ -104,7 +104,9 @@ nav.sidebar .forAnimate{
   opacity: 1;
 }
 }
-
+a:hover{
+   cursor: pointer; 
+}
 nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
 color: #CCC;
 background-color: transparent;
@@ -116,10 +118,42 @@ opacity: 1;
 section{
 padding-left: 15px;
 }
-/* ----------------Página Home do Painel de Config---------------------------- */
-.home{
+/* ----------------Página BD do Painel de Config---------------------------- */
+.bd{
     padding: 30px 30px 0 18%;
 }
-.home h1{
+.bd h1{
     margin: 0;
+}
+.updateAndDelete{
+    margin-top: 40px;
+}
+.bd p{
+    margin-bottom: 40px;
+    text-align: justify; 
+}
+.bd h4{
+    font-weight: bold;
+}
+.mybtn{
+    color: white;
+    background-color: dodgerblue;
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
+    width: 100%;
+}
+.mybtn:hover{
+    opacity: 0.7;
+}
+.excl{
+    padding-left: 50px;
+}
+input[type=date] {
+    border-radius: 3px;
+    box-shadow: inset 0;
+    border: 1px solid #ccc;
+    width: 40%;
+    margin: 0 5px 20px 5px;
+    padding: 8px;
 }

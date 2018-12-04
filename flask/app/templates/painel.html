@@ -23,31 +23,54 @@
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
               <ul class="nav navbar-nav">
                   <li><a href="home.html">CPA <img src="../static/imagens/logo.png" style="width: 15%; float: right;"></a></li>
-                <li class="active" onclick="goto('home')"><a>Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                <li onclick="goto('user')"><a>Usuarios <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
-                </li>          
-                <li onclick="goto('bd')"><a>Banco de Dados<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>        
+                <li onclick="goto('bd')" class="active" id="botaoBd"><a>Banco de Dados<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+                <li onclick="goto('users')" id="botaoUsers"><a>Usuarios <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                </li>                  
                 <li ><a href="home.html">Sair<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
               </ul>
             </div>
           </div>
         </nav>
-        <div class="home">
-            <h1>Bem Vindo ao Painel de Configurações José Cezar!!</h1>
+        <div id="bd" class="bd">
+            <h1>Bem Vindo ao Painel de Configurações José Cesar!!</h1>
             <hr>
-            <h3>Não esqueça de atualizar os dados, na seção de Banco de Dados!!</h3>
+            <h3>Não esqueça de atualizar os dados!!!!</h3>
+            <div class="row updateAndDelete">
+                <div class="col-md-4">
+                    <b><h4>Atulização dos Dados</h4></b>
+                    <p style="text-align: justify">A atualização do banco de dados ocorre de forma semanal automaticamente, no entento você pode atualizá-lo antes do período de uma semana clicando no botão abaixo. Os dados serão atualizados desde a última atualização até o momento presente.</p>
+                    
+                    <button class="mybtn"><i class='fas fa-history'></i> Atualizar Dados</button>
+                </div>
+                <div class="col-md-6 excl">
+                    <b><h4>Exclusão dos Dados</h4></b>
+                    <p>A exclusão de dados gera um backup de segurança. Os dados que serão excluidos, serão aqueles dentro do intervalo de tempo selecionado, para todas as commodities. Lembre-se de excluir apenas dados que não serão mais úteis para você.</p>
+                    <label class="titleForm"> De:</label>
+                    <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
+                    <label class="titleForm"> Até:</label>
+                    <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa">
+                    <button class="mybtn" style="width: 70%; background-color: #F57C00; margin-left: 15%"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
+                </div>
+            </div>
              
         </div>
-        <div class="users">
-        
-        </div>
-        <div class="bd">
+        <div id="users">
         
         </div>
 </body>
 </html>
 <script>
     function goto(str){
-        
+        if(str == 'users'){
+            document.getElementById("users").style.display = 'block';
+            document.getElementById("bd").style.display = 'none';
+            document.getElementById("botaoBd").className = "";
+            document.getElementById("botaoUsers").className = "active";
+        }else if(str == 'bd'){
+            document.getElementById("users").style.display = 'none';
+            document.getElementById("bd").style.display = 'block';
+            document.getElementById("botaoBd").className = "active";
+            document.getElementById("botaoUsers").className = "";
+        }
     }
 </script>
