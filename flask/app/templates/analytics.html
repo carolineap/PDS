@@ -46,6 +46,26 @@ function mudar() {
             <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa" required>
             <label class="titleForm calc"> Até:</label>
             <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa" required>
+            <label class="titleForm"> Mês Vencimento: </label>
+            <select class="formSelec" id = "inputMes" name = "vencimento">
+                <option value = "all">Todos</option>
+                <option value = "F">Janeiro</option>
+                <option value = "G">Fevereiro</option>
+                <option value = "H">Março</option>                
+                <option value = "J">Abril</option>
+                <option value = "K">Maio</option>
+                <option value = "M">Junho</option>
+                <option value = "N">Julho</option>
+                <option value = "Q">Agosto</option>
+                <option value = "U">Setembro</option>
+                <option value = "V">Outubro</option>
+                <option value = "X">Novembro</option>
+                <option value = "Z">Dezembro</option>
+            </select>
+            <label class="titleForm"> Ano: </label>
+            <select id = "ano" name = "ano" class="formSelec">
+                <option value = 'all'>Todos</option>
+            </select> 
             <button type="submit" class="btnBusca" style="width: 10%">Calcular</button>  
             <br>
             <div class="row" style="width: 100%">
@@ -333,6 +353,7 @@ function mudar() {
         
         
     }
+
 </script>
 {% endblock %}
 
