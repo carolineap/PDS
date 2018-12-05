@@ -36,7 +36,7 @@ function mudar() {
           <!-- --------------------------Form -------------------------- -->
         <form id ="fAnalytics" class="formAjuste" method="POST">
             <label class="titleForm calc">Commoditie:</label>
-            <select name = "commoditie" class="formSelec">
+            <select name = "commoditie" id="selectComood" class="formSelec" onchange="mudarSelect()" >
                 <option value="B">Boi Gordo</option>
                 <option value="C">Café Arábica 4/5</option>
                 <option value="M">Milho</option>
@@ -66,7 +66,7 @@ function mudar() {
             <select id = "ano" name = "ano" class="formSelec">
                 <option value = 'all'>Todos</option>
             </select> 
-            <button type="submit" class="btnBusca" style="width: 10%">Calcular</button>  
+            
             <br>
             <div class="row" style="width: 100%">
                 <div class="col-md-4">
@@ -172,6 +172,9 @@ function mudar() {
                           </div>
                         </div>
                       </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btnBusca" style="width: 40%">Calcular</button>  
                 </div>
             </div>
         </form>
@@ -324,12 +327,12 @@ function mudar() {
             }
         }else{
             var icon = document.getElementById("minusPlus2");
-            if(flag == 1){
+            if(flag2 == 1){
                 icon.className = 'more-less glyphicon glyphicon-minus';
-                flag = 2;
+                flag2 = 2;
             }else{
                  icon.className = 'more-less glyphicon glyphicon-plus';
-                flag = 1;
+                flag2 = 1;
             }
         }
         
@@ -362,6 +365,34 @@ function mudar() {
         }
         
         
+    }
+    function mudarSelect(){
+        var commodite = document.getElementById("selectComood");
+        if(commodite.value == 'B'){
+               var newOptions = {"Todos": "all",
+                  "Janeiro": "F",
+                  "Fevereiro": "G", "Março": "H", "Abril": "J", "Maio":"K" ,"Junho":"M", "Julho":"N","Agosto":"Q", "Setembro": "U", "Outubro": "V", "Novembro": "X", "Dezembro":"Z"
+                };
+        }else if(commodite.value == 'C'){
+                 var newOptions = {"Todos": "all",
+                   "Março": "H", "Maio":"K", "Julho":"N", "Setembro": "U", "Dezembro":"Z"
+                };
+        }else if(commodite.value == 'M'){
+                var newOptions = {"Todos": "all",
+                  "Janeiro": "F",
+                   "Março": "H", "Maio":"K", "Julho":"N","Agosto":"Q", "Setembro": "U", "Novembro": "X",
+                };
+        }else{
+            var newOptions = {"Todos": "all",
+                  "Março": "H", "Abril": "J", "Maio":"K" ,"Junho":"M", "Julho":"N","Agosto":"Q", "Setembro": "U", "Novembro": "X",
+                };
+        }
+        var $el = $("#inputMes");
+            $el.empty(); // remove old options
+            $.each(newOptions, function(key,value) {
+              $el.append($("<option></option>")
+                 .attr("value", value).text(key));
+        });
     }
 
 </script>
