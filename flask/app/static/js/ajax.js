@@ -35,24 +35,31 @@ $(document).ready(function() {
 
     form.on('submit', function(event) {
 
-        var form = $(this);
-        $.ajax({
-            data : form.serialize(),
-            type : 'POST',
-            dataType: "json",
-            cache: false,
-            url : '/requestAnalytics'
-        })
+            if ($('#ano').val() == 'none') {
+                alert("Selecione um ano de vencimento específico!");
+            }
 
-        .done(function(data) {
+            var form = $(this);
+            $.ajax({
+                data : form.serialize(),
+                type : 'POST',
+                dataType: "json",
+                cache: false,
+                url : '/requestAnalytics'
+            })
 
-                show(data); 
+            .done(function(data) {
+
+                    show(data); 
+
+            });
+
+            event.preventDefault();
+
+    
 
         });
 
-        event.preventDefault();
-
-    });
 
 });
 
