@@ -108,7 +108,7 @@ function mudar() {
                                   </label>
                                   
                                   <label class="titleForm calculos">Ln
-                                    <input type="checkbox" id="ln">
+                                    <input type="checkbox" id="ln" name="ln">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Rolagem do Vencimentos em Aberto
@@ -293,12 +293,13 @@ function mudar() {
             <h3>Ln</h3>
             <table class="retorno">
                 <tr>
-                    <th>Ln</th>
+                    <th>Data</th>
+                    <th>Ajuste Atual</th>
                     <th>Retorno Simples</th>
-                    <th>Retorno Composto</th>
-                    <th>Volatilidade</th>
+                    <th>ln</th>
+                    <th>Retorno Contínuo</th>
                 </tr>
-                <tbody>
+                <tbody id = "bodyln">
                   
                 </tbody>
             </table>

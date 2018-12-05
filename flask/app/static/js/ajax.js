@@ -190,7 +190,7 @@ function drawMediaMovel(data) {
                     if (data.media_movel.ajuste_atual[i] != 'N/A')
                         row.append($("<td>" + parseFloat(Math.round(data.media_movel.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
                     else
-                        row.append($("<td>" + data.media_movel.ajuste_atual[i] + "</td>"));
+                        row.append($("<td>" + 'N/A' + "</td>"));
                 }
 
             }
@@ -353,6 +353,47 @@ function drawDesvio(data) {
         
 }
 
+function drawln(data) {
+
+        $("#bodyln").empty();
+
+
+
+            for (var i = 0; i < data.ln.ajuste_atual.length; i++) {
+                var row = $("<tr />");
+                $("#bodyln").append(row); 
+
+                if (data.ln.data) {           
+                    row.append($("<td>" + data.ln.data[i] + "</td>"));
+                }
+
+                if (data.ln.ajuste_atual) {           
+                    row.append($("<td>" + parseFloat(Math.round(data.ln.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.ln.retorno_simples) {
+                    if (data.ln.retorno_simples[i] != 'N/A')
+                        row.append($("<td>" + parseFloat(Math.round(data.ln.retorno_simples[i] * 100) / 100).toFixed(2) + "</td>"));
+                    else
+                        row.append($("<td>" + 'N/A' + "</td>"));
+                }
+
+                if (data.ln.ln) { 
+                    
+                    row.append($("<td>" + parseFloat(Math.round(data.ln.ln[i] * 100) / 100).toFixed(2) + "</td>"));
+                }
+
+                if (data.ln.retorno_continuo) { 
+                    if (data.ln.ajuste_atual[i] != 'N/A')
+                        row.append($("<td>" + parseFloat(data.ln.retorno_continuo[i]).toFixed(6) + "</td>"));
+                    else
+                        row.append($("<td>" + 'N/A' + "</td>"));
+                }
+
+            }
+}
+
+
 
 function drawTable(data) {
 
@@ -441,6 +482,14 @@ function show(data){
             drawMediaMovel(data);
         }else{
             $("#tablemovel").hide();
+        }
+
+        var med = $("#ln");
+        if(med.is(':checked')){
+            $("#tableln").show();
+            drawln(data);
+        }else{
+            $("#tableln").hide();
         }
       
 }

@@ -27,6 +27,15 @@ class Calculo:
 		self.preco_abertura = preco_abertura
 		self.preco_min = preco_min
 		self.preco_max = preco_max
+
+class Calculoln:			
+	def __init__(self, data, ajuste_atual, retorno_simples, ln, retorno_continuo):
+		self.data = data
+		self.ajuste_atual = ajuste_atual
+		self.retorno_simples = retorno_simples
+		self.ln = ln
+		self.retorno_continuo = retorno_continuo
+
 		
 
 class Commodity:
@@ -141,7 +150,7 @@ def mediaDiaria(df):
 
 def mediaMovel(df):
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
+	media_aa = []
 
 	if request.form.get('movel'):
 
@@ -157,7 +166,25 @@ def mediaMovel(df):
 		return None
 			
 			
-	return Calculo(df_mediaMovel['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo(df_mediaMovel['data'].values.tolist(), media_aa, [], [], [], [], [], [])
+
+def ln(df):
+	ajuste_atual = retorno_simples = ln = retorno_continuo = []
+
+	if request.form.get('ln'):
+
+		df_ln = calc.ln(df)
+		ajuste_atual = df_ln['ajuste_atual'].values.tolist()
+		retorno_simples =  df_ln['retorno_simples'].values.tolist()
+		ln =  df_ln['ln'].values.tolist()
+		retorno_continuo =  df_ln['retorno_continuo'].values.tolist()
+
+		print(retorno_continuo)
+
+	else:
+		return None
+			
+	return Calculoln(df_ln['data'].values.tolist(), ajuste_atual, retorno_simples, ln, retorno_continuo)
 
 def mediaMensal(df):
 
@@ -445,7 +472,8 @@ def requestAnalytics():
 				'media_semanal': mediaSemanal(df),
 				'media_quinzenal': mediaQuinzenal(df),
 				'desvio_padrao': desvioPadrao(df),
-				'media_movel': mediaMovel(df)			
+				'media_movel': mediaMovel(df),
+				'ln': ln(df)			
 			}
 
 			return(json.dumps(data, default=lambda o: o.__dict__, indent=4, separators=(',',':')))

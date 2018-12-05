@@ -69,53 +69,24 @@ def desvio_padrao(df):
 
 	return df
 
-def ln(data):
+def ln(df):
 
-	df = np.log(data)
+	df = df[['ajuste_atual','data']]
+	df = df.set_index('data')
+	df['retorno_simples'] = df.diff()
+	df['ln'] = np.log(df['ajuste_atual'])
+	df['retorno_continuo'] = df['ln'].diff()
+	df = df.reset_index()
+	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
+	df = df.replace(np.NaN, 'N/A')
+
 
 	return df
+	#print(df['ajuste_atual'].values)
+	#print(df['ajuste_atual'].mean())
 
-def retorno_simples(data):
+	#print(df['ln'].mean())
 
-	data = ln(data)
+	#print(df)
 
-	data = {'m': data}
-
-	df = pd.DataFrame(data)
-	df = df.rolling(window=2).std()
-
-	df = df['m'].values.tolist()
-
-	return df
-
-
-def retorno_continuo(data):
-
-	data = ln(data)
-
-	data = {'m': data}
-
-	df = pd.DataFrame(data)
-	df = df.rolling(window=2).mean()
-
-	df = df['m'].values.tolist()
-
-	return df
-
-
-
-
-def volatilidade(data):
-
-	data = retorno_simples(data)
-
-	data = {'m': data}
-
-	df = pd.DataFrame(data)
-	
-	df = df.diff()
-
-	df = df['m'].values.tolist()
-
-	return df
 	
