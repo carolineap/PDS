@@ -135,7 +135,7 @@ function drawMediaSemanal(data) {
 
         $("#bodySemanal").empty();
 
-            for (var i = 0; i < data.media_semanal.ajuste_atual.length; i++) {
+            for (var i = 0; i < data.media_semanal.data.length; i++) {
                 var row = $("<tr />");
                 $("#bodySemanal").append(row); 
 
@@ -143,31 +143,31 @@ function drawMediaSemanal(data) {
                     row.append($("<td>" + data.media_semanal.data[i] + "</td>"));
                 }
 
-                if (data.media_semanal.ajuste_atual) {           
+                if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + parseFloat(Math.round(data.media_semanal.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.variacao) {
+                if ($('#check2').is(':checked')) {
                    row.append($("<td>" + parseFloat(Math.round(data.media_semanal.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.contratos) { 
+                if ($('#check3').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_semanal.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.volume) { 
+                if ($('#check4').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_semanal.volume[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.preco_abertura) {
+                if ($('#check5').is(':checked')) {
                     row.append($("<td>" + parseFloat(Math.round(data.media_semanal.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.preco_min) { 
+                if ($('#check6').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_semanal.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.preco_max) { 
+                if ($('#check7').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_semanal.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
             }
@@ -177,7 +177,7 @@ function drawMediaMovel(data) {
 
         $("#bodyMovel").empty();
 
-            for (var i = 0; i < data.media_movel.ajuste_atual.length; i++) {
+            for (var i = 0; i < data.media_movel.data.length; i++) {
                 
                 var row = $("<tr />");
                 $("#bodyMovel").append(row); 
@@ -186,7 +186,7 @@ function drawMediaMovel(data) {
                     row.append($("<td>" + data.media_movel.data[i] + "</td>"));
                 }
 
-                if (data.media_movel.ajuste_atual) {           
+                if ($('#check1').is(':checked')) {           
                     if (data.media_movel.ajuste_atual[i] != 'N/A')
                         row.append($("<td>" + parseFloat(Math.round(data.media_movel.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
                     else
@@ -200,39 +200,39 @@ function drawMediaQuinzenal(data) {
 
         $("#bodyQuinzenal").empty();
 
-            for (var i = 0; i < data.media_quinzenal.ajuste_atual.length; i++) {
+            for (var i = 0; i < data.media_quinzenal.data.length; i++) {
                 var row = $("<tr />");
                 $("#bodyQuinzenal").append(row); 
 
-                if (data.media_quinzenal.ajuste_atual) {           
+                if (data.media_quinzenal.data) {           
                     row.append($("<td>" + data.media_quinzenal.data[i] + "</td>"));
                 }
 
-                if (data.media_semanal.ajuste_atual) {           
+                if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.variacao) {
+                if ($('#check2').is(':checked')) {
                    row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.contratos) { 
+                if ($('#check3').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.volume) { 
+                if ($('#check4').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.volume[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.preco_abertura) {
+                if ($('#check5').is(':checked')) {
                     row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.preco_min) { 
+                if ($('#check6').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_semanal.preco_max) { 
+                if ($('#check7').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_quinzenal.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
             }
@@ -242,39 +242,39 @@ function drawMediaMensal(data) {
 
         $("#bodyMensal").empty();
 
-            for (var i = 0; i < data.media_mensal.ajuste_atual.length; i++) {
+            for (var i = 0; i < data.media_mensal.data.length; i++) {
                 var row = $("<tr />");
                 $("#bodyMensal").append(row); 
 
-                if (data.media_mensal.ajuste_atual) {           
+                if (data.media_mensal.data) {           
                     row.append($("<td>" + data.media_mensal.data[i] + "</td>"));
                 }
 
-                if (data.media_mensal.ajuste_atual) {           
+                if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + parseFloat(Math.round(data.media_mensal.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_mensal.variacao) {
+                if ($('#check2').is(':checked')) {
                    row.append($("<td>" + parseFloat(Math.round(data.media_mensal.variacao[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_mensal.contratos) { 
+                if ($('#check3').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_mensal.contratos[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_mensal.volume) { 
+                if ($('#check4').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_mensal.volume[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_mensal.preco_abertura) {
+                if ($('#check5').is(':checked')) {
                     row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_abertura[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_mensal.preco_min) { 
+                if ($('#check6').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_min[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_mensal.preco_max) { 
+                if ($('#check7').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_mensal.preco_max[i] * 100) / 100).toFixed(2) + "</td>"));
                 }
             }
@@ -287,31 +287,31 @@ function drawMediaDiaria(data) {
                 var row = $("<tr />");
                 $("#bodyDiaria").append(row); 
 
-                if (data.media_diaria.ajuste_atual) {           
+                if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + parseFloat(Math.round(data.media_diaria.ajuste_atual * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_diaria.variacao) {
+                if ($('#check2').is(':checked')) {
                    row.append($("<td>" + parseFloat(Math.round(data.media_diaria.variacao * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_diaria.contratos) { 
+                if ($('#check3').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_diaria.contratos  * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_diaria.volume) { 
+                if ($('#check4').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_diaria.volume  * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_diaria.preco_abertura) {
+                if ($('#check5').is(':checked')) {
                     row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_abertura * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_diaria.preco_min) { 
+                if ($('#check6').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_min * 100) / 100).toFixed(2) + "</td>"));
                 }
 
-                if (data.media_diaria.preco_max) { 
+                if ($('#check7').is(':checked')) { 
                     row.append($("<td>" + parseFloat(Math.round(data.media_diaria.preco_max * 100) / 100).toFixed(2) + "</td>"));
                 }
 }
@@ -323,31 +323,31 @@ function drawDesvio(data) {
             var row = $("<tr />")
             $("#bodyDesvio").append(row); 
 
-            if (data.desvio_padrao.ajuste_atual) {           
+            if ($('#check1').is(':checked')) {           
                 row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.ajuste_atual * 100) / 100).toFixed(2) + "</td>"));
             }
 
-            if (data.desvio_padrao.variacao) {
+            if ($('#check2').is(':checked')) {
                row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.variacao * 100) / 100).toFixed(2) + "</td>"));
             }
 
-            if (data.desvio_padrao.contratos) { 
+            if ($('#check3').is(':checked')) { 
                 row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.contratos * 100) / 100).toFixed(2) + "</td>"));
             }
 
-            if (data.desvio_padrao.volume) { 
+            if ($('#check4').is(':checked')) { 
                 row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.volume * 100) / 100).toFixed(2) + "</td>"));
             }
 
-            if (data.desvio_padrao.preco_abertura) {
+            if ($('#check5').is(':checked')) {
                 row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_abertura * 100) / 100).toFixed(2) + "</td>"));
             }
 
-            if (data.desvio_padrao.preco_min) { 
+            if ($('#check6').is(':checked')) { 
                 row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_min * 100) / 100).toFixed(2) + "</td>"));
             }
 
-            if (data.desvio_padrao.preco_max) { 
+            if ($('#check7').is(':checked')) { 
                 row.append($("<td>" + parseFloat(Math.round(data.desvio_padrao.preco_max * 100) / 100).toFixed(2) + "</td>"));
             }
         
@@ -367,28 +367,28 @@ function drawln(data) {
                     row.append($("<td>" + data.ln.data[i] + "</td>"));
                 }
 
-                if (data.ln.ajuste_atual) {           
+                if ($('#check1').is(':checked')) {           
+                    
                     row.append($("<td>" + parseFloat(Math.round(data.ln.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
-                }
 
-                if (data.ln.retorno_simples) {
+               
                     if (data.ln.retorno_simples[i] != 'N/A')
                         row.append($("<td>" + parseFloat(Math.round(data.ln.retorno_simples[i] * 100) / 100).toFixed(2) + "</td>"));
                     else
                         row.append($("<td>" + 'N/A' + "</td>"));
-                }
+                
 
-                if (data.ln.ln) { 
-                    
                     row.append($("<td>" + parseFloat(Math.round(data.ln.ln[i] * 100) / 100).toFixed(2) + "</td>"));
-                }
-
-                if (data.ln.retorno_continuo) { 
+                
                     if (data.ln.ajuste_atual[i] != 'N/A')
                         row.append($("<td>" + parseFloat(data.ln.retorno_continuo[i]).toFixed(6) + "</td>"));
                     else
                         row.append($("<td>" + 'N/A' + "</td>"));
+
+                } else {
+                    alert("Os cálculos de ln são realizados somente com o preço de ajuste atual!");
                 }
+                
 
             }
 }
@@ -436,6 +436,8 @@ $(document).ajaxComplete(function(){
 });
 
 function show(data){
+
+        removeColumn();
         
         var med = $("#medDia");
         if(med.is(':checked')){
@@ -480,6 +482,7 @@ function show(data){
         if(med.is(':checked')){
             $("#tablemovel").show();
             drawMediaMovel(data);
+            $("#graphDown").show();
         }else{
             $("#tablemovel").hide();
         }
@@ -516,3 +519,59 @@ function show(data){
 
         }
 }
+
+function removeColumn(){
+
+    var check = $("#check1");  
+    if(check.is(':checked')){
+        $(".ajuste_atual").show();
+    } else {
+        $(".ajuste_atual").hide();
+    }
+
+    var check = $("#check2");  
+    if(check.is(':checked')){
+        $(".variacao").show();
+    } else {
+         $(".variacao").hide();
+    }
+
+    var check = $("#check3");  
+    if(check.is(':checked')){
+        $(".contratos").show();
+    } else {
+        $(".contratos").hide();
+    }
+
+    var check = $("#check4");  
+    if(check.is(':checked')){
+        $(".volume").show();
+    } else {
+        $(".volume").hide();
+
+    }
+
+    var check = $("#check5");  
+    if(check.is(':checked')){
+        $(".abertura").show();
+    } else {
+        $(".abertura").hide();
+    }
+
+    var check = $("#check6");  
+    if(check.is(':checked')){
+        $(".minimo").show();
+    } else {
+        $(".minimo").hide();
+
+    }
+
+    var check = $("#check7");  
+    if(check.is(':checked')){
+        $(".maximo").show();
+    } else {
+        $(".maximo").hide();
+    }
+
+}
+

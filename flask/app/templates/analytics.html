@@ -183,13 +183,13 @@ function mudar() {
             <h3>Média Diária</h3>
             <table class="retorno">
                 <tr>
-                    <th>Preço do Ajuste Atual </th>
-                    <th>Variação</th>
-                    <th>Número de Contratos em Aberto</th>
-                    <th>Volume</th>
-                    <th>Preço de Abertura</th>
-                    <th>Preço Mínimo</th>
-                    <th>Preço Máximo</th>
+                    <th class="ajuste_atual">Preço do Ajuste Atual </th>
+                    <th class="variacao">Variação</th>
+                    <th class="contratos">Número de Contratos em Aberto</th>
+                    <th class="volume">Volume</th>
+                    <th class="abertura">Preço de Abertura</th>
+                    <th class="minimo">Preço Mínimo</th>
+                    <th class=maximo>Preço Máximo</th>
                 </tr>
                 <tbody id = "bodyDiaria">
                   
@@ -203,13 +203,13 @@ function mudar() {
                 <tr>
                   <!--   <th>Data</th> -->
                     <th>Semana</th>
-                    <th>Preço de Ajuste Atual </th>
-                    <th>Variação</th>
-                    <th>Número de Contratos em Aberto</th>
-                    <th>Volume</th>
-                    <th>Preço de Abertura</th>
-                    <th>Preço Mínimo</th>
-                    <th>Preço Máximo</th>
+                    <th class="ajuste_atual">Preço do Ajuste Atual </th>
+                    <th class="variacao">Variação</th>
+                    <th class="contratos">Número de Contratos em Aberto</th>
+                    <th class="volume">Volume</th>
+                    <th class="abertura">Preço de Abertura</th>
+                    <th class="minimo">Preço Mínimo</th>
+                    <th class=maximo>Preço Máximo</th>
                 </tr>
                 <tbody id = "bodySemanal">
                   
@@ -222,13 +222,13 @@ function mudar() {
             <table class="retorno">
                 <tr>
                     <th>Data</th>
-                    <th>Preço do Ajuste Atual </th>
-                    <th>Variação</th>
-                    <th>Número de Contratos em Aberto</th>
-                    <th>Volume</th>
-                    <th>Preço de Abertura</th>
-                    <th>Preço Mínimo</th>
-                    <th>Preço Máximo</th>
+                    <th class="ajuste_atual">Preço do Ajuste Atual </th>
+                    <th class="variacao">Variação</th>
+                    <th class="contratos">Número de Contratos em Aberto</th>
+                    <th class="volume">Volume</th>
+                    <th class="abertura">Preço de Abertura</th>
+                    <th class="minimo">Preço Mínimo</th>
+                    <th class=maximo>Preço Máximo</th>
                 </tr>
                 <tbody id="bodyQuinzenal">
                   
@@ -241,13 +241,13 @@ function mudar() {
             <table class="retorno">
                 <tr>
                     <th>Mês</th>
-                    <th>Preço do Ajuste Atual </th>
-                    <th>Variação</th>
-                    <th>Número de Contratos em Aberto</th>
-                    <th>Volume</th>
-                    <th>Preço de Abertura</th>
-                    <th>Preço Mínimo</th>
-                    <th>Preço Máximo</th>
+                    <th class="ajuste_atual">Preço do Ajuste Atual </th>
+                    <th class="variacao">Variação</th>
+                    <th class="contratos">Número de Contratos em Aberto</th>
+                    <th class="volume">Volume</th>
+                    <th class="abertura">Preço de Abertura</th>
+                    <th class="minimo">Preço Mínimo</th>
+                    <th class=maximo>Preço Máximo</th>
                 </tr>
                 <tbody id="bodyMensal">
                   
@@ -259,13 +259,13 @@ function mudar() {
             <h3>Desvio Padrão</h3>
             <table class="retorno">
                 <tr>
-                  <th>Preço do Ajuste Atual </th>
-                  <th>Variação</th>
-                  <th>Número de Contratos em Aberto</th>
-                  <th>Volume</th>
-                  <th>Preço de Abertura</th>
-                  <th>Preço Mínimo</th>
-                  <th>Preço Máximo</th>
+                    <th class="ajuste_atual">Preço do Ajuste Atual </th>
+                    <th class="variacao">Variação</th>
+                    <th class="contratos">Número de Contratos em Aberto</th>
+                    <th class="volume">Volume</th>
+                    <th class="abertura">Preço de Abertura</th>
+                    <th class="minimo">Preço Mínimo</th>
+                    <th class=maximo>Preço Máximo</th>
                 </tr>
                 <tbody id="bodyDesvio">
                   
@@ -392,6 +392,7 @@ function mudar() {
                  .attr("value", value).text(key));
         });
     }
+
 </script>
 {% endblock %}
 
