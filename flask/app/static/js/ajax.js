@@ -491,5 +491,28 @@ function show(data){
         }else{
             $("#tableln").hide();
         }
-      
+
+        var med = $("#rolagem");
+        if(med.is(':checked')){
+            
+            var win = window.open('rolagem.html', '_blank');
+
+            var form = $('#fAnalytics');
+            $.ajax({
+                data : form.serialize(),
+                type : 'POST',
+                cache: false,
+                url : '/rolagem.html'
+            })
+
+            .done(function(data) {
+
+               
+
+            });
+
+            event.preventDefault();
+
+
+        }
 }

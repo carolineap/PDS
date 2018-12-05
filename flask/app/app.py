@@ -545,6 +545,49 @@ def graph():
 		
 	return render_template('home.html')		
 
+@app.route('/rolagem.html', methods=['GET', 'POST'])
+def rolagem():
+
+	vencimento = None
+
+	if (request.method == 'POST'):
+		
+		try:
+			
+			table = request.form.get('commoditie')
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+			vencimento = request.form.get('vencimento')
+			ano = request.form.get('ano')
+
+			vencimento = vencimento + ano
+
+			if (len(data2) == 0): data2 = data1
+
+			if (table == 'M'):
+				pass
+			elif (table == 'B'):
+				pass
+			elif (table == 'C'):
+				pass
+			elif (table == 'S'):
+				pass
+			else:
+				pass
+
+			rows = cur.fetchall()
+
+
+		
+
+		except:
+			pass	
+	
+
+	return render_template('rolagem.html', data=vencimento)
+
+
+
 	
 @app.route('/painel.html', methods=['GET', 'POST'])
 def painel():
