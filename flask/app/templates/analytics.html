@@ -48,7 +48,6 @@ function mudar() {
             <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa" required>
             <label class="titleForm"> Mês Vencimento: </label>
             <select class="formSelec" id = "inputMes" name = "vencimento">
-                <option value = "all">Todos</option>
                 <option value = "F">Janeiro</option>
                 <option value = "G">Fevereiro</option>
                 <option value = "H">Março</option>                
@@ -64,7 +63,7 @@ function mudar() {
             </select>
             <label class="titleForm"> Ano: </label>
             <select id = "ano" name = "ano" class="formSelec">
-                <option value = 'all'>Todos</option>
+                <option value = 'none'>--</option>
             </select> 
             
             <br>
@@ -101,11 +100,11 @@ function mudar() {
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm calculos">Média Móvel
-                                    <input type="checkbox" id="movel" onclick="janela()">
+                                    <input type="checkbox" name="movel" id="movel" onclick="janela()">
                                     <span class="checkmark"></span>
                                   </label>
                                   <label class="titleForm" id="tamJanela" style="display: none"> Tamanho Da Janela:
-                                    <input type="number" min="1" max="30" style="width: 50%;">
+                                    <input name="window" type="number" min="1" max="30" style="width: 50%;">
                                   </label>
                                   
                                   <label class="titleForm calculos">Ln
@@ -184,7 +183,6 @@ function mudar() {
             <h3>Média Diária</h3>
             <table class="retorno">
                 <tr>
-                    <th>Data</th>
                     <th>Preço do Ajuste Atual </th>
                     <th>Variação</th>
                     <th>Número de Contratos em Aberto</th>
@@ -261,7 +259,6 @@ function mudar() {
             <h3>Desvio Padrão</h3>
             <table class="retorno">
                 <tr>
-                  <th>Data</th>
                   <th>Preço do Ajuste Atual </th>
                   <th>Variação</th>
                   <th>Número de Contratos em Aberto</th>
@@ -280,10 +277,10 @@ function mudar() {
             <h3>Média Móvel</h3>
             <table class="retorno">
                 <tr>
-                    <th>Intervalo</th>
+                    <th>Data</th>
                     <th>Média Móvel</th>
                 </tr>
-                <tbody>
+                <tbody id = "bodyMovel">
                   
                 </tbody>
             </table>
@@ -394,7 +391,6 @@ function mudar() {
                  .attr("value", value).text(key));
         });
     }
-
 </script>
 {% endblock %}
 

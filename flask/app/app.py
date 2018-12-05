@@ -8,6 +8,7 @@ import string
 import json
 import calculos as calc
 import pandas as pd
+import config
 
 app = Flask(__name__)
 app.secret_key = 'some_secret'
@@ -48,15 +49,15 @@ class Commodity:
 	def to_dict(self):
 		return {
 			'data': datetime.strptime(self.data, '%d/%m/%Y'),
-            'ajuste_atual': self.ajuste_atual,
-            'ajuste_anterior': self.ajuste_anterior,
-            'variacao': self.variacao,
-            'contratos': self.contratos,
-            'volume': int(self.volume.replace('.', '')),
-            'preco_abertura': self.preco_abertura,
-            'preco_min': self.preco_min,
-            'preco_max': self.preco_max
-        }
+			'ajuste_atual': self.ajuste_atual,
+			'ajuste_anterior': self.ajuste_anterior,
+			'variacao': self.variacao,
+			'contratos': self.contratos,
+			'volume': int(self.volume.replace('.', '')),
+			'preco_abertura': self.preco_abertura,
+			'preco_min': self.preco_min,
+			'preco_max': self.preco_max
+		}
 
 def filtro(rows, vencimento, frequencia, dia, ano):
 
@@ -114,30 +115,49 @@ def filtro(rows, vencimento, frequencia, dia, ano):
 def mediaDiaria(df):
 
 	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
-	
 	if request.form.get('medDia'):
 	
-	 	df_mediaDiaria = calc.media_diaria(df)
+		df_mediaDiaria = calc.media_diaria(df)
 
-	 	if request.form.get('check1'):
-			media_aa = df_mediaDiaria['ajuste_atual'].values.tolist()
+		if request.form.get('check1'):
+			media_aa = df_mediaDiaria['ajuste_atual'].tolist()
 		if request.form.get('check2'):
-			media_var = df_mediaDiaria['variacao'].values.tolist()
+			media_var = df_mediaDiaria['variacao'].tolist()
 		if request.form.get('check3'):
-			media_cont = df_mediaDiaria['contratos'].values.tolist()
+			media_cont = df_mediaDiaria['contratos'].tolist()
 		if request.form.get('check4'):
-			media_vol = df_mediaDiaria['volume'].values.tolist()
+			media_vol = df_mediaDiaria['volume'].tolist()
 		if request.form.get('check5'):
-			media_abert = df_mediaDiaria['preco_abertura'].values.tolist()
+			media_abert = df_mediaDiaria['preco_abertura'].tolist()
 		if request.form.get('check6'):
-			media_min = df_mediaDiaria['preco_min'].values.tolist()
+			media_min = df_mediaDiaria['preco_min'].tolist()
 		if request.form.get('check7'):
-			media_max = df_mediaDiaria['preco_max'].values.tolist()
-			
+			media_max = df_mediaDiaria['preco_max'].tolist()
 	else:
-	 	return None
+		return None
 			
-	return Calculo(df_mediaDiaria['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+			
+	return Calculo([], media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+
+def mediaMovel(df):
+
+	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
+
+	if request.form.get('movel'):
+
+		if request.form.get('window'):
+			
+			w = request.form.get('window')
+	
+			df_mediaMovel = calc.media_movel(df, w)
+
+			media_aa = df_mediaMovel['ajuste_atual'].values.tolist()
+	
+	else:
+		return None
+			
+			
+	return Calculo(df_mediaMovel['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def mediaMensal(df):
 
@@ -145,9 +165,9 @@ def mediaMensal(df):
 	
 	if request.form.get('medMes'):
 	
-	 	df_mediaMensal = calc.media_mensal(df)
+		df_mediaMensal = calc.media_mensal(df)
 
-	 	if request.form.get('check1'):
+		if request.form.get('check1'):
 			media_aa = df_mediaMensal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
 			media_var = df_mediaMensal['variacao'].values.tolist()
@@ -163,7 +183,7 @@ def mediaMensal(df):
 			media_max = df_mediaMensal['preco_max'].values.tolist()
 			
 	else:
-	 	return None
+		return None
 			
 	return Calculo(df_mediaMensal['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
@@ -173,9 +193,9 @@ def mediaSemanal(df):
 	
 	if request.form.get('medSema'):
 	
-	 	df_mediaSemanal = calc.media_semanal(df)
+		df_mediaSemanal = calc.media_semanal(df)
 
-	 	if request.form.get('check1'):
+		if request.form.get('check1'):
 			media_aa = df_mediaSemanal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
 			media_var = df_mediaSemanal['variacao'].values.tolist()
@@ -207,7 +227,7 @@ def mediaSemanal(df):
 			i += 1
 
 	else:
-	 	return None
+		return None
 			
 	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
@@ -219,9 +239,9 @@ def mediaQuinzenal(df):
 	if request.form.get('medQuinze'):
 	
 
-	 	df_mediaQuinzenal= calc.media_quinzenal(df)
+		df_mediaQuinzenal= calc.media_quinzenal(df)
 
-	 	if request.form.get('check1'):
+		if request.form.get('check1'):
 			media_aa = df_mediaQuinzenal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
 			media_var = df_mediaQuinzenal['variacao'].values.tolist()
@@ -253,7 +273,7 @@ def mediaQuinzenal(df):
 			i += 1
 
 	else:
-	 	return None
+		return None
 			
 	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
@@ -266,27 +286,27 @@ def desvioPadrao(df):
 
 		df_desvioPadrao = calc.desvio_padrao(df)
 
-	 	if request.form.get('check1'):
-			desvio_aa = df_desvioPadrao['ajuste_atual'].values.tolist()
+		if request.form.get('check1'):
+			desvio_aa = df_desvioPadrao['ajuste_atual'].tolist()
 		if request.form.get('check2'):
-			desvio_var = df_desvioPadrao['variacao'].values.tolist()
+			desvio_var = df_desvioPadrao['variacao'].tolist()
 		if request.form.get('check3'):
-			desvio_cont = df_desvioPadrao['contratos'].values.tolist()
+			desvio_cont = df_desvioPadrao['contratos'].tolist()
 		if request.form.get('check4'):
-			desvio_vol = df_desvioPadrao['volume'].values.tolist()
+			desvio_vol = df_desvioPadrao['volume'].tolist()
 		if request.form.get('check5'):
-			desvio_abert = df_desvioPadrao['preco_abertura'].values.tolist()
+			desvio_abert = df_desvioPadrao['preco_abertura'].tolist()
 		if request.form.get('check6'):
-			desvio_min = df_desvioPadrao['preco_min'].values.tolist()
+			desvio_min = df_desvioPadrao['preco_min'].tolist()
 		if request.form.get('check7'):
-			desvio_max = df_desvioPadrao['preco_max'].values.tolist()
+			desvio_max = df_desvioPadrao['preco_max'].tolist()
 			
 	else:
 		return None
 			
 
 
-	return Calculo(df_desvioPadrao['data'].values.tolist(), desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
+	return Calculo([], desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
 
 @app.route('/')
 @app.route('/home.html')
@@ -389,19 +409,24 @@ def requestAnalytics():
 			table = request.form.get('commoditie')
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+			vencimento = request.form.get('vencimento')
+			ano = request.form.get('ano')
+
+			vencimento = vencimento + ano
+
 			if (len(data2) == 0): data2 = data1
 
 			if (table == 'M'):
-				cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))
 				tamanhoContrato = 450
 			elif (table == 'B'):
-				cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s  AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))
 				tamanhoContrato = 330		
 			elif (table == 'C'):
-				cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))	
+				cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s  AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))	
 				tamanhoContrato = 450		
 			elif (table == 'S'):
-				cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY data_ajuste, vencimento", (data1,data2))
+				cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s  AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))
 				tamanhoContrato = 100			
 			else:
 				pass
@@ -419,10 +444,9 @@ def requestAnalytics():
 				'media_mensal': mediaMensal(df),
 				'media_semanal': mediaSemanal(df),
 				'media_quinzenal': mediaQuinzenal(df),
-				'desvio_padrao': desvioPadrao(df)
-				# ''
+				'desvio_padrao': desvioPadrao(df),
+				'media_movel': mediaMovel(df)			
 			}
-
 
 			return(json.dumps(data, default=lambda o: o.__dict__, indent=4, separators=(',',':')))
 
@@ -496,6 +520,7 @@ def graph():
 	
 @app.route('/painel.html', methods=['GET', 'POST'])
 def painel():
+	config.configMain();
 	return render_template('painel.html')
 
 if __name__ == '__main__':

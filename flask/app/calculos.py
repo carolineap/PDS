@@ -10,53 +10,53 @@ def makeDF(objList):
 
 	return df
 
-def media_movel(data, w):
+def media_movel(df, w):
 
-	
-	data = {'m': data}
-
-	df = pd.DataFrame(data)
-	df = df.rolling(window=w).mean()
-
-	df = df['m'].values.tolist()
-
+	df = df[['ajuste_atual','data']]
+	df = df.set_index('data')
+	df = df.rolling(window=int(w)).mean() 
+	df = df.reset_index()
+	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
+	df = df.replace(np.NaN, 'N/A')
 	return df
 
 
 def media_diaria(df):
 
-	df = df.set_index('data').resample('D').mean().round(2)
-	df = df.reset_index()
-	df['data'] = df['data'].dt.strftime('%d/%m/%Y')
 
-	df = df.dropna()
+	df = df.mean() 
+
+	#print(df['ajuste_atual'].tolist())
 
 	return df
 
 
 def media_semanal(df):
 
-	df = df.set_index('data').resample('W-SAT').mean().round(2)
+	df = df.set_index('data').resample('W-SAT').mean() 
 	df = df.reset_index()
 	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
 
 	df = df.dropna()
+
 
 	return df
 
 def media_quinzenal(df):
 
-	df = df.set_index('data').resample('2W-SAT').mean().round(2)
+	df = df.set_index('data').resample('2W-SAT').mean() 
 	df = df.reset_index()
+	
 	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
 
 	df = df.dropna()
+
 
 	return df
 
 def media_mensal(df):
 	
-	df = df.set_index('data').resample('M').mean().round(2)
+	df = df.set_index('data').resample('M').mean() 
 	df = df.reset_index()
 	df['data'] = df['data'].dt.strftime('%b')
 	df = df.dropna()
@@ -65,15 +65,7 @@ def media_mensal(df):
 
 def desvio_padrao(df):
 
-	df['ajuste_atual'] = df['ajuste_atual'].std()
-	df['ajuste_anterior'] = df['ajuste_anterior'].std() 
-	df['variacao'] =  df['variacao'].std() 
-	df['contratos'] =  df['contratos'].std()
-	df['volume'] =  df['volume'].std()
-	df['preco_abertura'] = df['preco_abertura'].std()
-	df['preco_min'] = df['preco_min'].std()
-	df['preco_max'] =  df['preco_max'].std()
-	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
+	df = df.std() 
 
 	return df
 
