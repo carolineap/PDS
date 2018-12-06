@@ -67,6 +67,7 @@
         
         if (data) {
 
+            var cont;
             var x = [];
             var max = [];
             var min = [];
@@ -77,17 +78,31 @@
 
             vencimento = data[0].vencimento;
 
+            cont = 0;
             for (var i = 0; i < data.length; i++) {
                 if (vencimento != data[i].vencimento) {
                     alert("Não foi possível gerar o Candlestick! Os dados devem conter apenas um tipo de vencimento");
                     window.close();
                     return;
                 }
-                x.push(data[i].data);
-                max.push(data[i].preco_max);
-                min.push(data[i].preco_min);
-                open.push(data[i].preco_abertura);
-                close.push(data[i].ajuste_atual);
+                if (parseFloat(data[i].preco_max) > 0) {
+                    x.push(data[i].data);
+                    max.push(data[i].preco_max);
+                    min.push(data[i].preco_min);
+                    open.push(data[i].preco_abertura);
+                    close.push(data[i].ajuste_atual);
+                } else {
+                    cont++;
+                }
+
+            }
+
+            if (cont + 1 >= data.length) {
+                alert("Não foi possível gerar o Candlestick! Os vencimentos selecionados não apresentam contratos em aberto nessa data");
+                window.close();
+                return;
+            } else if (cont > 0) {
+                alert("Alguns dados podem ter sido omitidos por falta de informação (sem contratos em aberto na data selecionada)");
             }
 
             var trace = {
