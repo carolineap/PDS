@@ -14,18 +14,18 @@ $func$
 BEGIN
    RETURN QUERY
    SELECT * FROM boi WHERE boi.data_ajuste >= $1 AND boi.data_ajuste <= $2 AND CASE 
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 1 THEN boi.cafe.vencimento = CONCAT('F', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 2 THEN boi.cafe.vencimento = CONCAT('G', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 3 THEN boi.cafe.vencimento = CONCAT('H', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 4 THEN boi.cafe.vencimento = CONCAT('J', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 5 THEN boi.cafe.vencimento = CONCAT('K', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 6 THEN boi.cafe.vencimento = CONCAT('M', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 7 THEN boi.cafe.vencimento = CONCAT('N', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 8 THEN boi.cafe.vencimento = CONCAT('Q', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 9 THEN boi.cafe.vencimento = CONCAT('U', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 10 THEN boi.cafe.vencimento = CONCAT('V', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 11 THEN boi.cafe.vencimento = CONCAT('X', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
-	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 12 THEN boi.cafe.vencimento = CONCAT('Z', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 1 THEN boi.vencimento = CONCAT('F', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 2 THEN boi.vencimento = CONCAT('G', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 3 THEN boi.vencimento = CONCAT('H', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 4 THEN boi.vencimento = CONCAT('J', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 5 THEN boi.vencimento = CONCAT('K', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 6 THEN boi.vencimento = CONCAT('M', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 7 THEN boi.vencimento = CONCAT('N', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 8 THEN boi.vencimento = CONCAT('Q', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 9 THEN boi.vencimento = CONCAT('U', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 10 THEN boi.vencimento = CONCAT('V', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 11 THEN boi.vencimento = CONCAT('X', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
+	WHEN EXTRACT(MONTH FROM boi.data_ajuste) = 12 THEN boi.vencimento = CONCAT('Z', SUBSTRING(CAST((EXTRACT(YEAR FROM boi.data_ajuste)) AS TEXT), 3, 2))
 	END;
 	END
 $func$  LANGUAGE plpgsql;
