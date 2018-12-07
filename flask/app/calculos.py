@@ -76,12 +76,13 @@ def ln(df):
 	df['retorno_simples'] = df.diff()
 	df['ln'] = np.log(df['ajuste_atual'])
 	df['retorno_continuo'] = df['ln'].diff()
-	# df['risco'] = df['retorno_simples'].std()
-	# df['volatilidade'] = df['retorno_continuo'].std()
+	df['risco'] = df['retorno_simples'].std()
+	df['volatilidade'] = df['retorno_continuo'].std()
+	df['media_simples'] = df['retorno_simples'].mean()
+	df['media_continua'] = df['retorno_continuo'].mean()
 	df = df.reset_index()
 	df['data'] = df['data'].dt.strftime('%d/%m/%Y') 
 	df = df.replace(np.NaN, 'N/A')
-
 
 	return df
 	#print(df['ajuste_atual'].values)

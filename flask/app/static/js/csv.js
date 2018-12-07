@@ -45,6 +45,32 @@ function makeCSVRolagem() {
 
 }
 
+function makeCSVAnalise() {
+
+	/*var d = localStorage.getItem('analise');
+    var data = JSON.parse(d);
+
+    if (data) {
+		
+    	
+			Diária
+			Semanal
+			Quinzenal
+			Mensal
+			Desvio
+			MM
+			LN
+    	
+
+    	alert(data.media_diaria.length);
+
+	}
+
+*/
+
+}
+
+
 function convert(s) {
 
 

@@ -29,15 +29,18 @@ class Calculo:
 		self.preco_max = preco_max
 
 class Calculoln:			
-	def __init__(self, data, ajuste_atual, retorno_simples, ln, retorno_continuo):
+	def __init__(self, data, ajuste_atual, retorno_simples, ln, retorno_continuo, risco, volatilidade, media_simples, media_continua):
 		self.data = data
 		self.ajuste_atual = ajuste_atual
 		self.retorno_simples = retorno_simples
 		self.ln = ln
 		self.retorno_continuo = retorno_continuo
+		self.risco = risco
+		self.volatilidade = volatilidade
+		self.media_simples = media_simples
+		self.media_continua = media_continua
 
-		
-
+	
 class Commodity:
 	def __init__(self, data, codigo, vencimento, ajuste_anterior, ajuste_atual, preco_abertura, preco_min, preco_max, contratos, volume, tamanhoContrato):
 		self.codigo = str(codigo)
@@ -178,13 +181,17 @@ def ln(df):
 		retorno_simples =  df_ln['retorno_simples'].values.tolist()
 		ln =  df_ln['ln'].values.tolist()
 		retorno_continuo =  df_ln['retorno_continuo'].values.tolist()
+		media_simples =  df_ln['media_simples'].values[0]
+		media_continua =  df_ln['media_continua'].values[0]
+		risco =  df_ln['risco'].values[0]
+		volatilidade =  df_ln['volatilidade'].values[0]
 
-		print(retorno_continuo)
+		#print(risco)
 
 	else:
 		return None
 			
-	return Calculoln(df_ln['data'].values.tolist(), ajuste_atual, retorno_simples, ln, retorno_continuo)
+	return Calculoln(df_ln['data'].values.tolist(), ajuste_atual, retorno_simples, ln, retorno_continuo, risco, volatilidade, media_simples, media_continua)
 
 def mediaMensal(df):
 
@@ -415,7 +422,7 @@ def requestSelect():
 				anos.append(ano1 + 1)
 			else:
 				while ano1 <= ano2 + 1:
-					anos.append(ano1)
+					anos.append(str(ano1).zfill(2))
 					ano1 = ano1 + 1
 
 
