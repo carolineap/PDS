@@ -549,6 +549,10 @@ def graph():
 def rolagem():
 	return render_template('rolagem.html')
 
+@app.route('/mediaMovel.html', methods=['GET', 'POST'])
+def graphMediaMovel():
+	return render_template('mediaMovel.html')
+
 @app.route('/requestRolagem', methods=['GET', 'POST'])
 def requestRolagem():
 

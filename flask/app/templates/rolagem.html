@@ -3,29 +3,23 @@
     <head>
         <title>CPA - Rolagem </title>
           <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/csv.js') }}"></script>  
+        <!-- D3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <!-- Plotly.js -->
+        <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
 
     <body>
  
-    <div class="header">
-        <h2>
-            Gráfico Rolagem
-        </h2>
-    </div>
- 
-    <div id="chart" class="chart"></div>
- 
-    </body>
- 
-    <!-- D3.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- Plotly.js -->
-    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-
     <script type="text/javascript">
 
         function editDate(data) {
@@ -58,7 +52,7 @@
                 }
             };
 
-            Plotly.newPlot('chart', graph, layout);
+            Plotly.newPlot('chartRolagem', graph, layout);
 
         }
 
@@ -105,8 +99,12 @@
 
    
     </script>
+    <div id="chartRolagem" style="margin-top: 5%;">
+    </div>
 
-
-    <div id="chartRolagem" style="width:800px;height:950px;"></div>
-
+    <div id="down" style="text-align: center; vertical-align: middle; padding-top: 5%">
+    <h4 style="text-align: center; color: gray;">Fazer download dos dados da rolagem</h4>
+    <button onclick = "makeCSVRolagem()" type="button" class="myBtn"><i class="fas fa-download"> </i> Download</button>
+    <div>
+    </body>
 </html>

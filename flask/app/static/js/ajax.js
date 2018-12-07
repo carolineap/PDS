@@ -186,14 +186,16 @@ function drawMediaMovel(data) {
                     row.append($("<td>" + data.media_movel.data[i] + "</td>"));
                 }
 
-                if ($('#check1').is(':checked')) {           
-                    if (data.media_movel.ajuste_atual[i] != 'N/A')
-                        row.append($("<td>" + parseFloat(Math.round(data.media_movel.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
-                    else
-                        row.append($("<td>" + 'N/A' + "</td>"));
-                }
-
+                if (data.media_movel.ajuste_atual[i] != 'N/A')
+                    row.append($("<td>" + parseFloat(Math.round(data.media_movel.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
+                else
+                    row.append($("<td>" + 'N/A' + "</td>"));
+               
             }
+
+            localStorage.setItem("tabela", JSON.stringify(data));
+            localStorage.setItem("data1", $("#data1").val());
+            localStorage.setItem("data2", $("#data2").val());
 }
 
 function drawMediaQuinzenal(data) {
@@ -352,44 +354,34 @@ function drawDesvio(data) {
             }
         
 }
-
 function drawln(data) {
 
         $("#bodyln").empty();
-
-
 
             for (var i = 0; i < data.ln.ajuste_atual.length; i++) {
                 var row = $("<tr />");
                 $("#bodyln").append(row); 
 
+
                 if (data.ln.data) {           
                     row.append($("<td>" + data.ln.data[i] + "</td>"));
-                }
-
-                if ($('#check1').is(':checked')) {           
-                    
-                    row.append($("<td>" + parseFloat(Math.round(data.ln.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
-
-               
-                    if (data.ln.retorno_simples[i] != 'N/A')
-                        row.append($("<td>" + parseFloat(Math.round(data.ln.retorno_simples[i] * 100) / 100).toFixed(2) + "</td>"));
-                    else
-                        row.append($("<td>" + 'N/A' + "</td>"));
+                }          
                 
+                row.append($("<td>" + parseFloat(Math.round(data.ln.ajuste_atual[i] * 100) / 100).toFixed(2) + "</td>"));
 
-                    row.append($("<td>" + parseFloat(Math.round(data.ln.ln[i] * 100) / 100).toFixed(2) + "</td>"));
-                
-                    if (data.ln.ajuste_atual[i] != 'N/A')
-                        row.append($("<td>" + parseFloat(data.ln.retorno_continuo[i]).toFixed(6) + "</td>"));
-                    else
-                        row.append($("<td>" + 'N/A' + "</td>"));
+           
+                if (data.ln.retorno_simples[i] != 'N/A')
+                    row.append($("<td>" + parseFloat(Math.round(data.ln.retorno_simples[i] * 100) / 100).toFixed(2) + "</td>"));
+                else
+                    row.append($("<td>" + 'N/A' + "</td>"));
+            
 
-                } else {
-                    alert("Os cálculos de ln são realizados somente com o preço de ajuste atual!");
-                }
-                
-
+                row.append($("<td>" + parseFloat(Math.round(data.ln.ln[i] * 100) / 100).toFixed(2) + "</td>"));
+            
+                if (data.ln.ajuste_atual[i] != 'N/A')
+                    row.append($("<td>" + parseFloat(data.ln.retorno_continuo[i]).toFixed(6) + "</td>"));
+                else
+                    row.append($("<td>" + 'N/A' + "</td>"));
             }
 }
 
@@ -480,17 +472,25 @@ function show(data){
 
         var med = $("#movel");
         if(med.is(':checked')){
-            $("#tablemovel").show();
-            drawMediaMovel(data);
-            $("#graphDown").show();
+            if ($('#check1').is(':checked')) {    
+                $("#tablemovel").show();
+                drawMediaMovel(data);
+                $("#graphDown").show();
+            } else {
+                alert("Os cálculos de média móvel são realizados somente com o preço de ajuste atual!");
+            }
         }else{
             $("#tablemovel").hide();
         }
 
         var med = $("#ln");
         if(med.is(':checked')){
-            $("#tableln").show();
-            drawln(data);
+            if ($('#check1').is(':checked')) {    
+                $("#tableln").show();
+                drawln(data);
+            } else {
+                alert("Os cálculos de ln são realizados somente com o preço de ajuste atual!");
+            }
         }else{
             $("#tableln").hide();
         }
