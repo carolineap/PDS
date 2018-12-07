@@ -61,7 +61,33 @@ $(document).ready(function() {
             .done(function(data) {
 
                 show(data); 
-                localStorage.setItem("analise", JSON.stringify(data));
+
+                var med = $("#rolagem");
+        
+                if(med.is(':checked')){
+            
+                    var win = window.open('rolagem.html', '_blank');
+
+                    $.ajax({
+                        data : form.serialize(),
+                        type : 'POST',
+                        cache: false,
+                        dataType: "json",
+                        url : '/requestRolagem'
+                    })
+
+                    .done(function(data) {
+
+                        localStorage.setItem("tabelaRolagem", JSON.stringify(data));
+                        localStorage.setItem("data1", $("#data1").val());
+                        localStorage.setItem("data2", $("#data2").val());
+                    
+                    });
+
+                    event.preventDefault();
+
+
+                }
 
             });
 
@@ -610,33 +636,6 @@ function show(data){
             }
         }else{
             $("#tableln").hide();
-        }
-
-        var med = $("#rolagem");
-        if(med.is(':checked')){
-            
-            var win = window.open('rolagem.html', '_blank');
-
-            var form = $('#fAnalytics');
-            $.ajax({
-                data : form.serialize(),
-                type : 'POST',
-                cache: false,
-                dataType: "json",
-                url : '/requestRolagem'
-            })
-
-            .done(function(data) {
-
-                localStorage.setItem("tabelaRolagem", JSON.stringify(data));
-                localStorage.setItem("data1", $("#data1").val());
-                localStorage.setItem("data2", $("#data2").val());
-            
-            });
-
-            event.preventDefault();
-
-
         }
 }
 
