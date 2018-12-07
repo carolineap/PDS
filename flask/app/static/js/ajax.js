@@ -505,13 +505,16 @@ function show(data){
                 data : form.serialize(),
                 type : 'POST',
                 cache: false,
-                url : '/rolagem.html'
+                dataType: "json",
+                url : '/requestRolagem'
             })
 
             .done(function(data) {
 
-               
-
+                localStorage.setItem("tabelaRolagem", JSON.stringify(data));
+                localStorage.setItem("data1", $("#data1").val());
+                localStorage.setItem("data2", $("#data2").val());
+            
             });
 
             event.preventDefault();

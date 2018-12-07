@@ -460,7 +460,7 @@ def requestAnalytics():
 
 			rows = cur.fetchall()
 			commodities = []
-
+			response = ''
 			for row in rows:
 				commodities.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
 			
@@ -547,6 +547,10 @@ def graph():
 
 @app.route('/rolagem.html', methods=['GET', 'POST'])
 def rolagem():
+	return render_template('rolagem.html')
+
+@app.route('/requestRolagem', methods=['GET', 'POST'])
+def requestRolagem():
 
 	vencimento = None
 
@@ -557,38 +561,41 @@ def rolagem():
 			table = request.form.get('commoditie')
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
-			vencimento = request.form.get('vencimento')
-			ano = request.form.get('ano')
-
-			vencimento = vencimento + ano
 
 			if (len(data2) == 0): data2 = data1
+			
 
 			if (table == 'M'):
-				pass
+				cur.execute("SELECT * FROM rolagem_milho(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 450
 			elif (table == 'B'):
-				pass
+				cur.execute("SELECT * FROM rolagem_boi(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 330
 			elif (table == 'C'):
-				pass
+				cur.execute("SELECT * FROM rolagem_cafe(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 450
 			elif (table == 'S'):
-				pass
+				cur.execute("SELECT * FROM rolagem_soja(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 100
 			else:
 				pass
 
+
 			rows = cur.fetchall()
+			commodities = []
 
+			response = ''
 
-		
+			for row in rows:
+				commodities.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
+			
+			return(json.dumps(commodities, default=lambda o: o.__dict__, indent=4, separators=(',',':')))
 
 		except:
-			pass	
-	
+			pass
 
-	return render_template('rolagem.html', data=vencimento)
+	return render_template('/home.html')
 
-
-
-	
 @app.route('/painel.html', methods=['GET', 'POST'])
 def painel():
 	config.configMain();

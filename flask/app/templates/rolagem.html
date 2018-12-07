@@ -3,6 +3,7 @@
     <head>
         <title>CPA - Rolagem </title>
           <meta charset="utf-8">
+        <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
     </head>
 
     <body>
@@ -15,7 +16,7 @@
  
     <div id="chart" class="chart"></div>
  
-	</body>
+    </body>
  
     <!-- D3.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
@@ -24,8 +25,85 @@
     <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-    {% if data %}
-    <p>"AAAAAAAAAAAAAA"</p>
-    {% endif %}
+
+    <script type="text/javascript">
+
+        function editDate(data) {
+            return data.slice(8,10) + "/" + data.slice(5,7) + "/" + data.slice(0,4);
+        }
+
+        function line(graph) {
+
+            var data1 = localStorage.getItem('data1');
+            var data2 = localStorage.getItem('data2');
+            var title;
+
+            if (data2.length != 0) {
+                title = "Período de " + editDate(data1) + " à " + editDate(data2) + " - " + "Data do Ajuste x Ajuste Atual";
+            } else {
+                title = "Data: " + data1;
+            }
+
+            var layout = {
+                title: title,
+                'yaxis' : {
+                    tickformat :".2f"
+
+                },
+                'xaxis' : {
+                    tickformat :".2f",  
+                    showticklabels: false
+                }
+            };
+
+            Plotly.newPlot('chart', graph, layout);
+
+        }
+
+        $(document).ready(function() {
+       
+            d = localStorage.getItem('tabelaRolagem');
+            data = JSON.parse(d);
+
+            if (data) {
+
+                var x = [];
+                var y = [];
+                var graph = [];
+                var v = [];
+
+
+                for (var i = 0; i < data.length; i++) {
+                    
+
+            
+                    x.push(data[i].data);
+                    y.push(data[i].ajuste_atual);
+
+                        
+                    var trace = {
+                        x: x,
+                        y: y,
+                        type: 'scatter',
+                       // color='#7f7f7f'
+                    };
+
+                }
+                
+                graph = [trace];
+
+                line(graph);
+
+                
+            } else {
+                alert("Ocorreu um erro com a geração do gráfico! Tente novamente");
+            }
+    });
+
+   
+    </script>
+
+
+    <div id="chartRolagem" style="width:800px;height:950px;"></div>
 
 </html>
