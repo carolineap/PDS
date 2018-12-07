@@ -47,12 +47,14 @@
             var layout = {
                 title: title,
                 'yaxis' : {
-                    tickformat :".2f"
+                    tickformat :".2f",
+                    zerolinewidth: 4,
 
                 },
                 'xaxis' : {
                     tickformat :".2f",  
-                    showticklabels: false
+                    showticklabels: false,
+                    
                 }
             };
 
@@ -85,6 +87,7 @@
                         x: x,
                         y: y,
                         type: 'scatter',
+                        line: {color: '#32CD32'}
                        // color='#7f7f7f'
                     };
 
