@@ -70,6 +70,16 @@
 .dropdown-menu a.active{
     background-color: #1A237E;
 }
+/* ------------------Footer---------------- */
+.myfooter{
+    background-color: #283593;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+.myfooter p{
+    font-size: 11px;
+}
 /* ------------------Home---------------- */
 .container-blue{
     background-color: #0D47A1;
