@@ -9,6 +9,7 @@ import subprocess
 
 conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password='1234'")
 cur = conn.cursor()
+
 def configMain():
 	if (request.method == 'POST'):
 		try:
@@ -17,7 +18,7 @@ def configMain():
 			data2 = request.form.get('data2')
 
 			subprocess.call(['bash static/backup/backup.sh'], shell=True)
-			
+
 			if table == 'all':
 				cur.execute("DELETE FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s", (data1,data2))
 				rows_deleted = cur.rowcount

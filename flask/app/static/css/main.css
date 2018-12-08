@@ -137,11 +137,13 @@
     border-radius: 5px;
     padding: 5px 30px;
     text-decoration: none;
+    min-height: 350px;
 }
 .box{
     margin-bottom: 20px;
     text-decoration: none;
     padding: 0 25px;
+    
 }
 .box a{
     text-decoration: none;

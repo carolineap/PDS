@@ -58,14 +58,14 @@
                             <option value="M">Milho</option>
                             <option value="S">Soja</option>
                         </select>
-                        <button type="submit" class="mybtn" style="width: 70%; background-color: #F57C00; margin-left: 15%"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
+                        <button type="submit" class="mybtn" style="width: 70%; background-color: #F57C00; margin-left: 15%" onclick="menssage()"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
                     </form>
                 </div>
             </div>
              
         </div>
         <div id="users">
-            
+            <h1></h1>
         </div>
 </body>
 </html>
@@ -82,5 +82,8 @@
             document.getElementById("botaoBd").className = "active";
             document.getElementById("botaoUsers").className = "";
         }
+    }
+    function menssage(){
+        alert("Foram apagadas = "  + "linhas do banco de dados")
     }
 </script>
