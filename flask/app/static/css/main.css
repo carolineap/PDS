@@ -70,6 +70,25 @@
 .dropdown-menu a.active{
     background-color: #1A237E;
 }
+/* ------------------Home---------------- */
+.container-blue{
+    background-color: #0D47A1;
+    color: white;
+    text-align: justify;
+    margin-top: 40px;
+    padding: 40px;
+    font-family: "Georgia", serif;
+}
+.container-blue p, .container-white p{
+    font-size: 1.3em;
+}
+.container-white{
+    background-color: white;
+    color: black;
+    text-align: justify;
+    padding: 40px;
+    font-family: "Georgia", serif;
+}
 /* ------------------Commodities---------------- */
 .container-commo, .container-graphi{
     font-family: "Georgia", serif;
