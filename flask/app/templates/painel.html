@@ -7,6 +7,8 @@
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+        <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+        <link rel="shortcut icon" type="image/png" href="../static/imagens/logo.png"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/painel.css') }}">
     </head>
     <body>
@@ -65,7 +67,16 @@
              
         </div>
         <div id="users">
-            <h1></h1>
+           <h1>Nesta Página você pode conferir seus dados</h1>
+            <hr>
+            <br>
+            <label class="titleForm2"><b>Nome:</b> José Cesar Cruz</label> 
+            <br>
+            <br>
+            <label class="titleForm2"><b>CPF:</b> 000.000.000-00</label>
+            <br>
+            <br>
+            <label class="titleForm2"><b>Senha: </b> ****</label>
         </div>
 </body>
 </html>
@@ -82,8 +93,5 @@
             document.getElementById("botaoBd").className = "active";
             document.getElementById("botaoUsers").className = "";
         }
-    }
-    function menssage(){
-        alert("Foram apagadas = "  + "linhas do banco de dados")
     }
 </script>
