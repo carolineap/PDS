@@ -25,9 +25,9 @@
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
               <ul class="nav navbar-nav">
                   <li><a href="home.html">CPA <img src="../static/imagens/logo.png" style="width: 15%; float: right;"></a></li>
-                <li onclick="goto('bd')" class="active" id="botaoBd"><a>Banco de Dados<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
-                <li onclick="goto('users')" id="botaoUsers"><a>Usuarios <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
-                </li>                  
+                <li class="active" id="botaoBd"><a href="painel.html">Banco de Dados<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+               <!-- <li id="botaoUsers"><a href="users.html>Usuarios <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a> 
+                </li> -->                 
                 <li ><a href="home.html">Sair<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
               </ul>
             </div>
@@ -64,34 +64,6 @@
                     </form>
                 </div>
             </div>
-             
-        </div>
-        <div id="users">
-           <h1>Nesta Página você pode conferir seus dados</h1>
-            <hr>
-            <br>
-            <label class="titleForm2"><b>Nome:</b> José Cesar Cruz</label> 
-            <br>
-            <br>
-            <label class="titleForm2"><b>CPF:</b> 000.000.000-00</label>
-            <br>
-            <br>
-            <label class="titleForm2"><b>Senha: </b> ****</label>
         </div>
 </body>
 </html>
-<script>
-    function goto(str){
-        if(str == 'users'){
-            document.getElementById("users").style.display = 'block';
-            document.getElementById("bd").style.display = 'none';
-            document.getElementById("botaoBd").className = "";
-            document.getElementById("botaoUsers").className = "active";
-        }else if(str == 'bd'){
-            document.getElementById("users").style.display = 'none';
-            document.getElementById("bd").style.display = 'block';
-            document.getElementById("botaoBd").className = "active";
-            document.getElementById("botaoUsers").className = "";
-        }
-    }
-</script>

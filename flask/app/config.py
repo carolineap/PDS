@@ -11,6 +11,7 @@ conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password=
 cur = conn.cursor()
 
 def configMain():
+
 	if (request.method == 'POST'):
 		try:
 			table = request.form.get('commoditie')
@@ -45,8 +46,9 @@ def configMain():
 				rows_deleted = cur.rowcount
 				conn.commit()
 
-			print("numero de linhas deletadas = " + str(rows_deleted))		
+			print("numero de linhas deletadas = " + str(rows_deleted))	
+			return rows_deleted			
 		except (Exception, psycopg2.DatabaseError) as error:
 			print(error)	
-	return		 		
+	 		
 			
