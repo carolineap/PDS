@@ -29,15 +29,18 @@ class Calculo:
 		self.preco_max = preco_max
 
 class Calculoln:			
-	def __init__(self, data, ajuste_atual, retorno_simples, ln, retorno_continuo):
+	def __init__(self, data, ajuste_atual, retorno_simples, ln, retorno_continuo, risco, volatilidade, media_simples, media_continua):
 		self.data = data
 		self.ajuste_atual = ajuste_atual
 		self.retorno_simples = retorno_simples
 		self.ln = ln
 		self.retorno_continuo = retorno_continuo
+		self.risco = risco
+		self.volatilidade = volatilidade
+		self.media_simples = media_simples
+		self.media_continua = media_continua
 
-		
-
+	
 class Commodity:
 	def __init__(self, data, codigo, vencimento, ajuste_anterior, ajuste_atual, preco_abertura, preco_min, preco_max, contratos, volume, tamanhoContrato):
 		self.codigo = str(codigo)
@@ -178,13 +181,17 @@ def ln(df):
 		retorno_simples =  df_ln['retorno_simples'].values.tolist()
 		ln =  df_ln['ln'].values.tolist()
 		retorno_continuo =  df_ln['retorno_continuo'].values.tolist()
+		media_simples =  df_ln['media_simples'].values[0]
+		media_continua =  df_ln['media_continua'].values[0]
+		risco =  df_ln['risco'].values[0]
+		volatilidade =  df_ln['volatilidade'].values[0]
 
-		print(retorno_continuo)
+		#print(risco)
 
 	else:
 		return None
 			
-	return Calculoln(df_ln['data'].values.tolist(), ajuste_atual, retorno_simples, ln, retorno_continuo)
+	return Calculoln(df_ln['data'].values.tolist(), ajuste_atual, retorno_simples, ln, retorno_continuo, risco, volatilidade, media_simples, media_continua)
 
 def mediaMensal(df):
 
@@ -415,7 +422,7 @@ def requestSelect():
 				anos.append(ano1 + 1)
 			else:
 				while ano1 <= ano2 + 1:
-					anos.append(ano1)
+					anos.append(str(ano1).zfill(2))
 					ano1 = ano1 + 1
 
 
@@ -460,7 +467,7 @@ def requestAnalytics():
 
 			rows = cur.fetchall()
 			commodities = []
-
+			response = ''
 			for row in rows:
 				commodities.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
 			
@@ -547,6 +554,14 @@ def graph():
 
 @app.route('/rolagem.html', methods=['GET', 'POST'])
 def rolagem():
+	return render_template('rolagem.html')
+
+@app.route('/mediaMovel.html', methods=['GET', 'POST'])
+def graphMediaMovel():
+	return render_template('mediaMovel.html')
+
+@app.route('/requestRolagem', methods=['GET', 'POST'])
+def requestRolagem():
 
 	vencimento = None
 
@@ -557,38 +572,41 @@ def rolagem():
 			table = request.form.get('commoditie')
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
-			vencimento = request.form.get('vencimento')
-			ano = request.form.get('ano')
-
-			vencimento = vencimento + ano
 
 			if (len(data2) == 0): data2 = data1
+			
 
 			if (table == 'M'):
-				pass
+				cur.execute("SELECT * FROM rolagem_milho(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 450
 			elif (table == 'B'):
-				pass
+				cur.execute("SELECT * FROM rolagem_boi(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 330
 			elif (table == 'C'):
-				pass
+				cur.execute("SELECT * FROM rolagem_cafe(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 450
 			elif (table == 'S'):
-				pass
+				cur.execute("SELECT * FROM rolagem_soja(%s, %s) ORDER BY data_ajuste", (data1, data2))
+				tamanhoContrato = 100
 			else:
 				pass
 
+
 			rows = cur.fetchall()
+			commodities = []
 
+			response = ''
 
-		
+			for row in rows:
+				commodities.append(Commodity(row[0], row[1], row[2], row[9], row[8], row[5], row[6], row[7], row[4], row[3], tamanhoContrato))	
+			
+			return(json.dumps(commodities, default=lambda o: o.__dict__, indent=4, separators=(',',':')))
 
 		except:
-			pass	
-	
+			pass
 
-	return render_template('rolagem.html', data=vencimento)
+	return render_template('/home.html')
 
-
-
-	
 @app.route('/painel.html', methods=['GET', 'POST'])
 def painel():
 	config.configMain();

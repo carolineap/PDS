@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>CPA - Gráficos </title>
+          <meta charset="utf-8">
+          <!-- D3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <!-- Plotly.js -->
+        <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    </head>
+
+    <body>
+  
+    <script type="text/javascript">
+
+        cont = 1;
+
+        function editDate(data) {
+            return data.slice(8,10) + "/" + data.slice(5,7) + "/" + data.slice(0,4);
+        }
+          
+        function line(graph) {
+
+            var data1 = localStorage.getItem('data1');
+            var data2 = localStorage.getItem('data2');
+            var title;
+
+            if (data2.length != 0) {
+                title = "Média Móvel no período de " + editDate(data1) + " à " + editDate(data2) + " (janela de tamanho = " + cont + ")";
+            } else {
+                title = "Média Móvel na data: " + data1 + " (janela de tamanho = " + cont + ")";
+            }
+
+            var layout = {
+                title: title
+            };
+
+            Plotly.newPlot('chart', graph, layout);
+
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        d = localStorage.getItem('tabela');
+        data = JSON.parse(d);
+        if (data) {
+            
+            var x = [];
+            var y = [];
+
+
+            for (var i = 0; i < data.media_movel.data.length; i++) {
+
+                if (data.media_movel.ajuste_atual[i] != 'N/A') {
+
+                    x.push(data.media_movel.data[i]);
+                    y.push(data.media_movel.ajuste_atual[i]);
+
+                } else {
+                    cont++;
+                }                   
+            }
+
+            var trace = {
+                x: x,
+                y: y,
+                mode: 'lines+markers',
+                type: 'scatter',
+                line: {color: '#FF4500'}
+            };
+
+            graph = [trace];
+
+            line(graph);
+
+            
+        } else {
+            alert("Ocorreu um erro com a geração do gráfico! Tente novamente");
+        }
+    });
+
+    </script>
+
+
+    <div id="chart" style="margin-top: 5%;"></div>
+
+    </body>
+
+</html>
