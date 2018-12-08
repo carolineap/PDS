@@ -45,11 +45,21 @@
                 <div class="col-md-6 excl">
                     <b><h4>Exclusão dos Dados</h4></b>
                     <p>A exclusão de dados gera um backup de segurança. Os dados que serão excluidos, serão aqueles dentro do intervalo de tempo selecionado, para todas as commodities. Lembre-se de excluir apenas dados que não serão mais úteis para você.</p>
-                    <label class="titleForm"> De:</label>
-                    <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
-                    <label class="titleForm"> Até:</label>
-                    <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa">
-                    <button class="mybtn" style="width: 70%; background-color: #F57C00; margin-left: 15%"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
+                    <form method="POST">
+                        <label class="titleForm"> De:</label>
+                        <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa" required>
+                        <label class="titleForm"> Até:</label>
+                        <input id = "data2" name='data2' type="date" placeholder="dd/mm/aaaa" required>
+                        <label class="titleForm calc">Commoditie:</label>
+                        <select name = "commoditie" id="selectComood" class="formSelec">
+                            <option value="all">Todas</option>
+                            <option value="B">Boi Gordo</option>
+                            <option value="C">Café Arábica 4/5</option>
+                            <option value="M">Milho</option>
+                            <option value="S">Soja</option>
+                        </select>
+                        <button type="submit" class="mybtn" style="width: 70%; background-color: #F57C00; margin-left: 15%"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
+                    </form>
                 </div>
             </div>
              

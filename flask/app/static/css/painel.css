@@ -157,3 +157,12 @@ input[type=date] {
     margin: 0 5px 20px 5px;
     padding: 8px;
 }
+.formSelec{
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: inset 0;
+    border: 1px solid #ccc;
+    width: 40%;
+    margin: 0 5px 20px 5px;
+    padding: 8px;
+}
