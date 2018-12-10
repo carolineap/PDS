@@ -18,8 +18,9 @@ cur = conn.cursor()
 
 
 class Calculo:			
-	def __init__(self, data, ajuste_atual, variacao, contratos, volume, preco_abertura, preco_min, preco_max):
+	def __init__(self, data, ajuste_anterior, ajuste_atual, variacao, contratos, volume, preco_abertura, preco_min, preco_max):
 		self.data = data
+		self.ajuste_anterior = ajuste_anterior
 		self.ajuste_atual = ajuste_atual
 		self.variacao = variacao
 		self.contratos = contratos
@@ -99,38 +100,48 @@ def filtro(rows, vencimento, frequencia, dia, ano):
 				diaSemana = data.weekday()
 				if int(dia) == diaSemana:
 					result.append(row)
-	else:
-		result = r
-			
-	# 	elif (frequencia == 'M'):
-	# 		if (dia == 'P'):
-	# 			primeiro = None
-	# 			for row in r:
-	# 				data = row[0]
-	# 				data = str(data).replace('-', '/')
-	# 				data = datetime.strptime(data, '%Y/%m/%d')
-	# 				if (data.day == 1):
-	# 					primeiro = data.month
-	# 					result.append(row)
-	# 		elif (dia == 'U'):
-	# 			ultimo = None
-	# 			for row in r:
-	# 				data = row[0]
-	# 				data = str(data).replace('-', '/')
-	# 				data = datetime.strptime(data, '%Y/%m/%d')
-	# 				if (data.day == 30 or 31):
-	# 					ultimo = data.month
-	# 					result.append(row)
+		elif (frequencia == 'M'):
+			if (dia and dia == 'P'):
+				mes = []
+				m = None
+				
+				for row in r:
+					
+					data = row[0]
+					data = str(data).replace('-', '/')
+					data = datetime.strptime(data, '%Y/%m/%d')
+
+					mes.append(row)
+					
+					if not m or m != data.month:
+						m = data.month
+						result.append(mes[0])
+						mes = []
+						mes.append(row)
+					
+			elif (dia and dia == 'U'):
+
+				result = r
+
+			else:
+				pass					
+		else:
+			pass
 	
+	if not result: 
+		result = r
+
 	return result
 
 def mediaDiaria(df):
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
+	media_aa = media_at = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
 	if request.form.get('medDia'):
 	
 		df_mediaDiaria = calc.media_diaria(df)
 
+		if request.form.get('check0'):
+			media_at = df_mediaDiaria['ajuste_anterior'].tolist()
 		if request.form.get('check1'):
 			media_aa = df_mediaDiaria['ajuste_atual'].tolist()
 		if request.form.get('check2'):
@@ -149,7 +160,7 @@ def mediaDiaria(df):
 		return None
 			
 			
-	return Calculo([], media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo([], media_at, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def mediaMovel(df):
 
@@ -169,7 +180,7 @@ def mediaMovel(df):
 		return None
 			
 			
-	return Calculo(df_mediaMovel['data'].values.tolist(), media_aa, [], [], [], [], [], [])
+	return Calculo(df_mediaMovel['data'].values.tolist(), [], media_aa, [], [], [], [], [], [])
 
 def ln(df):
 	ajuste_atual = retorno_simples = ln = retorno_continuo = []
@@ -195,12 +206,14 @@ def ln(df):
 
 def mediaMensal(df):
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
+	media_aa = media_at = media_var = media_cont = media_vol = media_abert = media_min = media_max = []
 	
 	if request.form.get('medMes'):
 	
 		df_mediaMensal = calc.media_mensal(df)
 
+		if request.form.get('check0'):
+			media_at = df_mediaMensal['ajuste_anterior'].values.tolist()
 		if request.form.get('check1'):
 			media_aa = df_mediaMensal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
@@ -219,16 +232,18 @@ def mediaMensal(df):
 	else:
 		return None
 			
-	return Calculo(df_mediaMensal['data'].values.tolist(), media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo(df_mediaMensal['data'].values.tolist(), media_at, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def mediaSemanal(df):
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
+	media_aa = media_at = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
 	
 	if request.form.get('medSema'):
 	
 		df_mediaSemanal = calc.media_semanal(df)
 
+		if request.form.get('check0'):
+			media_at = df_mediaSemanal['ajuste_anterior'].values.tolist()
 		if request.form.get('check1'):
 			media_aa = df_mediaSemanal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
@@ -263,18 +278,20 @@ def mediaSemanal(df):
 	else:
 		return None
 			
-	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo(datas, media_at, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def mediaQuinzenal(df):
 
 
-	media_aa = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
+	media_aa = media_at = media_var = media_cont = media_vol = media_abert = media_min = media_max = datas = []
 
 	if request.form.get('medQuinze'):
 	
 
 		df_mediaQuinzenal= calc.media_quinzenal(df)
 
+		if request.form.get('check0'):
+			media_at = df_mediaQuinzenal['ajuste_anterior'].values.tolist()
 		if request.form.get('check1'):
 			media_aa = df_mediaQuinzenal['ajuste_atual'].values.tolist()
 		if request.form.get('check2'):
@@ -309,17 +326,19 @@ def mediaQuinzenal(df):
 	else:
 		return None
 			
-	return Calculo(datas, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
+	return Calculo(datas, media_at, media_aa, media_var, media_cont, media_vol, media_abert, media_min, media_max)
 
 def desvioPadrao(df):
 
-	desvio_aa = desvio_var = desvio_cont = desvio_vol = desvio_abert = desvio_min = desvio_max = []
+	desvio_aa = desvio_at = desvio_var = desvio_cont = desvio_vol = desvio_abert = desvio_min = desvio_max = []
 	
 	
 	if request.form.get('desvio'):
 
 		df_desvioPadrao = calc.desvio_padrao(df)
 
+		if request.form.get('check0'):
+			desvio_at = df_desvioPadrao['ajuste_anterior'].tolist()
 		if request.form.get('check1'):
 			desvio_aa = df_desvioPadrao['ajuste_atual'].tolist()
 		if request.form.get('check2'):
@@ -340,7 +359,7 @@ def desvioPadrao(df):
 			
 
 
-	return Calculo([], desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
+	return Calculo([], desvio_at, desvio_aa, desvio_var, desvio_cont, desvio_vol, desvio_abert, desvio_min, desvio_max)
 
 @app.route('/')
 @app.route('/home.html')
@@ -628,4 +647,4 @@ def painel():
 	return render_template('painel.html')
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(debug=True, threaded=True)

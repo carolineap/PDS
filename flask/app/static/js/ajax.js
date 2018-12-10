@@ -1,11 +1,11 @@
-csv_mediaDiaria = 'Média Diária\n';
-csv_mediaSemanal = "Média Semanal\n" + "Semana, ";
-csv_mediaQuinzenal = "Média Quinzenal\n" + "Semana, ";
-csv_mediaMensal = "Média Mensal\n" + "Mês, ";
-csv_mediaMovel =   "Média Móvel\n" + "Data, Média Móvel";
-csv_desvioPadrao = 'Desvio Padrão\n';
-csv_ln = "Ln\n" + "Data, Ajuste Atual, Retorno Simples, Ln, Retorno Contínuo;"
-csv = "Análises\n";
+var csv_mediaDiaria;
+var csv_mediaSemanal;
+var csv_mediaQuinzenal;
+var csv_mediaMensal;
+var csv_mediaMovel;
+var csv_desvioPadrao;
+var csv_ln;
+var csv;
 
 $(document).ready(function() {
 	
@@ -59,6 +59,15 @@ $(document).ready(function() {
             })
 
             .done(function(data) {
+
+                csv_mediaDiaria = 'Média Diária\n';
+                csv_mediaSemanal = "Média Semanal\n" + "Semana, ";
+                csv_mediaQuinzenal = "Média Quinzenal\n" + "Semana, ";
+                csv_mediaMensal = "Média Mensal\n" + "Mês, ";
+                csv_mediaMovel =   "Média Móvel\n" + "Data, Média Móvel";
+                csv_desvioPadrao = 'Desvio Padrão\n';
+                csv_ln = "Ln\n" + "Data, Ajuste Anterior, Ajuste Atual, Retorno Simples, Ln, Retorno Contínuo;"
+                csv = "Análises\n";
 
                 show(data); 
 
@@ -198,6 +207,11 @@ function drawMediaSemanal(data) {
                     csv_mediaSemanal += data.media_semanal.data[i] + ",";
                 }
 
+                if ($('#check0').is(':checked')) {           
+                    row.append($("<td>" + convert(data.media_semanal.ajuste_anterior[i]) + "</td>"));
+                    csv_mediaSemanal += convert(data.media_semanal.ajuste_anterior[i]) + ",";
+                }
+
                 if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + convert(data.media_semanal.ajuste_atual[i]) + "</td>"));
                     csv_mediaSemanal += convert(data.media_semanal.ajuste_atual[i]) + ",";
@@ -282,6 +296,11 @@ function drawMediaQuinzenal(data) {
                     csv_mediaQuinzenal += data.media_quinzenal.data[i] + ", ";
                 }
 
+                if ($('#check0').is(':checked')) {           
+                    row.append($("<td>" + convert(data.media_quinzenal.ajuste_anterior[i]) + "</td>"));
+                    csv_mediaQuinzenal += convert(data.media_quinzenal.ajuste_anterior[i]) + ", ";
+                }
+
                 if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + convert(data.media_quinzenal.ajuste_atual[i]) + "</td>"));
                     csv_mediaQuinzenal += convert(data.media_quinzenal.ajuste_atual[i]) + ", ";
@@ -334,6 +353,11 @@ function drawMediaMensal(data) {
                     csv_mediaMensal += data.media_mensal.data[i] + ", ";
                 }
 
+                if ($('#check0').is(':checked')) {           
+                    row.append($("<td>" +convert(data.media_mensal.ajuste_anterior[i]) + "</td>"));
+                    csv_mediaMensal += convert(data.media_mensal.ajuste_anterior[i]) + ", ";
+                }
+
                 if ($('#check1').is(':checked')) {           
                     row.append($("<td>" +convert(data.media_mensal.ajuste_atual[i]) + "</td>"));
                     csv_mediaMensal += convert(data.media_mensal.ajuste_atual[i]) + ", ";
@@ -380,6 +404,11 @@ function drawMediaDiaria(data) {
 
                 csv_mediaDiaria += "\n";
 
+                 if ($('#check0').is(':checked')) {           
+                    row.append($("<td>" + convert(data.media_diaria.ajuste_anterior) + "</td>"));
+                    csv_mediaDiaria += convert(data.media_diaria.ajuste_anterior) + ", ";
+                }
+
                 if ($('#check1').is(':checked')) {           
                     row.append($("<td>" + convert(data.media_diaria.ajuste_atual) + "</td>"));
                     csv_mediaDiaria += convert(data.media_diaria.ajuste_atual) + ", ";
@@ -424,6 +453,11 @@ function drawDesvio(data) {
             $("#bodyDesvio").append(row); 
 
             csv_desvioPadrao += "\n";
+
+            if ($('#check0').is(':checked')) {           
+                row.append($("<td>" + convert(data.desvio_padrao.ajuste_anterior) + "</td>"));
+                csv_desvioPadrao += convert(data.desvio_padrao.ajuste_anterior) + ", ";
+            }
 
             if ($('#check1').is(':checked')) {           
                 row.append($("<td>" + convert(data.desvio_padrao.ajuste_atual) + "</td>"));
@@ -552,15 +586,6 @@ function drawRow(rowData) {
 
 }
 
-$(document).ajaxStart(function(){
- // Show image container
- $("#loading").show();
-});
-$(document).ajaxComplete(function(){
- // Hide image container
- $("#loading").hide();
-});
-
 function show(data){
 
         removeColumn();
@@ -640,6 +665,19 @@ function show(data){
 }
 
 function removeColumn(){
+
+    var check = $("#check0");  
+    if(check.is(':checked')){
+        $(".ajuste_anterior").show();
+        csv_mediaDiaria += "Ajuste Anterior, ";
+        csv_mediaSemanal += "Ajuste Anterior, ";
+        csv_mediaQuinzenal += "Ajuste Anterior, ";
+        csv_mediaMensal += "Ajuste Anterior, ";
+        csv_desvioPadrao += "Ajuste Anterior, ";
+
+    } else {
+        $(".ajuste_anterior").hide();
+    }
 
     var check = $("#check1");  
     if(check.is(':checked')){

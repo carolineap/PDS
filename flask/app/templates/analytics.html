@@ -137,6 +137,10 @@ function mudar() {
                                     <input type="checkbox" id="todos" onclick="selctAll()">
                                     <span class="checkmark"></span>
                                   </label>
+                                  <label class="titleForm calculos"> Preço do Ajuste Anterior
+                                    <input type="checkbox" name="check0" id="check0">
+                                    <span class="checkmark"></span>
+                                  </label>
                                   <label class="titleForm calculos"> Preço do Ajuste Atual
                                     <input type="checkbox" name="check1" id="check1">
                                     <span class="checkmark"></span>
@@ -183,6 +187,7 @@ function mudar() {
             <h3>Média Diária</h3>
             <table class="retorno">
                 <tr>
+                    <th class="ajuste_anterior">Preço do Ajuste Anterior </th>
                     <th class="ajuste_atual">Preço do Ajuste Atual </th>
                     <th class="variacao">Variação</th>
                     <th class="contratos">Número de Contratos em Aberto</th>
@@ -203,6 +208,7 @@ function mudar() {
                 <tr>
                   <!--   <th>Data</th> -->
                     <th>Semana</th>
+                    <th class="ajuste_anterior">Preço do Ajuste Anterior </th>
                     <th class="ajuste_atual">Preço do Ajuste Atual </th>
                     <th class="variacao">Variação</th>
                     <th class="contratos">Número de Contratos em Aberto</th>
@@ -222,6 +228,7 @@ function mudar() {
             <table class="retorno">
                 <tr>
                     <th>Data</th>
+                    <th class="ajuste_anterior">Preço do Ajuste Anterior </th>
                     <th class="ajuste_atual">Preço do Ajuste Atual </th>
                     <th class="variacao">Variação</th>
                     <th class="contratos">Número de Contratos em Aberto</th>
@@ -241,6 +248,7 @@ function mudar() {
             <table class="retorno">
                 <tr>
                     <th>Mês</th>
+                    <th class="ajuste_anterior">Preço do Ajuste Anterior </th>
                     <th class="ajuste_atual">Preço do Ajuste Atual </th>
                     <th class="variacao">Variação</th>
                     <th class="contratos">Número de Contratos em Aberto</th>
@@ -259,6 +267,7 @@ function mudar() {
             <h3>Desvio Padrão</h3>
             <table class="retorno">
                 <tr>
+                    <th class="ajuste_anterior">Preço do Ajuste Anterior </th>
                     <th class="ajuste_atual">Preço do Ajuste Atual </th>
                     <th class="variacao">Variação</th>
                     <th class="contratos">Número de Contratos em Aberto</th>
@@ -351,14 +360,14 @@ function mudar() {
     function selctAll(){
         var checkBox = document.getElementById("todos");
         if (checkBox.checked == true){
-            for(var i = 1; i <= 7; i++){
+            for(var i = 0; i <= 7; i++){
                 var check = document.getElementById("check"+i);
                 if(check.checked == false){
                     check.checked = true;
                 }
             }
         }else{
-            for(var i = 1; i <= 7; i++){
+            for(var i = 0; i <= 7; i++){
                 var check = document.getElementById("check"+i);
                 if(check.checked == true){
                     check.checked = false;
