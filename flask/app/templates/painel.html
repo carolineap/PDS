@@ -10,8 +10,22 @@
         <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
         <link rel="shortcut icon" type="image/png" href="../static/imagens/logo.png"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/painel.css') }}">
+        <script language="javascript" type="text/javascript">
+            $(window).onload(function() {
+               onclick="$('#loading').show();"
+
+            });
+        </script>
+
     </head>
     <body>
+<!--         <script type="text/javascript">
+            $( window ).on( "load"(function () {
+               
+                $("#loading").show();
+                
+            });
+        </script> -->
         <nav class="navbar navbar-default sidebar" role="navigation">
             <div class="container-fluid">
             <div class="navbar-header">
@@ -41,8 +55,9 @@
                 <div class="col-md-4">
                     <b><h4>Atulização dos Dados</h4></b>
                     <p style="text-align: justify">A atualização do banco de dados ocorre de forma semanal automaticamente, no entento você pode atualizá-lo antes do período de uma semana clicando no botão abaixo. Os dados serão atualizados desde a última atualização até o momento presente.</p>
-                    
-                    <button class="mybtn"><i class='fas fa-history'></i> Atualizar Dados</button>
+                    <form method="POST">
+                        <button value="T" type="submit" name="atualizacao" class="mybtn" onclick="$('#loading').show();"><i class='fas fa-history'></i> Atualizar Dados</button>
+                    </form>
                 </div>
                 <div class="col-md-6 excl">
                     <b><h4>Exclusão dos Dados</h4></b>
@@ -64,6 +79,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div id="loading" style="display: none">
+            <img id="loading-image" src="../static/imagens/load.gif" alt="Loading..." />
         </div>
 </body>
 </html>

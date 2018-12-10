@@ -4,6 +4,10 @@ import datetime
 import string
 import re
 import sys
+import psycopg2
+
+conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password='1234'")
+cur = conn.cursor()
 
 class Dados():
 	def __init__(self, mercadoria, data, vencimento, ajusteAtual, ajusteAnterior, contratosAbertos, volume, abertura, minimo, maximo):
@@ -85,16 +89,12 @@ def parseFuturo(table, vencimento):
 
 	return DadosFuturo(contratosAbertos, volume, abertura, minimo, maximo)
 
-def main():	
-
-	start = datetime.datetime.strptime(sys.argv[1], '%d/%m/%Y')
-	try:
-		end = datetime.datetime.strptime(sys.argv[2], '%d/%m/%Y')
-	except:
-		end = start
+def update(start, end):	
 
 	step = datetime.timedelta(days=1)
 	dados = []
+
+	max_date = start
 
 	while start <= end:
 
@@ -120,27 +120,23 @@ def main():
 				f = parseFuturo(table, d.vencimento) 
 				dados.append(Dados(d.mercadoria, dataFormat, d.vencimento.strip(' '), d.ajusteAtual, d.ajusteAnterior, f.contratosAbertos, f.volume, f.abertura, f.minimo, f.maximo))
 
+				if d.data > max_date:
+					max_date = d.data
+
 		start += step
 
 
-	fBoi = open('Boi.txt', 'a')
-	fSoja = open('Soja.txt', 'a')
-	fMilho = open('Milho.txt', 'a')
-	fCafe = open('Cafe.txt', 'a')
-
+	
 	for d in dados:
 		if (d.mercadoria == 'BGI'):
-			fBoi.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior + "\n")
-		elif (d.mercadoria == 'SFI'):
-			fSoja.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior  + "\n")
+			cur.execute("INSERT INTO boi VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (d.data, d.mercadoria, d.vencimento, d.volume, d.contratosAbertos, d.abertura, d.minimo, d.maximo, d.ajusteAtual, d.ajusteAnterior)) 
 		elif (d.mercadoria == 'ICF'):
-			fCafe.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior  + "\n")
-		else: 
-			fMilho.write(d.data + ";" + d.mercadoria + ";" + d.vencimento + ";" +  d.volume + ";" + d.contratosAbertos + ";" + d.abertura + ";" + d.minimo + ";" + d.maximo + ";" + d.ajusteAtual + ";" + d.ajusteAnterior  + "\n")
+			cur.execute("INSERT INTO cafe VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (d.data, d.mercadoria, d.vencimento, d.volume, d.contratosAbertos, d.abertura, d.minimo, d.maximo, d.ajusteAtual, d.ajusteAnterior)) 
+		elif d.mercadoria == 'CCM':
+			cur.execute("INSERT INTO milho VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (d.data, d.mercadoria, d.vencimento, d.volume, d.contratosAbertos, d.abertura, d.minimo, d.maximo, d.ajusteAtual, d.ajusteAnterior)) 
+		else:			
+			cur.execute("INSERT INTO soja VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (d.data, d.mercadoria, d.vencimento, d.volume, d.contratosAbertos, d.abertura, d.minimo, d.maximo, d.ajusteAtual, d.ajusteAnterior)) 
 
-	fBoi.close()
-	fMilho.close()
-	fCafe.close()
-	fSoja.close()
 
-if __name__ == "__main__": main()
+	cur.execute("UPDATE TABLE info_geral SET ultima_atualizacao = %s WHERE cpf='00000000000'", (max_date))
+	conn.commit()

@@ -36,7 +36,7 @@ function mudar() {
           <!-- --------------------------Form -------------------------- -->
         <form id ="fAnalytics" class="formAjuste" method="POST">
             <label class="titleForm calc">Commoditie:</label>
-            <select name = "commoditie" id="selectComood" class="formSelec" onchange="mudarSelect()" >
+            <select name = "commoditie" id="commoditie" class="formSelec" onchange="mudarSelect()" >
                 <option value="B">Boi Gordo</option>
                 <option value="C">Café Arábica 4/5</option>
                 <option value="M">Milho</option>
@@ -377,7 +377,7 @@ function mudar() {
         
     }
     function mudarSelect(){
-        var commodite = document.getElementById("selectComood");
+        var commodite = document.getElementById("commoditie");
         if(commodite.value == 'B'){
                var newOptions = {
                   "Janeiro": "F",

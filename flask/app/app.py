@@ -609,7 +609,22 @@ def requestRolagem():
 
 @app.route('/painel.html', methods=['GET', 'POST'])
 def painel():
-	config.configMain();
+	
+	try:
+		if (request.method == 'POST'):
+			table = request.form.get('commoditie')
+			data1 = request.form.get('data1')
+			data2 = request.form.get('data2')
+			
+			if data1 and data2 and table:
+				config.configMain()
+			
+			atualizacao = request.form.get('atualizacao')
+			if atualizacao == 'T':
+				config.updateData()
+	except:
+		pass
+
 	return render_template('painel.html')
 
 if __name__ == '__main__':

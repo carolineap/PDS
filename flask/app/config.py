@@ -6,6 +6,7 @@ from datetime import datetime
 from datetime import timedelta
 import string
 import subprocess
+import crawler
 
 conn = psycopg2.connect("dbname='cpa' user='postgres' host='localhost' password='1234'")
 cur = conn.cursor()
@@ -50,5 +51,28 @@ def configMain():
 			return rows_deleted			
 		except (Exception, psycopg2.DatabaseError) as error:
 			print(error)	
+
+def updateData():
+
+	if (request.method == 'POST'):
+		try:
+			atualizacao = request.form.get('atualizacao')
+			if atualizacao == 'T':
+				cur.execute("SELECT ultima_atualizacao FROM info_geral WHERE cpf = '00000000000'")
+				rows = cur.fetchall()
+				start = rows[0][0]
+
+				end = datetime.today()
+				
+				crawler.update(start, end)
+				
+		except (Exception, psycopg2.DatabaseError) as error:
+			print(error)
+		except:
+			pass
+		
+
+
+
 	 		
 			
