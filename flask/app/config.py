@@ -20,6 +20,7 @@ def configMain():
 			data2 = request.form.get('data2')
 
 			subprocess.call(['bash static/backup/backup.sh'], shell=True)
+			subprocess.call(['bash app/static/backup/backup.sh'], shell=True)
 
 			if table == 'all':
 				cur.execute("DELETE FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s", (data1,data2))

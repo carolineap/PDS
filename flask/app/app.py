@@ -657,7 +657,7 @@ def painel():
 			data2 = request.form.get('data2')
 			
 			if data1 and data2 and table:
-				config.configMain()
+				row = config.configMain()
 			
 			atualizacao = request.form.get('atualizacao')
 			if atualizacao == 'T':
@@ -665,7 +665,7 @@ def painel():
 	except:
 		pass
 
-	return render_template('painel.html')
+	return render_template('painel.html', row=row)
 
 if __name__ == '__main__':
   app.run(debug=True, threaded=True)

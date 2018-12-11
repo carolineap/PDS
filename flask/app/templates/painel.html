@@ -51,7 +51,7 @@
             <h1>Bem Vindo ao Painel de Configurações José Cesar!!</h1>
             <hr>
             <h3>Não esqueça de atualizar os dados!!!!</h3>
-            <div class="row updateAndDelete">
+            <div class="row updateAndDelete" style="margin-bottom: 20px;">
                 <div class="col-md-4">
                     <b><h4>Atulização dos Dados</h4></b>
                     <p style="text-align: justify">A atualização do banco de dados ocorre de forma semanal automaticamente, no entento você pode atualizá-lo antes do período de uma semana clicando no botão abaixo. Os dados serão atualizados desde a última atualização até o momento presente.</p>
@@ -59,7 +59,18 @@
                         <button value="T" type="submit" name="atualizacao" class="mybtn" onclick="$('#loading').show();"><i class='fas fa-history'></i> Atualizar Dados</button>
                     </form>
                 </div>
-                <div class="col-md-6 excl">
+                <div class="col-md-4" style="margin-left: 40px;">
+                     <b><h4>Backup dos Dados</h4></b>
+                    <p style="text-align: justify">O backup dos dados é feito de maneira automática, mas você pode fazê-lo de maneira manual clicando no botão a baixo.</p>
+                    <br>
+                    <br>
+                    <form method="POST">
+                        <button value="T" type="submit" name="backup" class="mybtn" style="background-color: #F57C00"><i class='fas fa-database'></i> Backup Dados</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="margin: 0">
+                <div class="col-md-6"  style="margin: 0">
                     <b><h4>Exclusão dos Dados</h4></b>
                     <p>A exclusão de dados gera um backup de segurança. Os dados que serão excluidos, serão aqueles dentro do intervalo de tempo selecionado, para todas as commodities. Lembre-se de excluir apenas dados que não serão mais úteis para você.</p>
                     <form method="POST">
@@ -75,7 +86,7 @@
                             <option value="M">Milho</option>
                             <option value="S">Soja</option>
                         </select>
-                        <button type="submit" class="mybtn" style="width: 70%; background-color: #F57C00; margin-left: 15%" onclick="menssage()"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
+                        <button type="submit" class="mybtn" style="width: 70%; background-color: #c62828; margin-left: 15%" onclick="menssage()"><span class="glyphicon glyphicon-trash"></span> Excluir Dados</button>
                     </form>
                 </div>
             </div>
@@ -84,4 +95,9 @@
             <img id="loading-image" src="../static/imagens/load.gif" alt="Loading..." />
         </div>
 </body>
+    <script>
+        function menssage(){
+            alert("Sucesso, quantidade de linhas deletadas = " + {{ row }})
+        }
+    </script>
 </html>

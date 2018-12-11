@@ -127,6 +127,7 @@ padding-left: 15px;
 }
 .updateAndDelete{
     margin-top: 40px;
+    margin-bottom: 0%;
 }
 .bd p{
     margin-bottom: 40px;
@@ -165,6 +166,9 @@ input[type=date] {
     width: 40%;
     margin: 0 5px 20px 5px;
     padding: 8px;
+}
+.row:after {
+   clear: none;
 }
 /* ----------------Página users do Painel de Config---------------------------- */
 #users{
