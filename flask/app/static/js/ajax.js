@@ -71,7 +71,7 @@ $(document).ready(function() {
                 csv_mediaMensal = "Média Mensal\n" + "Mês, ";
                 csv_mediaMovel =   "Média Móvel\n" + "Data, Média Móvel";
                 csv_desvioPadrao = 'Desvio Padrão\n';
-                csv_ln = "Ln\n" + "Data, Ajuste Anterior, Ajuste Atual, Retorno Simples, Ln, Retorno Contínuo;"
+                csv_ln = "Ln\n" + "Data, Ajuste Atual, Retorno Simples, Ln, Retorno Contínuo;"
                 csv = "Análises\n";
 
                 show(data); 
