@@ -126,8 +126,12 @@ def update(start, end):
 				f = parseFuturo(table, d.vencimento) 
 				dados.append(Dados(d.mercadoria, dataFormat, d.vencimento.strip(' '), d.ajusteAtual, d.ajusteAnterior, f.contratosAbertos, f.volume, f.abertura, f.minimo, f.maximo))
 
+				print(d.data)
+
 				if datetime.datetime.strptime(d.data, '%d/%m/%Y') > max_date:
 					max_date = datetime.datetime.strptime(d.data, '%d/%m/%Y')
+
+				print(datetime.datetime.strptime(d.data, '%d/%m/%Y'))
 
 		start += step
 	
@@ -141,6 +145,7 @@ def update(start, end):
 		else:			
 			cur.execute("INSERT INTO soja VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (d.data, d.mercadoria, d.vencimento, d.volume, d.contratosAbertos, d.abertura, d.minimo, d.maximo, d.ajusteAtual, d.ajusteAnterior)) 
 	
-	max_date = str(max_date.day).zfill(2) + "/" + str(max_date.month).zfill(2) + "/" + str(max_date.year)
-	cur.execute("UPDATE info_geral SET ultima_atualizacao = %s WHERE cpf='00000000000';", (max_date, ))
-	conn.commit()
+	if len(dados):
+		max_date = str(max_date.day).zfill(2) + "/" + str(max_date.month).zfill(2) + "/" + str(max_date.year)
+		cur.execute("UPDATE info_geral SET ultima_atualizacao = %s WHERE cpf='00000000000';", (max_date, ))
+		conn.commit()
