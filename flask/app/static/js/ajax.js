@@ -25,10 +25,15 @@ $(document).ready(function() {
 
 			$("#ajusteTableB").empty()
             drawTable(data);
-            localStorage.setItem("tabela", JSON.stringify(data));
-            localStorage.setItem("data1", $("#data1").val());
-            localStorage.setItem("data2", $("#data2").val());
-            localStorage.setItem("vencimento", String(data[0].vencimento)); 
+
+            try {
+                localStorage.setItem("tabela", JSON.stringify(data));
+                localStorage.setItem("data1", $("#data1").val());
+                localStorage.setItem("data2", $("#data2").val());
+                localStorage.setItem("vencimento", String(data[0].vencimento)); 
+            } catch (e) {
+                localStorage.clear();
+            }
 
 		});
 
@@ -84,11 +89,15 @@ $(document).ready(function() {
                     })
 
                     .done(function(data) {
-
-                        localStorage.setItem("tabelaRolagem", JSON.stringify(data));
-                        localStorage.setItem("data1", $("#data1").val());
-                        localStorage.setItem("data2", $("#data2").val());
-                        var win = window.open('rolagem.html', '_blank');
+                        try {
+                            localStorage.setItem("tabelaRolagem", JSON.stringify(data));
+                            localStorage.setItem("data1", $("#data1").val());
+                            localStorage.setItem("data2", $("#data2").val());
+                            var win = window.open('rolagem.html', '_blank');
+                        } catch(e) {
+                            alert("Não foi possível gerar o gráfico! Tente novamente");
+                            localStorage.clear();
+                        }
                     
                     });
 
