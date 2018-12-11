@@ -523,7 +523,7 @@ function drawln(data) {
            
                 if (data.ln.retorno_simples[i] != 'N/A') {
                     row.append($("<td>" + convert(data.ln.retorno_simples[i]) + "</td>"));
-                    csv_ln += convert(data.ln.ajuste_atual[i]) + ", ";
+                    csv_ln += convert(data.ln.retorno_simples[i]) + ", ";
                 } else {
                     row.append($("<td>" + 'N/A' + "</td>"));
                     csv_ln += 'N/A' + ", ";
