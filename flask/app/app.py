@@ -658,14 +658,21 @@ def painel():
 			
 			if data1 and data2 and table:
 				row = config.configMain()
+				return render_template('painel.html', row=row)
 			
 			atualizacao = request.form.get('atualizacao')
 			if atualizacao == 'T':
 				config.updateData()
+
+			backup = request.form.get('backup')
+			if backup == 'T':
+				foi = config.backup()
+				return render_template('painel.html', foi=foi)
+
 	except:
 		pass
 
-	return render_template('painel.html', row=row)
+	return render_template('painel.html')
 
 if __name__ == '__main__':
   app.run(debug=True, threaded=True)

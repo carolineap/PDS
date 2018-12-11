@@ -19,7 +19,6 @@ def configMain():
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
 
-			subprocess.call(['bash static/backup/backup.sh'], shell=True)
 			subprocess.call(['bash app/static/backup/backup.sh'], shell=True)
 
 			if table == 'all':
@@ -72,8 +71,14 @@ def updateData():
 		except:
 			pass
 		
+def backup():
 
-
-
-	 		
+	if (request.method == 'POST'):
+		try:
+			backup = request.form.get('backup')
+			if backup == 'T':
+				subprocess.call(['bash static/backup/backup.sh'], shell=True)
+				return 1	
+	 	except:
+			return 0	
 			
