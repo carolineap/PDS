@@ -2,6 +2,8 @@
     font-family: "Georgia", serif; !important
     text-decoration: none;
     text-align: justify;
+    margin: 0%;
+    padding: 0%;
 }
 /* ------------------Menu---------------- */
 #container-navbar {
@@ -76,6 +78,8 @@
     color: white;
     text-align: center;
     padding: 10px;
+    margin-bottom: 0%;
+    
 }
 .myfooter p{
     font-size: 11px;

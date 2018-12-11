@@ -115,13 +115,34 @@ def filtro(rows, vencimento, frequencia, dia, ano):
 					
 					if not m or m != data.month:
 						m = data.month
-						result.append(mes[0])
+						if data.day <= 3:
+							result.append(mes[0])
 						mes = []
 						mes.append(row)
 					
 			elif (dia and dia == 'U'):
 
-				result = r
+				mes = []
+				m = 0
+				
+				for row in r:
+					
+					data = row[0]
+					data = str(data).replace('-', '/')
+					data = datetime.strptime(data, '%Y/%m/%d')
+
+					if m == 0:
+						m = data.month
+					
+					if m != data.month:
+						m = data.month
+						result.append(mes[len(mes) - 1])
+						mes = []
+
+					mes.append(row)
+
+				if data.day >= 28:
+					result.append(mes[len(mes) - 1])
 
 			else:
 				pass					

@@ -74,8 +74,6 @@ $(document).ready(function() {
                 var med = $("#rolagem");
         
                 if(med.is(':checked')){
-            
-                    var win = window.open('rolagem.html', '_blank');
 
                     $.ajax({
                         data : form.serialize(),
@@ -90,6 +88,7 @@ $(document).ready(function() {
                         localStorage.setItem("tabelaRolagem", JSON.stringify(data));
                         localStorage.setItem("data1", $("#data1").val());
                         localStorage.setItem("data2", $("#data2").val());
+                        var win = window.open('rolagem.html', '_blank');
                     
                     });
 
@@ -169,7 +168,6 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     $('#aButton').on('click', function(event) {
-
         var hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
         hiddenElement.download = 'analise.csv';
