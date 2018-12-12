@@ -448,24 +448,24 @@ def requestSelect():
 			
 			data1 = request.form.get('data1')
 			data2 = request.form.get('data2')
+			table = request.form.get('table')
 
-			if (len(data2) == 0): data2 = data1
-
-			ano1 = data1[2:4]
-			ano2 = data2[2:4]			
-
-			ano1 = int(ano1) 
-			ano2 = int(ano2)
-
-			if ano1 == ano2:
-				anos.append(ano1)
-				anos.append(ano1 + 1)
+			if (table == 'milho'):
+				cur.execute("SELECT DISTINCT SUBSTRING(vencimento, 2, 3) FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY SUBSTRING(vencimento, 2, 3);", (data1, data2))
+			elif (table == 'boi'):
+				cur.execute("SELECT DISTINCT SUBSTRING(vencimento, 2, 3) FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY SUBSTRING(vencimento, 2, 3);", (data1, data2))
+			elif (table == 'cafe'):
+				cur.execute("SELECT DISTINCT SUBSTRING(vencimento, 2, 3) FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY SUBSTRING(vencimento, 2, 3);", (data1, data2))
+			elif (table == 'soja'):
+				cur.execute("SELECT DISTINCT SUBSTRING(vencimento, 2, 3) FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s ORDER BY SUBSTRING(vencimento, 2, 3);", (data1, data2))
 			else:
-				while ano1 <= ano2 + 1:
-					anos.append(str(ano1).zfill(2))
-					ano1 = ano1 + 1
+				pass
 
 
+			rows = cur.fetchall()
+
+			for row in rows:
+				anos.append(row[0])
 				
 			return json.dumps(anos)
 		except:
@@ -490,16 +490,16 @@ def requestAnalytics():
 
 			if (len(data2) == 0): data2 = data1
 
-			if (table == 'M'):
+			if (table == 'milho'):
 				cur.execute("SELECT * FROM milho WHERE data_ajuste >= %s AND data_ajuste <= %s AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))
 				tamanhoContrato = 450
-			elif (table == 'B'):
+			elif (table == 'boi'):
 				cur.execute("SELECT * FROM boi WHERE data_ajuste >= %s AND data_ajuste <= %s  AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))
 				tamanhoContrato = 330		
-			elif (table == 'C'):
+			elif (table == 'cafe'):
 				cur.execute("SELECT * FROM cafe WHERE data_ajuste >= %s AND data_ajuste <= %s  AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))	
 				tamanhoContrato = 450		
-			elif (table == 'S'):
+			elif (table == 'soja'):
 				cur.execute("SELECT * FROM soja WHERE data_ajuste >= %s AND data_ajuste <= %s  AND vencimento = %s ORDER BY data_ajuste, vencimento", (data1,data2, vencimento))
 				tamanhoContrato = 100			
 			else:
@@ -619,16 +619,16 @@ def requestRolagem():
 			if (len(data2) == 0): data2 = data1
 			
 
-			if (table == 'M'):
+			if (table == 'milho'):
 				cur.execute("SELECT * FROM rolagem_milho(%s, %s) ORDER BY data_ajuste", (data1, data2))
 				tamanhoContrato = 450
-			elif (table == 'B'):
+			elif (table == 'boi'):
 				cur.execute("SELECT * FROM rolagem_boi(%s, %s) ORDER BY data_ajuste", (data1, data2))
 				tamanhoContrato = 330
-			elif (table == 'C'):
+			elif (table == 'cafe'):
 				cur.execute("SELECT * FROM rolagem_cafe(%s, %s) ORDER BY data_ajuste", (data1, data2))
 				tamanhoContrato = 450
-			elif (table == 'S'):
+			elif (table == 'soja'):
 				cur.execute("SELECT * FROM rolagem_soja(%s, %s) ORDER BY data_ajuste", (data1, data2))
 				tamanhoContrato = 100
 			else:

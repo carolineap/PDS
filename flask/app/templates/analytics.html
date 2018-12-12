@@ -37,10 +37,10 @@ function mudar() {
         <form id ="fAnalytics" class="formAjuste" method="POST">
             <label class="titleForm calc">Commoditie:</label>
             <select name = "commoditie" id="commoditie" class="formSelec" onchange="mudarSelect()" >
-                <option value="B">Boi Gordo</option>
-                <option value="C">Café Arábica 4/5</option>
-                <option value="M">Milho</option>
-                <option value="S">Soja</option>
+                <option value="boi">Boi Gordo</option>
+                <option value="cafe">Café Arábica 4/5</option>
+                <option value="milho">Milho</option>
+                <option value="soja">Soja</option>
             </select>
             <label class="titleForm calc"> De:</label>
             <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa" required>
@@ -63,7 +63,8 @@ function mudar() {
             </select>
             <label class="titleForm"> Ano: </label>
             <select id = "ano" name = "ano" class="formSelec">
-                <option value = 'none'>--</option>
+                <option'>--</option>
+                <input type="hidden" id = "page" name="commoditie" value = 'none'>
             </select> 
             
             <br>
@@ -329,7 +330,10 @@ function mudar() {
         <div id="ADown"; style="display: none; text-align: right; margin-bottom: 3%; margin-right: 5%;">
           <button id="aButton" type="button" class="myBtn" style="background-color: #ff8000; size: 5%"><i class="fas fa-download"> </i> Download dos Resultados</button>
         </div>
-{% include 'footer.html' %}     
+{% include 'footer.html' %}   
+  <div id="loading" style="display: none">
+    <img id="loading-image" src="../static/imagens/load.gif" alt="Loading..." />
+  </div>  
 </body>
 <script>
     var flag = 1;
@@ -387,16 +391,16 @@ function mudar() {
     }
     function mudarSelect(){
         var commodite = document.getElementById("commoditie");
-        if(commodite.value == 'B'){
+        if(commodite.value == 'boi'){
                var newOptions = {
                   "Janeiro": "F",
                   "Fevereiro": "G", "Março": "H", "Abril": "J", "Maio":"K" ,"Junho":"M", "Julho":"N","Agosto":"Q", "Setembro": "U", "Outubro": "V", "Novembro": "X", "Dezembro":"Z"
                 };
-        }else if(commodite.value == 'C'){
+        }else if(commodite.value == 'cafe'){
                  var newOptions = {
                    "Março": "H", "Maio":"K", "Julho":"N", "Setembro": "U", "Dezembro":"Z"
                 };
-        }else if(commodite.value == 'M'){
+        }else if(commodite.value == 'milho'){
                 var newOptions = {
                   "Janeiro": "F",
                    "Março": "H", "Maio":"K", "Julho":"N","Agosto":"Q", "Setembro": "U", "Novembro": "X",

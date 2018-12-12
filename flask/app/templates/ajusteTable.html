@@ -65,7 +65,7 @@
     <div class="ajusteDiario">
         <h2 style="margin: 30px 0;">Ajuste do Pregão Diário</h2>        
         <form id = "fAjuste" class="formAjuste" method="POST">
-        	<input type="hidden" name="commoditie" value = {%block commoditie%} {% endblock %}>
+        	<input type="hidden" id = "commoditie" name="commoditie" value = {%block commoditie%} {% endblock %}>
             <label class="titleForm"> De:</label>
             <input id = "data1" name='data1' type="date" placeholder="dd/mm/aaaa">
             <label class="titleForm"> Até:</label>
@@ -139,7 +139,10 @@
     </div>    
 </div>
 
-<div id = "#loading" class="loader"></div>
+ <div id="loading" style="display: none">
+    <img id="loading-image" src="{{ url_for('static', filename='imagens/load.gif') }}" alt="Loading..." />
+</div>
+
  {% include 'footer.html' %} 
 </body>
 </html>

@@ -6,6 +6,8 @@ var csv_mediaMovel;
 var csv_desvioPadrao;
 var csv_ln;
 var csv;
+var data1;
+var data2;
 
 $(document).ready(function() {
 	
@@ -66,20 +68,21 @@ $(document).ready(function() {
             .done(function(data) {
 
                 if (data.fail) {
-                    alert("Não há resultados para esse intervalo de datas e vencimento! Tente novamente!");
-                    return;
+                    alert("Não há resultados para esse intervalo de datas e vencimento! Apenas a rolagem pode ser executada!");
+                } else {
+
+                    csv_mediaDiaria = 'Média Diária\n';
+                    csv_mediaSemanal = "Média Semanal\n" + "Semana, ";
+                    csv_mediaQuinzenal = "Média Quinzenal\n" + "Semana, ";
+                    csv_mediaMensal = "Média Mensal\n" + "Mês, ";
+                    csv_mediaMovel =   "Média Móvel\n" + "Data, Média Móvel";
+                    csv_desvioPadrao = 'Desvio Padrão\n';
+                    csv_ln = "Ln\n" + "Data, Ajuste Atual, Retorno Simples, Ln, Retorno Contínuo;"
+                    csv = "Análises\n";
+
+                    show(data); 
+
                 }
-
-                csv_mediaDiaria = 'Média Diária\n';
-                csv_mediaSemanal = "Média Semanal\n" + "Semana, ";
-                csv_mediaQuinzenal = "Média Quinzenal\n" + "Semana, ";
-                csv_mediaMensal = "Média Mensal\n" + "Mês, ";
-                csv_mediaMovel =   "Média Móvel\n" + "Data, Média Móvel";
-                csv_desvioPadrao = 'Desvio Padrão\n';
-                csv_ln = "Ln\n" + "Data, Ajuste Atual, Retorno Simples, Ln, Retorno Contínuo;"
-                csv = "Análises\n";
-
-                show(data); 
 
                 var med = $("#rolagem");
         
@@ -121,59 +124,65 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
+// $(document).ready(function() {
 
-    $('#ano').on('mouseenter', function(event) {
+//     $('#ano').on('mouseenter', function(event) {
 
-    if ($('#ano').val() == 'all' || $('#data1').val() != data1 || $('#data2').val() != data2) {     
+//     if ($('#ano').val() == 'all' || $('#data1').val() != data1 || $('#data2').val() != data2) {     
             
-            data1 = $('#data1').val();
-            data2 = $('#data2').val();
+//             data1 = $('#data1').val();
+//             data2 = $('#data2').val();
 
-            $.ajax({
-                data : {'data1': data1, 'data2': data2},
-                type : 'POST',
-                dataType: "json",
-                cache: false,
-                url : '/requestSelect'
-            })
-            .done(function(data) {
-                $("#ano").empty()
-                addSelect(data);
+//             $.ajax({
+//                 data : {'data1': data1, 'data2': data2},
+//                 type : 'POST',
+//                 dataType: "json",
+//                 cache: false,
+//                 url : '/requestSelect'
+//             })
+//             .done(function(data) {
+//                 $("#ano").empty()
+//                 addSelect(data);
 
-            });
-        }
-    });
+//             });
+//         }
+//     });
     
-});
+// });
 
 $(document).ready(function() {
 
     $('#ano').on('mouseenter', function(event) {
 
-    if ($('#ano').val() == 'all' || $('#data1').val() != data1 || $('#data2').val() != data2) {     
+        if ($('#ano').val() == 'all' || $('#data1').val() != data1 || $('#data2').val() != data2) {   
             
             data1 = $('#data1').val();
             data2 = $('#data2').val();
+            table = $('#commoditie').val();
 
-            $.ajax({
-                data : {'data1': data1, 'data2': data2},
-                type : 'POST',
-                dataType: "json",
-                cache: false,
-                url : '/requestSelect'
-            })
-            .done(function(data) {
-                
-                if ($('#ano').val() != 'none') {
-                    $("#ano").empty()
-                    $('#ano').append($("<option value = 'all' id = 'op'>Todos</option>"));
-                } else {
-                    $("#ano").empty()
-                }
-                addSelect(data);
+            if (data1 && data2 && table) {
 
-            });
+                $.ajax({
+                    data : {'data1': data1, 'data2': data2, 'table': table },
+                    type : 'POST',
+                    dataType: "json",
+                    cache: false,
+                    url : '/requestSelect'
+                })
+                .done(function(data) {
+                    
+                    if ($('#page').val() != 'none') {
+                        $("#ano").empty()
+                        $('#ano').append($("<option value = 'all' id = 'op'>Todos</option>"));
+                    } else {
+                        $("#ano").empty()
+                    }
+                    addSelect(data);
+
+                });
+
+                event.preventDefault();
+            }
         }
     });
     
@@ -202,6 +211,8 @@ function addSelect(data) {
     }
 
 }
+
+
 
 function drawMediaSemanal(data) {
 
