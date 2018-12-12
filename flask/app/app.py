@@ -513,6 +513,9 @@ def requestAnalytics():
 			
 			df = calc.makeDF(commodities)	
 
+			if df.empty:
+				return json.dumps({'fail': True})
+
 			data = {
 				'media_diaria': mediaDiaria(df),
 				'media_mensal': mediaMensal(df),

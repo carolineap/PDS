@@ -65,6 +65,11 @@ $(document).ready(function() {
 
             .done(function(data) {
 
+                if (data.fail) {
+                    alert("Não há resultados para esse intervalo de datas e vencimento! Tente novamente!");
+                    return;
+                }
+
                 csv_mediaDiaria = 'Média Diária\n';
                 csv_mediaSemanal = "Média Semanal\n" + "Semana, ";
                 csv_mediaQuinzenal = "Média Quinzenal\n" + "Semana, ";
