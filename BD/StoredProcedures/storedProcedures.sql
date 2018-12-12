@@ -48,18 +48,18 @@
 	BEGIN
 	   RETURN QUERY
 	  	SELECT * FROM milho WHERE milho.data_ajuste >= $1 AND milho.data_ajuste <= $2 AND CASE 
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 1 THEN milho.cafe.vencimento = CONCAT('H', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 2 THEN milho.cafe.vencimento = CONCAT('H', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 3 THEN milho.cafe.vencimento = CONCAT('K', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 4 THEN milho.cafe.vencimento = CONCAT('K', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 5 THEN milho.cafe.vencimento = CONCAT('N', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 6 THEN milho.cafe.vencimento = CONCAT('N', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 7 THEN milho.cafe.vencimento = CONCAT('Q', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 8 THEN milho.cafe.vencimento = CONCAT('U', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 9 THEN milho.cafe.vencimento = CONCAT('X', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 10 THEN milho.cafe.vencimento = CONCAT('X', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 11 THEN milho.cafe.vencimento = CONCAT('F', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
-		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 12 THEN milho.cafe.vencimento = CONCAT('F', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 1 THEN milho.vencimento = CONCAT('H', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 2 THEN milho.vencimento = CONCAT('H', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 3 THEN milho.vencimento = CONCAT('K', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 4 THEN milho.vencimento = CONCAT('K', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 5 THEN milho.vencimento = CONCAT('N', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 6 THEN milho.vencimento = CONCAT('N', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 7 THEN milho.vencimento = CONCAT('Q', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 8 THEN milho.vencimento = CONCAT('U', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 9 THEN milho.vencimento = CONCAT('X', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 10 THEN milho.vencimento = CONCAT('X', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 11 THEN milho.vencimento = CONCAT('F', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
+		WHEN EXTRACT(MONTH FROM milho.data_ajuste) = 12 THEN milho.vencimento = CONCAT('F', SUBSTRING(CAST((EXTRACT(YEAR FROM milho.data_ajuste)) AS TEXT), 3, 2))
 		END;
 		END
 	$func$  LANGUAGE plpgsql;

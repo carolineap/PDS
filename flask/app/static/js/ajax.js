@@ -14,6 +14,14 @@ $(document).ready(function() {
     var form = $('#fAjuste');
 
 	form.on('submit', function(event) {
+        
+        $(document).ajaxStart(function() {
+            $("#loading").show();
+        });
+
+        $(document).ajaxStop(function() {
+            $("#loading").hide();
+        });
 
 		var form = $(this);
 		$.ajax({
@@ -122,33 +130,6 @@ $(document).ready(function() {
 
 
 });
-
-
-// $(document).ready(function() {
-
-//     $('#ano').on('mouseenter', function(event) {
-
-//     if ($('#ano').val() == 'all' || $('#data1').val() != data1 || $('#data2').val() != data2) {     
-            
-//             data1 = $('#data1').val();
-//             data2 = $('#data2').val();
-
-//             $.ajax({
-//                 data : {'data1': data1, 'data2': data2},
-//                 type : 'POST',
-//                 dataType: "json",
-//                 cache: false,
-//                 url : '/requestSelect'
-//             })
-//             .done(function(data) {
-//                 $("#ano").empty()
-//                 addSelect(data);
-
-//             });
-//         }
-//     });
-    
-// });
 
 $(document).ready(function() {
 
