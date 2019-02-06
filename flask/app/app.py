@@ -196,6 +196,8 @@ def mediaMovel(df):
 			df_mediaMovel = calc.media_movel(df, w)
 
 			media_aa = df_mediaMovel['ajuste_atual'].values.tolist()
+
+			print(media_aa)
 	
 	else:
 		return None
